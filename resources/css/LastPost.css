@@ -1,0 +1,29 @@
+@import url("ChanTemplate.css");
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#Estadisticas{
+    float: left;
+    border: 2px solid var(--border-color);
+    margin: 1rem;
+    padding: 1rem;
+
+    width: 20%;
+    overflow: hidden;
+}
+#UltimosPost{
+    float: left;
+    border: 2px solid var(--border-color);
+    margin: 1rem;
+    padding: 1rem;
+    width: 70%;
+}
+#LastPost{
+    border: 2px solid var(--border-color);
+    list-style: none;
+}
+.LastLi{
+    border: 2px solid var(--border-color);
+}

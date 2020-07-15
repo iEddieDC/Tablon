@@ -1,0 +1,61 @@
+/*Este css da estilo a la creación de un nuevo post, normalmente ubicado encima de topics.php*/
+@import url("ChanTemplate.css");
+*{
+    margin: 0;
+    padding: 0;
+}
+/*Contenido del post*/
+  label{/*alinear los labels*/
+    display: inherit;
+    width: 80px;
+  }
+#formulario{
+    overflow: hidden;
+    background-color: var(--Background-color);
+    margin: 1rem;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+}
+#post{
+  resize: none;
+}
+#post,#title,#image{
+    width: 80%;
+    overflow: hidden;
+    margin: auto;
+    padding: 1em;
+    border-radius: 5px;
+}
+/*clases*/
+.DivHijo {
+    display: flex;
+    justify-content: left;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: var(--third-color);
+    border-radius: 7px;
+  }
+  .boton{/*modificación de los botones, solo para este doc*/
+    width: 250px;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  /*fin clases*/
+  
+/*fin formulario*/
+
+/*Tamaños*/
+@media screen and (max-width: 480px ) {
+  .DivHijo{
+    margin: 1rem;
+    padding: 1rem;
+    background-color: var(--third-color);
+    border-radius: 7px;
+  }
+  .boton{/*modificación de los botones, solo para este doc*/
+    width: 200px;
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
+/*fin Tamaños*/

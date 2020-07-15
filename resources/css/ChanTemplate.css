@@ -1,0 +1,77 @@
+
+:root {
+    --main-color: rgb(71, 120, 255);
+    --second-color: #67b8fa;
+    --third-color: #3f3f3f;
+    --BtnBorder-color: #c4c4c4;
+    --BtnBackground-color: #096350;
+	  --background-color: #3f3f3f;
+    --border-color: #ccc;
+    --text-color1: #fcfcfc;
+    --hover-color: #903526;
+}
+/*texto*/
+h1{
+    font-size: 3em;
+    letter-spacing: 10px;
+    text-align: center;
+}
+h2{
+    letter-spacing: 10px;
+    font-size: 2em;
+    text-align: center;
+}
+h3{
+    letter-spacing: 3px;
+    display: inline-block;
+}
+/*fin texto*/
+/*clases*/
+/*botones*/
+.boton{
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: var(--text-color1);
+    background-color: var(--BtnBackground-color);
+    border: 1px solid var(--BtnBorder-color);
+    border-radius: 15px;
+    box-shadow: 0 9px var(--BtnBorder-color);
+  }
+  .boton:hover{
+    transition: 0.5s;
+    background-color: var(--hover-color);
+  }
+  .boton:active {
+    transition: 0.2s;
+    background-color: var(--hover-color);
+    box-shadow: 0 5px var(--BtnBorder-color);
+    transform: translateY(4px);
+  }
+/*fin botones*/
+
+/*fin clases*/
+/*elementos*/
+main{
+  border: 2px solid var(--border-color);
+  margin: 1rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+header{
+  background-color: var(--Background-color);
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+}
+body{
+  background-color: var(--Background-color);
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+}
+/*fin elementos*/

@@ -1,0 +1,92 @@
+/*Iconos diseñados por <a href="https://creativemarket.com/Becris" title="Becris">Becris</a> from <a href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>*/
+/*Este css modifica solo el footer y el header, los cuales dan estilo a Footer.php y header.php respectivamente*/
+*{
+    margin: 0;
+    padding: 0;
+}
+/*nav bar*/
+#Ulheader {
+    list-style-type: none;
+    margin: 0;
+    padding: 1%;
+    overflow: hidden;
+    background-color: var(--background-color);
+  }
+  
+  #Ulheader>li {
+    background: var(--BtnBackground-color);
+    float: left;
+    padding: 3px;
+
+    /*border: 2px solid var(--BtnBorder-color);*/
+    /*box-shadow: 0px 1px 2px var(--BtnBorder-color);*/
+  }
+  
+  #Ulheader>li>a {/*texto dentro de los botones*/
+    display: block;
+    color: var(--text-color1);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  #Ulheader>li:hover {/*animación dentro de las seleciones*/
+    transition: 0.5s;
+    box-shadow: 15px 12px 16px 0 rgba(0,0,0,0.24), 0px 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: var(--hover-color);
+    padding: 2px;
+  }
+  #Ulheader>li>a:hover{
+    transition: 0.5s;
+    color: black;
+  }
+  /*search bar*/
+  input[type=search]{
+    display: inline-block;
+    margin: 10px;
+    float: none;
+    background: var(--border-color) url("../img/icons/search-icon.png") no-repeat 9px center;
+    border: solid 1px var(--Btnborder-color);
+    padding: 9px 10px 9px 32px;
+  	width: 70px;
+    border-radius: 10em;
+   /* transition: all .5s;*/
+  }
+  
+  input[type=search]:focus{
+    width: 160px;
+    background-color: var(--hover-color);
+    border-color: var(--BtnBorder-color);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+    transition: all .5s;
+  }
+  /*search bar fin*/
+
+/*navbar  fin*/
+
+/*footer*/
+#Ulfooter{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--background-color);
+    padding: 1%;
+    text-align: center;
+}
+#Ulfooter>li {
+  display: inline-block;
+  border-right: 2px solid var(--BtnBorder-color);
+  padding: 3px;
+}
+#Ulfooter>li>a {
+  display: inline-block;
+  color: var(--text-color1);
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#Ulfooter li:last-child {
+  border-right: none;
+}
+/*footer fin*/
