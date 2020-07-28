@@ -14,7 +14,7 @@ $create_topic = new Topics();
 </head>
 <body>
     <div id="formulario">
-    <?php $create_topic->create_topic(); ?>
+    <?php $create_topic -> create_topic(); ?>
     </div>
 </body>
 </html>

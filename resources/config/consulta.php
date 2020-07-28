@@ -2,15 +2,14 @@
 include_once 'functions.php';
 class Topics extends DB
 {
-
+    /* Función 1 -Para extraer y hacer los topics-*/
     public function extraer_db()
     {
-
-        $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by FROM topics');
+        $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by,user_name FROM topics, users WHERE topic_by = user_id');
         $state->execute();
 
         $result = $state->fetchAll();
-?>
+    ?>
         <?php foreach ($result as $topic) : ?>
             <!--foreach inicio -->
             <div class="article">
@@ -23,7 +22,7 @@ class Topics extends DB
                         </a>
                     </div>
                     <!--id del creador del post-->
-                    <?php echo $topic['topic_by'] ?>
+                    <?php echo $topic['user_name'] ?>
                     <!--Fecha de publicación-->
                     <?php echo $topic['topic_date'] ?>
                     <!--id de publicación-->
@@ -40,7 +39,7 @@ class Topics extends DB
         <!--foreach cerrado -->
     <?php
     }
-    /* Funcion 2 */
+    /* Función 2 -Para extraer y hacer un topic en base al ID de los topics-*/
     public function extraer_uno()
     {
         $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
@@ -49,7 +48,7 @@ class Topics extends DB
             header('Location: ../php/topics.php');
         }
         /*preparamos la consulta a la bd*/
-        $state =  $this->connect()->prepare("SELECT * FROM topics WHERE topic_id = :id");
+        $state =  $this->connect()->prepare("SELECT *, user_name FROM topics, users WHERE topic_id = :id AND topic_by = user_id");
         $state->execute(array(
             ':id' => $id
         ));
@@ -69,7 +68,7 @@ class Topics extends DB
                     <img class="" src="../img/uploads/<?php echo $article['topic_image'] ?>" />
                     <hr>
                     <p><?php echo  $article['topic_subject'] ?></p>
-                    <?php echo $article['topic_by'] ?>
+                    <?php echo $article['user_name'] ?>
                     <!--id del creador del post-->
                     <?php echo $article['topic_date'] ?>
                     <!--Fecha de publicación-->
@@ -80,7 +79,7 @@ class Topics extends DB
         </section>
     <?php
     } //Fin extraer uno
-    /* Funcion 3 */
+    /* Función 3 -Para crear un topic en donde sea-*/
     public function create_topic()
     {
         /*pide acceso al servidor y despues valida que no esten vacios*/
@@ -178,7 +177,8 @@ class Topics extends DB
         </form>
     <?php
     } //fin create_topic
-    /*función 5*/
+
+    /*función 4 -Extraer los ultimos post para el Index-*/
     public function extraer_ult()
     { 
         /*consulta para hacer la lista*/
@@ -189,7 +189,7 @@ class Topics extends DB
     ?>
     <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
-            <li><a href="resources/php/topic.php?q=<?php echo $last['topic_id'] ?>"><?php
+            <li><a href="resources/php/topic.php?q=<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
             list($id,$date, $cat, $name) = $last;
             echo "$date | $cat | $name <br>";
             ?></a></li><hr>
@@ -197,5 +197,122 @@ class Topics extends DB
         <!--foreach cerrado -->
 <?php
     } //fin función extraer ultimos
+    /*función 5 -Extrae las categorias-*/
+    public function extraer_cat()
+    { 
+        /*consulta para hacer la lista*/
+        $state = $this->connect()->prepare('SELECT cat_name, cat_id FROM categories ');
+        $state->execute();
+
+        $result = $state->fetchAll();
+    ?>
+    <!--foreach inicio -->
+        <?php foreach ($result as $last) : ?>
+            <li><a href="resources/php/topic_cat.php?q=<?php echo $last['cat_id'] ?>"><?php
+            list($name) = $last;
+            echo "| $name |<br> ";
+            ?></a></li>
+        <?php endforeach; ?>
+        <!--foreach cerrado -->
+<?php
+    } //fin función extraer categorias
+
+    /*función 6 -Consulta para mostrar topics de una sola categoria*/
+    public function topics_cat()
+    {
+        /*Consulta*/
+        
+        $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
+
+        if (!$id) { //validacion del id
+            header('Location: topics.php');
+        }
+        $state =  $this->connect()->prepare("SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id");
+        $state->execute(array(
+            ':id' => $id
+        ));
+        $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) ?>
+        <?php foreach ($result as $topic) : ?>
+        <!--foreach inicio -->
+        <div class="article">
+                <h4>
+                    <?php echo $topic['topic_title'] ?>
+                    <div class="topic_image">
+                        <!-- construye un enlace con el id que se encuentre en la base de datos -->
+                        <a href="topic.php?q=<?php echo $topic['topic_id'] ?>">
+                            <img src="../img/uploads/<?php echo $topic['topic_image'] ?>" /><!-- construye un enlace con la imagen que se encuentre en la base de datos -->
+                        </a>
+                    </div>
+                    <!--id del creador del post-->
+                    <?php echo $topic['user_name'] ?>
+                    <!--Fecha de publicación-->
+                    <?php echo $topic['topic_date'] ?>
+                    <!--id de publicación-->
+                    <?php echo $topic['topic_id'] ?>
+                </h4>
+                <div class="content">
+                    <p><?php echo $topic['topic_subject'] ?></p>
+                    <hr>
+                </div>
+                <a id="Respuestas" href="topic.php?q=<?php echo $topic['topic_id'] ?>"><img src="../img/icons/mas.png" alt="" srcset="">Respuestas</a><!-- construye un enlace con el id que se encuentre en la base de datos -->
+            </div>
+            <!--Article-->
+    <?php endforeach ?>
+   <?php
+    }
+    /* Función 7 -Para crear una categoría-*/
+    public function create_category()
+    {
+        /*Validar que los campos no estn vacíos*/
+        if (isset($_POST['enviar'])) {
+            if (empty($_POST['title'])) {
+                echo "El campo título está vacío"; 
+            }else if (empty($_POST['subject'])){
+                echo "El campo descripción está vacío"; 
+            }else{
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //Si el campo "username" está vacío
+            
+                $state = $this->connect()->prepare('INSERT INTO categories (cat_name, cat_description) VALUES (:title, :subject)');/*preparamos las variables para pasar los archivos a la BD*/
+                /*Ejecutamos state para ingresar mediante POST los datos*/
+                $state->execute(array(
+                    ':title' => $_POST['title'],
+                    ':subject' => $_POST['subject'],
+                ));
+
+                $msg = "Categoría creada con éxito";
+            } else {
+                $error = "Hubo un error, intenta de nuevo";
+            }
+        }
+    }
+    ?>
+
+<header><h3>Crear una nueva categoría</h3></header>
+    <div id="formulario">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
+        <div class="DivHijo">
+         <label>TÍTULO</label>
+            <input type="text" name="title" id="title" placeholder="Título de la categoría" require><br>
+         </div>
+
+         <div class="DivHijo"> 
+        <label>DESCRIPCIÓN</label>
+        <textarea name="subject" id="subject" rows="8" cols="20" maxlength="120" placeholder="Escribe aquí la descripción de la categoría" require></textarea><br>
+        </div>
+        <?php if (isset($error)) : ?>
+                <p class="error"><?php echo $error; ?></p>
+            <?php elseif (isset($msg)) : ?>
+                <p class="ok"><?php echo $msg; ?></p>
+            <?php endif; ?>
+
+        <input type="submit" name="enviar" value="Crear" class="boton">
+        <input type="reset" value="Limpiar campos" class="boton"><br>
+    
+    </form>
+    </div>
+    
+    <?php
+    } //fin create_category
 }
 ?>

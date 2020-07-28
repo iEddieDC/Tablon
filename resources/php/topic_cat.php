@@ -1,5 +1,5 @@
 <?php
-require_once 'resources/config/consulta.php';
+require_once '../config/consulta.php';
 
 $extraer = new Topics();//instanciar objeto
 
@@ -16,8 +16,7 @@ $extraer = new Topics();//instanciar objeto
 </header>
 <body>
     <main>
-    <?php $extraer -> extraer_cat();?>
-    <a href="resources/php/topics.php"><h3>Todas</h3></a>
+    <?php $extraer -> topics_cat();?>
     </main>
 </body>
 </html>
