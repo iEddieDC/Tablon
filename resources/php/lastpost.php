@@ -4,7 +4,7 @@ require_once 'resources/cookies/cookie.php';
 
 $cookie = new Cookie();
 $extraer = new Topics(); //instanciar objeto
-
+$numPost = new Topics();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@ $extraer = new Topics(); //instanciar objeto
 
             <h3><?php $cookie->Cookie_dia(); ?></h3><br>
             <h3><?php $cookie->Cookie_total(); ?></h3><br>
-            <h3>POSTS</h3><br>
+            <h3><?php $numPost->num_posts(); ?></h3><br>
         </div>
         <div id="UltimosPost">
             <h3>Ultimos Post</h3>

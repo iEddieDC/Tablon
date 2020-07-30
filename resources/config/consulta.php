@@ -9,7 +9,7 @@ class Topics extends DB
         $state->execute();
 
         $result = $state->fetchAll();
-    ?>
+?>
         <?php foreach ($result as $topic) : ?>
             <!--foreach inicio -->
             <div class="article">
@@ -180,48 +180,49 @@ class Topics extends DB
 
     /*función 4 -Extraer los ultimos post para el Index-*/
     public function extraer_ult()
-    { 
+    {
         /*consulta para hacer la lista*/
         $state = $this->connect()->prepare('SELECT topic_id, topic_date, cat_name, topic_title FROM topics, categories WHERE cat_id=topic_cat');
         $state->execute();
 
         $result = $state->fetchAll();
     ?>
-    <!--foreach inicio -->
+        <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
             <li><a href="resources/php/topic.php?q=<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
-            list($id,$date, $cat, $name) = $last;
-            echo "$date | $cat | $name <br>";
-            ?></a></li><hr>
+                                                                                    list($id, $date, $cat, $name) = $last;
+                                                                                    echo "$date | $cat | $name <br>";
+                                                                                    ?></a></li>
+            <hr>
         <?php endforeach; ?>
         <!--foreach cerrado -->
-<?php
+    <?php
     } //fin función extraer ultimos
     /*función 5 -Extrae las categorias-*/
     public function extraer_cat()
-    { 
+    {
         /*consulta para hacer la lista*/
         $state = $this->connect()->prepare('SELECT cat_name, cat_id FROM categories ');
         $state->execute();
 
         $result = $state->fetchAll();
     ?>
-    <!--foreach inicio -->
+        <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
             <li><a href="resources/php/topic_cat.php?q=<?php echo $last['cat_id'] ?>"><?php
-            list($name) = $last;
-            echo "| $name |<br> ";
-            ?></a></li>
+                                                                                        list($name) = $last;
+                                                                                        echo "| $name |<br> ";
+                                                                                        ?></a></li>
         <?php endforeach; ?>
         <!--foreach cerrado -->
-<?php
+    <?php
     } //fin función extraer categorias
 
     /*función 6 -Consulta para mostrar topics de una sola categoria*/
     public function topics_cat()
     {
         /*Consulta*/
-        
+
         $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
 
         if (!$id) { //validacion del id
@@ -231,10 +232,11 @@ class Topics extends DB
         $state->execute(array(
             ':id' => $id
         ));
-        $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) ?>
+        $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) 
+    ?>
         <?php foreach ($result as $topic) : ?>
-        <!--foreach inicio -->
-        <div class="article">
+            <!--foreach inicio -->
+            <div class="article">
                 <h4>
                     <?php echo $topic['topic_title'] ?>
                     <div class="topic_image">
@@ -257,8 +259,8 @@ class Topics extends DB
                 <a id="Respuestas" href="topic.php?q=<?php echo $topic['topic_id'] ?>"><img src="../img/icons/mas.png" alt="" srcset="">Respuestas</a><!-- construye un enlace con el id que se encuentre en la base de datos -->
             </div>
             <!--Article-->
-    <?php endforeach ?>
-   <?php
+        <?php endforeach ?>
+    <?php
     }
     /* Función 7 -Para crear una categoría-*/
     public function create_category()
@@ -266,53 +268,67 @@ class Topics extends DB
         /*Validar que los campos no estn vacíos*/
         if (isset($_POST['enviar'])) {
             if (empty($_POST['title'])) {
-                echo "El campo título está vacío"; 
-            }else if (empty($_POST['subject'])){
-                echo "El campo descripción está vacío"; 
-            }else{
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //Si el campo "username" está vacío
-            
-                $state = $this->connect()->prepare('INSERT INTO categories (cat_name, cat_description) VALUES (:title, :subject)');/*preparamos las variables para pasar los archivos a la BD*/
-                /*Ejecutamos state para ingresar mediante POST los datos*/
-                $state->execute(array(
-                    ':title' => $_POST['title'],
-                    ':subject' => $_POST['subject'],
-                ));
-
-                $msg = "Categoría creada con éxito";
+                echo "El campo título está vacío";
+            } else if (empty($_POST['subject'])) {
+                echo "El campo descripción está vacío";
             } else {
-                $error = "Hubo un error, intenta de nuevo";
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    //Si el campo "username" está vacío
+
+                    $state = $this->connect()->prepare('INSERT INTO categories (cat_name, cat_description) VALUES (:title, :subject)');/*preparamos las variables para pasar los archivos a la BD*/
+                    /*Ejecutamos state para ingresar mediante POST los datos*/
+                    $state->execute(array(
+                        ':title' => $_POST['title'],
+                        ':subject' => $_POST['subject'],
+                    ));
+
+                    $msg = "Categoría creada con éxito";
+                } else {
+                    $error = "Hubo un error, intenta de nuevo";
+                }
             }
         }
-    }
     ?>
 
-<header><h3>Crear una nueva categoría</h3></header>
-    <div id="formulario">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
-        <div class="DivHijo">
-         <label>TÍTULO</label>
-            <input type="text" name="title" id="title" placeholder="Título de la categoría" require><br>
-         </div>
+        <header>
+            <h3>Crear una nueva categoría</h3>
+        </header>
+        <div id="formulario">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
+                <div class="DivHijo">
+                    <label>TÍTULO</label>
+                    <input type="text" name="title" id="title" placeholder="Título de la categoría" require><br>
+                </div>
 
-         <div class="DivHijo"> 
-        <label>DESCRIPCIÓN</label>
-        <textarea name="subject" id="subject" rows="8" cols="20" maxlength="120" placeholder="Escribe aquí la descripción de la categoría" require></textarea><br>
+                <div class="DivHijo">
+                    <label>DESCRIPCIÓN</label>
+                    <textarea name="subject" id="subject" rows="8" cols="20" maxlength="120" placeholder="Escribe aquí la descripción de la categoría" require></textarea><br>
+                </div>
+                <?php if (isset($error)) : ?>
+                    <p class="error"><?php echo $error; ?></p>
+                <?php elseif (isset($msg)) : ?>
+                    <p class="ok"><?php echo $msg; ?></p>
+                <?php endif; ?>
+
+                <input type="submit" name="enviar" value="Crear" class="boton">
+                <input type="reset" value="Limpiar campos" class="boton"><br>
+
+            </form>
         </div>
-        <?php if (isset($error)) : ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php elseif (isset($msg)) : ?>
-                <p class="ok"><?php echo $msg; ?></p>
-            <?php endif; ?>
 
-        <input type="submit" name="enviar" value="Crear" class="boton">
-        <input type="reset" value="Limpiar campos" class="boton"><br>
-    
-    </form>
-    </div>
-    
-    <?php
+<?php
     } //fin create_category
+
+    /* Función 8 -Para contar el # de posts publicados-*/
+    public function num_posts(){
+
+        $state = $this->connect()->prepare('SELECT COUNT(*) FROM topics');
+        $state->execute();
+
+        $prim=$state->fetchAll();
+        foreach ($prim as $a)://imprimimos mediante el foreach para tomar la casilla 0 que es el contador
+            echo "POSTS: ".$a[0];
+        endforeach;
+    }
 }
 ?>
