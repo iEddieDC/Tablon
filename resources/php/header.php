@@ -13,7 +13,7 @@
             <li style="float:left"><a href="">Preguntas frecuentes</a></li>
             <li style="float:left"><a href="resources/php/createcategory.php">Crear una categoría</a></li>
             <input type="search" id="search" placeholder="ID de hilo a buscar">
-            <li style="float:right"><a href="">Registro</a></li>
+            <li style="float:right"><a href="resources/php/register.php">Registro</a></li>
             <li style="float:right"><a href="mainlogin.php">Login</a></li>
             <li style="float:right"><a href="resources/config/logout.php">Cerrar sesión</a></li>
         </ul>

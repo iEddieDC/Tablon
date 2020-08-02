@@ -1,6 +1,8 @@
+<link rel="stylesheet" href="../css/Main.css">
 <?php
 include_once 'resources/config/user.php';
 include_once 'resources/config/user_session.php';
+
 
 $userSession = new UserSession();
 $user = new User();
