@@ -320,15 +320,17 @@ class Topics extends DB
     } //fin create_category
 
     /* Función 8 -Para contar el # de posts publicados-*/
-    public function num_posts(){
+    public function num_posts()
+    {
 
         $state = $this->connect()->prepare('SELECT COUNT(*) FROM topics');
         $state->execute();
 
-        $prim=$state->fetchAll();
-        foreach ($prim as $a)://imprimimos mediante el foreach para tomar la casilla 0 que es el contador
-            echo "POSTS: ".$a[0];
+        $prim = $state->fetchAll();
+        foreach ($prim as $a) : //imprimimos mediante el foreach para tomar la casilla 0 que es el contador
+            echo "POSTS: " . $a[0];
         endforeach;
     }
 }
+
 ?>

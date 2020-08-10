@@ -1,8 +1,8 @@
 <?php
 require_once 'resources/config/consulta.php';
-require_once 'resources/cookies/cookie.php';
+include 'resources/config/estadisticas.php';
 
-$cookie = new Cookie();
+$contador = new ClassVisitas();
 $extraer = new Topics(); //instanciar objeto
 $numPost = new Topics();
 ?>
@@ -18,9 +18,8 @@ $numPost = new Topics();
 <body>
     <main>
         <div id="Estadisticas">
-
-            <h3><?php $cookie->Cookie_dia(); ?></h3><br>
-            <h3><?php $cookie->Cookie_total(); ?></h3><br>
+        <h3><?php  ?></h3><br>
+            <h3><?php $contador->VerificaUsuario();?></h3><br>
             <h3><?php $numPost->num_posts(); ?></h3><br>
         </div>
         <div id="UltimosPost">
@@ -28,6 +27,7 @@ $numPost = new Topics();
             <ul id="LastPost">
                 <?php $extraer->extraer_ult(); ?>
             </ul>
+            
         </div>
     </main>
 </body>

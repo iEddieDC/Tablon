@@ -1,13 +1,21 @@
 <?php
 require 'config.php';
-class DB{
+ class DB{
     private $host;
     private $db;
     private $user;
     private $password;
     private $charset;
+    public $Id, $Ip, $Data, $Hora, $Limite;
 
     public function __construct(){
+        #para las visitas
+        $this->Id = 0;
+        $this->Ip = $_SERVER['REMOTE_ADDR'];
+        $this->Data = date("Y/m/d");
+        $this->Hora = date("H:i");
+        $this->Limite = 50;//tiempo limite para el registro de ip
+        #para la conexion
         $this->host     = 'localhost';
         $this->db       = 'tablon';
         $this->user     = 'root';
