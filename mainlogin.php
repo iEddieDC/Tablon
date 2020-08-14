@@ -17,9 +17,9 @@ if(isset($_SESSION['user'])){
     $userForm = $_POST['username'];
     $passForm = $_POST['password'];
 
-    $user = new User();
+    
     if($user->userExists($userForm, $passForm)){
-        echo "Bienvenido $userForm";//imprimimos el nombre de usuario
+        echo "Bienvenido $userForm";//imprimimos el nombre de usuario.
         $userSession->setCurrentUser($userForm);
         $user->setUser($userForm);
 

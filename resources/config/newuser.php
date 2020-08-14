@@ -17,14 +17,15 @@ class NewUser extends DB
         echo "<br />". "El Nombre de Usuario ya existe." . "<br />";
         echo "Por favor escoga otro Nombre";
     }else{
-        $form_pass = $_POST['password'];//para encriptar la contrasenia
-        $hash = password_hash($form_pass, PASSWORD_BCRYPT);//hacemos hash a la contrasenia
+        //$form_pass = $_POST['password'];//para encriptar la contrasenia
+       // $hash = password_hash($form_pass, PASSWORD_BCRYPT);//hacemos hash a la contrasenia
 
         $state = $this->connect()->prepare('INSERT INTO users (user_name, user_pass, user_email) VALUES (:user, :pass, :email)');/*preparamos las variables para pasar los archivos a la BD*/
                 /*Ejecutamos state para ingresar mediante POST los datos*/
                 $state->execute(array(
                     ':user' => $_POST['username'],
-                    ':pass' => $hash,
+                    //':pass' => $hash,
+                    ':pass' => $_POST['password'],
                     ':email' => $_POST['email']
                 ));
                 echo "Usuario creado con éxito";

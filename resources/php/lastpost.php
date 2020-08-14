@@ -18,12 +18,13 @@ $numPost = new Topics();
 <body>
     <main>
         <div id="Estadisticas">
+        <h2>Estadisticas</h2>
         <h3><?php  ?></h3><br>
             <h3><?php $contador->VerificaUsuario();?></h3><br>
             <h3><?php $numPost->num_posts(); ?></h3><br>
         </div>
         <div id="UltimosPost">
-            <h3>Ultimos Post</h3>
+            <h2>Ultimos Post</h2>
             <ul id="LastPost">
                 <?php $extraer->extraer_ult(); ?>
             </ul>

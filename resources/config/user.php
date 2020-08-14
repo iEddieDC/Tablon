@@ -8,7 +8,7 @@ class User extends DB{
 
     /*función para comprobar que existe el usuario*/
     public function userExists($user, $pass){
-        $pass = $pass;//variable para transformar a md5 el pass y compararlo con la tabla (de momento no tengo un hash asi que esta normal.)
+        $pass = $pass;//variable para transformar a hash el pass y compararlo con la tabla 
 
         $query = $this->connect()->prepare('SELECT * FROM users WHERE user_name = :user AND user_pass = :pass');//este prepare sirve para hacer una consulta a la DB
         $query->execute(['user' => $user, 'pass' => $pass]);//ejecutamos el query y pasamos los valores de las variables temporales a las variables locales
