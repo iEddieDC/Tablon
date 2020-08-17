@@ -3,9 +3,6 @@
 include_once 'functions.php';
 
 class User extends DB{
-    
-    private $username;
-
     /*función para comprobar que existe el usuario*/
     public function userExists($user, $pass){
         $pass = $pass;//variable para transformar a hash el pass y compararlo con la tabla 
@@ -25,8 +22,7 @@ class User extends DB{
     /*asignar a un nombre de usuario las variables*/
     public function setUser($user){
         $query = $this->connect()->prepare('SELECT * FROM users WHERE user_name = :user');
-        $query->execute(['user' => $user]);
-
+        $query->execute([':user' => $user]);
         /*barrido*/
         foreach ($query as $currentUser){
             $this->username = $currentUser['user_name'];

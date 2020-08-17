@@ -7,10 +7,11 @@ include_once 'resources/config/user_session.php';
 $userSession = new UserSession();
 $user = new User();
 
+$estado = false; //Variable true o false para comprobar que haya sesión y realizar modificaciones
 if(isset($_SESSION['user'])){
     //echo "hay sesion";
+    $estado = true;
     $user->setUser($userSession->getCurrentUser());
-    include_once 'index.php';
 
 }else if(isset($_POST['username']) && isset($_POST['password'])){
     
@@ -20,10 +21,8 @@ if(isset($_SESSION['user'])){
     
     if($user->userExists($userForm, $passForm)){
         echo "Bienvenido $userForm";//imprimimos el nombre de usuario.
-        $userSession->setCurrentUser($userForm);
+        $userSession->setCurrentUser($userForm);//asignamos el nombre de usuario a la sesion actual
         $user->setUser($userForm);
-
-        include_once 'index.php';
     }else{
         //echo "No existe el usuario";
         $errorLogin = "Nombre de usuario y/o password incorrecto";
