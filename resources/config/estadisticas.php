@@ -1,5 +1,5 @@
 <?php 
-include_once 'functions.php';
+include_once 'connect/functions.php';
 class ClassVisitas extends DB
 { 
     #Verifica que el usuario haya visitado recientemente el sitio

@@ -1,5 +1,5 @@
 <?php
-include_once 'functions.php';
+include_once '../config/connect/functions.php';
 class NewUser extends DB
 {
 

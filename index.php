@@ -1,4 +1,14 @@
+<?php
 
+session_start();
+
+if(isset($_SESSION['acceso'])){
+    #echo ($_SESSION['acceso']);
+    echo "Bienvenido ", ($_SESSION['user']);
+} else {
+    #mensaje o acciones sin sesion
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

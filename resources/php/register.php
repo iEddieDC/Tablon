@@ -1,5 +1,5 @@
 <?php
-require_once "../config/newuser.php";
+require_once "../config/sesions_config/newuser.php";
 $newuser = new NewUser();
 ?>
 <!DOCTYPE html>

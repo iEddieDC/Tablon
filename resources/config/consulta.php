@@ -1,5 +1,5 @@
 <?php
-include_once 'functions.php';
+include_once 'connect/functions.php';
 class Topics extends DB
 {
     /* Función 1 -Para extraer y hacer los topics-*/
@@ -39,6 +39,7 @@ class Topics extends DB
         <!--foreach cerrado -->
     <?php
     }
+
     /* Función 2 -Para extraer y hacer un topic en base al ID de los topics-*/
     public function extraer_uno()
     {
