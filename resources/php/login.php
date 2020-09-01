@@ -10,7 +10,7 @@
         <h3>Iniciar sesión</h3>
     </header>
     <div id="formulario">
-    <form action="../config/sesions_config/validate.php" method="POST">
+    <form action="../config/sesions_config/login_val.php" method="POST">
         <p>Nombre de usuario: <br>
         <input type="text" name="username"></p>
         <p>Password: <br>

@@ -1,9 +1,17 @@
-<?php 
+<?php
 /*Conexión a la BD mediante PDO//require once para que muera la conexión con este doc-*/
-require_once '../config/consulta.php';
+include_once '../config/consulta.php';
 
 $create_topic = new Topics();
 
+if(isset($_SESSION['acceso'])){
+    #echo ($_SESSION['acceso']);
+    echo "rol numero =", ($_SESSION['rol']);
+   echo "ID de user: ", ($_SESSION['id']);
+} else {
+    #mensaje o acciones sin sesion
+    #echo"No hay usuario logueado";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

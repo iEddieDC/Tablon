@@ -93,14 +93,23 @@ class Topics extends DB
 
                 $state = $this->connect()->prepare('INSERT INTO topics (topic_title, topic_subject, topic_image, topic_cat,topic_by) VALUES (:title, :subject, :image, :cat, :by)');/*preparamos las variables para pasar los archivos a la BD*/
                 /*Ejecutamos state para ingresar mediante POST los datos*/
+                if(isset($_SESSION['acceso'])){
                 $state->execute(array(
                     ':cat' => $_POST['category'],
                     ':title' => $_POST['title'],
                     ':subject' => $_POST['subject'],
                     ':image' => $_FILES['image']['name'],
-                    'by' => $_POST['usuario']
+                    'by' => $_SESSION['id']
                 ));
-
+                }else{
+                    $state->execute(array(
+                        ':cat' => $_POST['category'],
+                        ':title' => $_POST['title'],
+                        ':subject' => $_POST['subject'],
+                        ':image' => $_FILES['image']['name'],
+                        'by' => 6
+                    ));
+                }
                 $msg = "Imagen creada con éxito";
             } else {
                 $error = "El archivo no es una imagen";
@@ -115,15 +124,7 @@ class Topics extends DB
         } catch (Exception $ex) {
             echo ($ex->getMessage());
         }
-        /*consulta para el usuario --- estos debo de borrarlo y buscar la forma de hacerlo anonimo si se registra o no--*/
-        $sql = "SELECT user_id, user_name from users"; //consulta a la bd
-        try {
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute();
-            $ussuario = $stmt->fetchAll();
-        } catch (Exception $ex) {
-            echo ($ex->getMessage());
-        }
+        
     ?>
 
         <header>
@@ -158,16 +159,7 @@ class Topics extends DB
                 </select>
             </div>
 
-            <div class="DivHijo">
-                <label>usuario</label>
-                <select name="usuario" id="user">
-                    <?php foreach ($ussuario as $outputt) { ?>
-                        <option value="<?php echo $outputt["user_id"] ?>"><?php echo $outputt["user_name"] ?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-            </div>
+            
             <?php if (isset($error)) : ?>
                 <p class="error"><?php echo $error; ?></p>
             <?php elseif (isset($msg)) : ?>
