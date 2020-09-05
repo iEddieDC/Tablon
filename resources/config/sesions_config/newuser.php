@@ -39,7 +39,7 @@ class NewUser extends DB
                 if($registro){
                     ?>
                     <script type ="text/javascript">
-                        alert("Se ha registrado un Usuario");
+                        alert("Se ha registrado un Usuario!");
                     </script>
                     <?php 
                 }else{

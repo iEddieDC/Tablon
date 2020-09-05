@@ -7,3 +7,9 @@
           tipo.type = "password";
       }
   }
+  function obteneridurl(){
+    var baseUrl = (window.location).href; // You can also use document.URL
+    var koopId = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+    return koopId;
+   //alert(koopId)//503
+  }

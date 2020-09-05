@@ -10,6 +10,7 @@ class Topics extends DB
 
         $result = $state->fetchAll();
 ?>
+    <!--Comienza HTML-->
         <?php foreach ($result as $topic) : ?>
             <!--foreach inicio -->
             <div class="article">
@@ -43,6 +44,7 @@ class Topics extends DB
     /* Función 2 -Para extraer y hacer un topic en base al ID de los topics-*/
     public function extraer_uno()
     {
+        
         $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
 
         if (!$id) { //validacion del id
@@ -53,12 +55,16 @@ class Topics extends DB
         $state->execute(array(
             ':id' => $id
         ));
+        unset($_SESSION["topic_id"]);
+        $_SESSION["topic_id"] = $id;//Variable globar para obtener el ID del topic actual
+        
         $article = $state->fetch(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo)
 
         if ($article == null) { //validacion que sean solo los registros de la bd
             echo 'Error 404, Post no encontrado';
-        } ?>
-
+        } 
+?>
+        <!--Comienza HTML-->
         <header id="main-header">
             <h1><?php echo $article['topic_title'] ?></h1>
         </header><!-- / #main-header -->
@@ -80,6 +86,7 @@ class Topics extends DB
         </section>
     <?php
     } //Fin extraer uno
+    
     /* Función 3 -Para crear un topic en donde sea-*/
     public function create_topic()
     {
@@ -93,15 +100,15 @@ class Topics extends DB
 
                 $state = $this->connect()->prepare('INSERT INTO topics (topic_title, topic_subject, topic_image, topic_cat,topic_by) VALUES (:title, :subject, :image, :cat, :by)');/*preparamos las variables para pasar los archivos a la BD*/
                 /*Ejecutamos state para ingresar mediante POST los datos*/
-                if(isset($_SESSION['acceso'])){
-                $state->execute(array(
-                    ':cat' => $_POST['category'],
-                    ':title' => $_POST['title'],
-                    ':subject' => $_POST['subject'],
-                    ':image' => $_FILES['image']['name'],
-                    'by' => $_SESSION['id']
-                ));
-                }else{
+                if (isset($_SESSION['acceso'])) {
+                    $state->execute(array(
+                        ':cat' => $_POST['category'],
+                        ':title' => $_POST['title'],
+                        ':subject' => $_POST['subject'],
+                        ':image' => $_FILES['image']['name'],
+                        'by' => $_SESSION['id']
+                    ));
+                } else {
                     $state->execute(array(
                         ':cat' => $_POST['category'],
                         ':title' => $_POST['title'],
@@ -124,9 +131,9 @@ class Topics extends DB
         } catch (Exception $ex) {
             echo ($ex->getMessage());
         }
-        
-    ?>
 
+    ?>
+    <!--Comienza HTML-->
         <header>
             <h3>Crear un nuevo hilo</h3>
         </header>
@@ -159,7 +166,7 @@ class Topics extends DB
                 </select>
             </div>
 
-            
+
             <?php if (isset($error)) : ?>
                 <p class="error"><?php echo $error; ?></p>
             <?php elseif (isset($msg)) : ?>
@@ -180,12 +187,13 @@ class Topics extends DB
 
         $result = $state->fetchAll();
     ?>
+    <!--Comienza HTML-->
         <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
             <li><a href="resources/php/topic.php?q=<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
-                                                                                    list($id, $date, $cat, $name) = $last;
-                                                                                    echo "$date | $cat | $name <br>";
-                                                                                    ?></a></li>
+            list($id, $date, $cat, $name) = $last;
+            echo "$date | $cat | $name <br>";
+            ?></a></li>
             <hr>
         <?php endforeach; ?>
         <!--foreach cerrado -->
@@ -200,12 +208,13 @@ class Topics extends DB
 
         $result = $state->fetchAll();
     ?>
+    <!--Comienza HTML-->
         <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
             <li><a href="resources/php/topic_cat.php?q=<?php echo $last['cat_id'] ?>"><?php
-                                                                                        list($name) = $last;
-                                                                                        echo "| $name |<br> ";
-                                                                                        ?></a></li>
+            list($name) = $last;
+             echo "| $name |<br> ";
+            ?></a></li>
         <?php endforeach; ?>
         <!--foreach cerrado -->
     <?php
@@ -227,6 +236,7 @@ class Topics extends DB
         ));
         $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) 
     ?>
+    <!--Comienza HTML-->
         <?php foreach ($result as $topic) : ?>
             <!--foreach inicio -->
             <div class="article">
@@ -282,7 +292,7 @@ class Topics extends DB
             }
         }
     ?>
-
+        <!--Comienza HTML-->
         <header>
             <h3>Crear una nueva categoría</h3>
         </header>
@@ -309,7 +319,7 @@ class Topics extends DB
             </form>
         </div>
 
-<?php
+    <?php
     } //fin create_category
 
     /* Función 8 -Para contar el # de posts publicados-*/
@@ -324,6 +334,73 @@ class Topics extends DB
             echo "POSTS: " . $a[0];
         endforeach;
     }
-}
+    /* Función 9 -Para crear un topic en donde sea-*/
+    public function create_reply()
+    {
+        
+        /*pide acceso al servidor y despues valida que no esten vacios*/
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
+            $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
+            if ($check !== false) {
+                $folder = '../img/uploads/';
+                $archivo = $folder . $_FILES['image']['name']; //image campo de form// name nombre del archivo
+                move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
 
+                /*Consultar la id del hilo a comentar*/
+                
+                $state = $this->connect()->prepare('INSERT INTO replies (reply_content, reply_image, reply_topic, reply_by) VALUES (:content, :image, :topic, :by)');/*preparamos las variables para pasar los archivos a la BD*/
+                /*Ejecutamos state para ingresar mediante POST los datos*/
+                if (isset($_SESSION['acceso'])) {
+                    $state->execute(array(
+                        ':content' => $_POST['content'],
+                        ':image' => $_FILES['image']['name'],
+                        ':topic' => $_SESSION["topic_id"],
+                        'by' => $_SESSION['id']
+                    ));
+                } else {
+                    $state->execute(array(
+                        ':content' => $_POST['content'],
+                        ':image' => $_FILES['image']['name'],
+                        ':topic' => $_SESSION["topic_id"],
+                        'by' => 6
+                    ));
+                }
+                unset($_SESSION["topic_id"]);
+                $msg = "Imagen creada con éxito";
+            } else {
+                $error = "El archivo no es una imagen";
+            }
+        }
+
+    ?>
+    <!--Comienza HTML-->
+        <header>
+            <h3>Crear un comentario</h3>
+        </header>
+        <div id="formulario">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
+            <!--Este metodo sirve para mediante server mandarselo a si mismo-->
+            <div class="DivHijo">
+                <label>COMENTARIO</label>
+                <textarea name="content" id="post" rows="8" cols="50" maxlength="500" placeholder="Escriba aquí su comentario" require></textarea><br>
+            </div>
+
+            <div class="DivHijo">
+                <label>ARCHIVO</label>
+                <input type="file" name="image" id="image" class="" require><br>
+            </div>
+            <?php if (isset($error)) : ?>
+                <p class="error"><?php echo $error; ?></p>
+            <?php elseif (isset($msg)) : ?>
+                <p class="ok"><?php echo $msg; ?></p>
+            <?php endif; ?>
+            <input type="submit" value="Crear" class="boton">
+            <input type="reset" value="Limpiar campos" class="boton"><br>
+
+        </form>
+        </div>
+<?php
+    } //fin create_reply
+} //fin clase TOPICS 
 ?>
