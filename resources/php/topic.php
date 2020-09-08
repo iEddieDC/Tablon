@@ -17,12 +17,12 @@ if(isset($_SESSION['acceso'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hilo</title>
-    <link rel="stylesheet" href="../css/Main.css">
+    
     <?php $article->create_reply();?>
 </head>
     <body>
         <?php $article->extraer_uno(); ?>
-        
+        <?php $article-> view_coments();?>
         <a href="topics.php"> <div id="boton">Regresar</div></a>    
     </body>
 </html>

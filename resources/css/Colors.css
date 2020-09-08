@@ -1,0 +1,11 @@
+:root {
+    --main-color: rgb(71, 120, 255);
+    --second-color: #67b8fa;
+    --third-color: #3f3f3f;
+    --BtnBorder-color: #c4c4c4;
+    --BtnBackground-color: #096350;
+	--background-color: #3f3f3f;
+    --border-color: #ccc;
+    --text-color1: #fcfcfc;
+    --hover-color: #7b7b;
+}

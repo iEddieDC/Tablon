@@ -1,5 +1,4 @@
-/*Este css da estilo a la creación de un nuevo post, normalmente ubicado encima de topics.php*/
-@import url("ChanTemplate.css");
+@import url("Colors.css");
 *{
     margin: 0;
     padding: 0;

@@ -5,7 +5,7 @@ class Topics extends DB
     /* Función 1 -Para extraer y hacer los topics-*/
     public function extraer_db()
     {
-        $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by,user_name FROM topics, users WHERE topic_by = user_id');
+        $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics, users WHERE topic_by = user_id');
         $state->execute();
 
         $result = $state->fetchAll();
@@ -343,7 +343,7 @@ class Topics extends DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
             $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
             if ($check !== false) {
-                $folder = '../img/uploads/';
+                $folder = '../img/uploads/coments/';//ruta donde se guardan los archivos
                 $archivo = $folder . $_FILES['image']['name']; //image campo de form// name nombre del archivo
                 move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
 
@@ -402,5 +402,37 @@ class Topics extends DB
         </div>
 <?php
     } //fin create_reply
+
+    /*Funcion 9*/
+    public function view_coments(){
+        $replie = $this->connect()->prepare('SELECT * FROM replies WHERE reply_topic = :id');/*preparamos las variables para pasar los archivos a la BD*/
+                $replie->execute(array(
+                    ':id' => $_SESSION["topic_id"]
+                ));
+                $replies = $replie->fetchAll();
+                ?>
+                <!--Comienza HTML-->
+                <h2><header>Comentarios</header></h2>
+                <?php foreach ($replies as $reply) : ?>
+        <section id="main">
+            <article>
+                <!--Seccion de texto-->
+                <div class="content">
+                    <!--id del comentario-->
+                    <?php //echo $reply['reply_id'] ?>
+                    <!--imagen del comentario-->
+                    <img class="" src="../img/uploads/coments/<?php echo $reply['reply_image'] ?>" />
+                    <p><?php echo  $reply['reply_content'] ?></p>
+                    <!--fecha del comentario-->
+                    <?php echo $reply['reply_date'] ?>
+                    <!--id del creador del comentario-->
+                    
+                    <hr>
+                </div>
+            </article>
+        </section>
+        <?php endforeach ?>
+                <?php 
+    }//fin view coments
 } //fin clase TOPICS 
 ?>

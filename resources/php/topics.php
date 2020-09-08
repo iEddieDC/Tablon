@@ -18,7 +18,7 @@ if(isset($_SESSION['acceso'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/Main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <title>Publicaciones</title>
 </head>
 <body>
@@ -30,5 +30,6 @@ if(isset($_SESSION['acceso'])){
         <?php $result->extraer_db(); ?>
     </section>
     <hr>
+    <?php include "footer.php"?>
 </body>
 </html>

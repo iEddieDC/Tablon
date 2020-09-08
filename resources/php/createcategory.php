@@ -28,4 +28,3 @@ if (isset($_SESSION['acceso'])) {
 </body>
 </html>
 <?php include 'footer.php'; ?>
-<?php include 'upload.php'; ?>
