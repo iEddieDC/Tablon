@@ -17,6 +17,7 @@ if (isset($_SESSION['acceso'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cualtos chan</title>
     <link rel="stylesheet" href="resources/css/Main.css">
+    <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
     </head>
 
 <body>
@@ -24,21 +25,21 @@ if (isset($_SESSION['acceso'])) {
         <h1>CUALTOS-CHAN</h1>
     </header>
 
-    <div id="phpHeader">
+    <div class="container" id="phpHeader">
     <?php include 'resources/php/header.php';?>
     </div>
     
-    <main id="IndexMain">
+    <main class="container" id="IndexMain">
 
-        <div id="phpCategories">  
+        <div class="container" id="phpCategories">  
         <?php include 'resources/php/categories.php';?>
         
         </div>
-        <div id="phpLastPost">
+        <div class="container" id="phpLastPost">
         <?php include 'resources/php/lastpost.php';?>
         </div>
     </main>
-    <div id="phpFooter">
+    <div  class="container" id="phpFooter">
     <?php include 'resources/php/footer.php';?>
     </div>
 </body>

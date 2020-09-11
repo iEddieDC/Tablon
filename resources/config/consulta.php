@@ -8,10 +8,37 @@ class Topics extends DB
         $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics, users WHERE topic_by = user_id');
         $state->execute();
 
-        $result = $state->fetchAll();
+        //numero de hilos por pagina
+        $topic_x_page = 10;
+        //Contar hilos de la base de datos
+        $total_topics_bd = $state->rowCount();
+        $pages = $total_topics_bd / $topic_x_page;
+        $pages = ceil($pages); //redondear el numero de paginas
 ?>
-    <!--Comienza HTML-->
-        <?php foreach ($result as $topic) : ?>
+        <!--Comienza HTML-->
+        <?php
+        //validamos que se vaya a la pagina 1 
+        if(!$_GET){
+            header('Location: topics.php?pagina=1');
+        }
+        //validamos que no agreguen más paginas en el navegador
+        if($_GET['pagina'] > $pages || $_GET['pagina'] <= 0 ){
+            header('Location: topics.php?pagina=1');
+        }
+        //para tomar la pagina y el # topics que debemos mostrar
+        $iniciar = ($_GET['pagina']-1) * $topic_x_page;
+
+        $sql_topics = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics, users WHERE topic_by = user_id LIMIT :iniciar,:ntopics');
+        //pasamos los parametros
+        $sql_topics->bindParam(':iniciar', $iniciar, PDO::PARAM_INT);//topics
+        $sql_topics->bindParam(':ntopics', $topic_x_page, PDO::PARAM_INT);//topics totales
+
+        $sql_topics->execute();
+
+        $resultado = $sql_topics->fetchAll();
+
+        ?>
+        <?php foreach ($resultado as $topic) : ?>
             <!--foreach inicio -->
             <div class="article">
                 <h4>
@@ -37,6 +64,34 @@ class Topics extends DB
             </div>
             <!--Article-->
         <?php endforeach; ?>
+        <nav aria-label="...">
+            <ul class="pagination">
+
+                <li class="page-item <?php echo $_GET['pagina']<=1 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="topics.php?pagina=<?php echo $_GET['pagina']-1?>">
+                        Anterior
+                    </a>
+                </li>
+
+                <?php for($i=0; $i<$pages; $i++):?>
+
+                <li class="page-item <?php echo $_GET['pagina']==$i+1 ? 'active' : '' ?>">
+                    <a class="page-link" 
+                    href="topics.php?pagina=<?php echo $i+1?>">
+                        <?php echo $i+1?>
+                    </a>
+                </li>
+
+                <?php endfor ?>
+
+                <li class="page-item
+                <?php echo $_GET['pagina']>=$pages ? 'disabled' : '' ?>
+                ">
+
+                    <a class="page-link" href="topics.php?pagina=<?php echo $_GET['pagina']+1?>">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
         <!--foreach cerrado -->
     <?php
     }
@@ -44,7 +99,7 @@ class Topics extends DB
     /* Función 2 -Para extraer y hacer un topic en base al ID de los topics-*/
     public function extraer_uno()
     {
-        
+
         $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
 
         if (!$id) { //validacion del id
@@ -56,14 +111,14 @@ class Topics extends DB
             ':id' => $id
         ));
         unset($_SESSION["topic_id"]);
-        $_SESSION["topic_id"] = $id;//Variable globar para obtener el ID del topic actual
-        
+        $_SESSION["topic_id"] = $id; //Variable globar para obtener el ID del topic actual
+
         $article = $state->fetch(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo)
 
         if ($article == null) { //validacion que sean solo los registros de la bd
             echo 'Error 404, Post no encontrado';
-        } 
-?>
+        }
+    ?>
         <!--Comienza HTML-->
         <header id="main-header">
             <h1><?php echo $article['topic_title'] ?></h1>
@@ -86,7 +141,7 @@ class Topics extends DB
         </section>
     <?php
     } //Fin extraer uno
-    
+
     /* Función 3 -Para crear un topic en donde sea-*/
     public function create_topic()
     {
@@ -133,7 +188,7 @@ class Topics extends DB
         }
 
     ?>
-    <!--Comienza HTML-->
+        <!--Comienza HTML-->
         <header>
             <h3>Crear un nuevo hilo</h3>
         </header>
@@ -187,13 +242,13 @@ class Topics extends DB
 
         $result = $state->fetchAll();
     ?>
-    <!--Comienza HTML-->
+        <!--Comienza HTML-->
         <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
             <li><a href="resources/php/topic.php?q=<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
-            list($id, $date, $cat, $name) = $last;
-            echo "$date | $cat | $name <br>";
-            ?></a></li>
+                                                                                    list($id, $date, $cat, $name) = $last;
+                                                                                    echo "$date | $cat | $name <br>";
+                                                                                    ?></a></li>
             <hr>
         <?php endforeach; ?>
         <!--foreach cerrado -->
@@ -208,13 +263,13 @@ class Topics extends DB
 
         $result = $state->fetchAll();
     ?>
-    <!--Comienza HTML-->
+        <!--Comienza HTML-->
         <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
             <li><a href="resources/php/topic_cat.php?q=<?php echo $last['cat_id'] ?>"><?php
-            list($name) = $last;
-             echo "| $name |<br> ";
-            ?></a></li>
+                                                                                        list($name) = $last;
+                                                                                        echo "| $name |<br> ";
+                                                                                        ?></a></li>
         <?php endforeach; ?>
         <!--foreach cerrado -->
     <?php
@@ -236,7 +291,7 @@ class Topics extends DB
         ));
         $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) 
     ?>
-    <!--Comienza HTML-->
+        <!--Comienza HTML-->
         <?php foreach ($result as $topic) : ?>
             <!--foreach inicio -->
             <div class="article">
@@ -337,18 +392,18 @@ class Topics extends DB
     /* Función 9 -Para crear un topic en donde sea-*/
     public function create_reply()
     {
-        
+
         /*pide acceso al servidor y despues valida que no esten vacios*/
-        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
             $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
             if ($check !== false) {
-                $folder = '../img/uploads/coments/';//ruta donde se guardan los archivos
+                $folder = '../img/uploads/coments/'; //ruta donde se guardan los archivos
                 $archivo = $folder . $_FILES['image']['name']; //image campo de form// name nombre del archivo
                 move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
 
                 /*Consultar la id del hilo a comentar*/
-                
+
                 $state = $this->connect()->prepare('INSERT INTO replies (reply_content, reply_image, reply_topic, reply_by) VALUES (:content, :image, :topic, :by)');/*preparamos las variables para pasar los archivos a la BD*/
                 /*Ejecutamos state para ingresar mediante POST los datos*/
                 if (isset($_SESSION['acceso'])) {
@@ -374,65 +429,69 @@ class Topics extends DB
         }
 
     ?>
-    <!--Comienza HTML-->
+        <!--Comienza HTML-->
         <header>
             <h3>Crear un comentario</h3>
         </header>
         <div id="formulario">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
-            <!--Este metodo sirve para mediante server mandarselo a si mismo-->
-            <div class="DivHijo">
-                <label>COMENTARIO</label>
-                <textarea name="content" id="post" rows="8" cols="50" maxlength="500" placeholder="Escriba aquí su comentario" require></textarea><br>
-            </div>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
+                <!--Este metodo sirve para mediante server mandarselo a si mismo-->
+                <div class="DivHijo">
+                    <label>COMENTARIO</label>
+                    <textarea name="content" id="post" rows="8" cols="50" maxlength="500" placeholder="Escriba aquí su comentario" require></textarea><br>
+                </div>
 
-            <div class="DivHijo">
-                <label>ARCHIVO</label>
-                <input type="file" name="image" id="image" class="" require><br>
-            </div>
-            <?php if (isset($error)) : ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php elseif (isset($msg)) : ?>
-                <p class="ok"><?php echo $msg; ?></p>
-            <?php endif; ?>
-            <input type="submit" value="Crear" class="boton">
-            <input type="reset" value="Limpiar campos" class="boton"><br>
+                <div class="DivHijo">
+                    <label>ARCHIVO</label>
+                    <input type="file" name="image" id="image" class="" require><br>
+                </div>
+                <?php if (isset($error)) : ?>
+                    <p class="error"><?php echo $error; ?></p>
+                <?php elseif (isset($msg)) : ?>
+                    <p class="ok"><?php echo $msg; ?></p>
+                <?php endif; ?>
+                <input type="submit" value="Crear" class="boton">
+                <input type="reset" value="Limpiar campos" class="boton"><br>
 
-        </form>
+            </form>
         </div>
-<?php
+    <?php
     } //fin create_reply
 
     /*Funcion 9*/
-    public function view_coments(){
+    public function view_coments()
+    {
         $replie = $this->connect()->prepare('SELECT * FROM replies WHERE reply_topic = :id');/*preparamos las variables para pasar los archivos a la BD*/
-                $replie->execute(array(
-                    ':id' => $_SESSION["topic_id"]
-                ));
-                $replies = $replie->fetchAll();
-                ?>
-                <!--Comienza HTML-->
-                <h2><header>Comentarios</header></h2>
-                <?php foreach ($replies as $reply) : ?>
-        <section id="main">
-            <article>
-                <!--Seccion de texto-->
-                <div class="content">
-                    <!--id del comentario-->
-                    <?php //echo $reply['reply_id'] ?>
-                    <!--imagen del comentario-->
-                    <img class="" src="../img/uploads/coments/<?php echo $reply['reply_image'] ?>" />
-                    <p><?php echo  $reply['reply_content'] ?></p>
-                    <!--fecha del comentario-->
-                    <?php echo $reply['reply_date'] ?>
-                    <!--id del creador del comentario-->
-                    
-                    <hr>
-                </div>
-            </article>
-        </section>
+        $replie->execute(array(
+            ':id' => $_SESSION["topic_id"]
+        ));
+        $replies = $replie->fetchAll();
+    ?>
+        <!--Comienza HTML-->
+        <h2>
+            <header>Comentarios</header>
+        </h2>
+        <?php foreach ($replies as $reply) : ?>
+            <section id="main">
+                <article>
+                    <!--Seccion de texto-->
+                    <div class="content">
+                        <!--id del comentario-->
+                        <?php //echo $reply['reply_id'] 
+                        ?>
+                        <!--imagen del comentario-->
+                        <img class="" src="../img/uploads/coments/<?php echo $reply['reply_image'] ?>" />
+                        <p><?php echo  $reply['reply_content'] ?></p>
+                        <!--fecha del comentario-->
+                        <?php echo $reply['reply_date'] ?>
+                        <!--id del creador del comentario-->
+
+                        <hr>
+                    </div>
+                </article>
+            </section>
         <?php endforeach ?>
-                <?php 
-    }//fin view coments
+<?php
+    } //fin view coments
 } //fin clase TOPICS 
 ?>
