@@ -6,22 +6,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-/*texto*/
-h1{
-    font-size: 3em;
-    letter-spacing: 10px;
-    text-align: center;
-}
-h2{
-    letter-spacing: 10px;
-    font-size: 2em;
-    text-align: center;
-}
-h3{
-    letter-spacing: 3px;
-    display: inline-block;
-}
-/*fin texto*/
+
 /*clases*/
 /*botones*/
 .boton{
@@ -58,12 +43,7 @@ main{
   padding: 1rem;
   overflow: hidden;
 }
-header{
-  background-color: var(--Background-color);
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-}
+
 body{
   background-color: var(--Background-color);
   margin: 1rem;
@@ -72,21 +52,6 @@ body{
 }
 /*fin elementos*/
 /*Elementos completos a partir de un php*/
-/*header*/
-header{
-  background-color: var(--Background-color);
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-}
-#phpHeader{
-  background-color: var(--Background-color);
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-}
-/*fin head*/
-
 /*main*/
 #IndexMain{
   background-color: var(--Background-color);
@@ -104,11 +69,7 @@ header{
 /*elementos completos fin*/
 
 /*elementos individuales que se modificaran siempre*/
-hr {
-  border: 0;
-  height: 5px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-}
+
 /*sacar esto a otro css para topics*/
 img{
   width:200px;

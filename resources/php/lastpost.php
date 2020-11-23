@@ -17,18 +17,22 @@ $numPost = new Topics();
 
 <body>
     <main>
-        <div id="Estadisticas">
-            <h2>Estadisticas</h2>
-            <h3><?php  ?></h3><br>
-            <h3><?php $contador->VerificaUsuario(); ?></h3><br>
-            <h3><?php $numPost->num_posts(); ?></h3><br>
-        </div>
-        <div id="UltimosPost">
-            <h2>Ultimos Post</h2>
-            <ul id="LastPost">
-                <?php $extraer->extraer_ult(); ?>
-            </ul>
-
+        <div class="row">
+            <div class="col-3" id="Estadisticas" >
+                <h4>Estadisticas</h4>
+                <hr class="my-4">
+                <h5><?php $contador->VerificaUsuario(); ?></h5><br>
+                <hr class="my-2">
+                <h5><?php $numPost->num_posts(); ?></h5><br>
+                <hr class="my-1">
+            </div>
+            <div class="col" id="UltimosPost">
+                <h2>Ultimos Post</h2> 
+                <ul id="LastPost">
+                    <br>
+                    <?php $extraer->extraer_ult(); ?>
+                </ul>
+            </div>
         </div>
     </main>
 </body>

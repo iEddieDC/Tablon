@@ -1,40 +1,17 @@
 @import url("Colors.css");
 /*nav bar*/
-#Ulheader {
-    list-style-type: none;
-    margin: 0;
-    padding: 1%;
-    overflow: hidden;
-    background-color: var(--background-color);
-  }
-  
-  #Ulheader>li {
-    background: var(--BtnBackground-color);
-    float: left;
-    padding: 3px;
+#topHeader{
+  border-bottom: 1px solid #ebebeb;
+}
+#topHeader a{
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.89rem;
+}
+.navbar-nav{
+  background-color: black;
+}
 
-    /*border: 2px solid var(--BtnBorder-color);*/
-    /*box-shadow: 0px 1px 2px var(--BtnBorder-color);*/
-  }
-  
-  #Ulheader>li>a {/*texto dentro de los botones*/
-    display: block;
-    color: var(--text-color1);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  #Ulheader>li:hover {/*animación dentro de las seleciones*/
-    transition: 0.5s;
-    box-shadow: 15px 12px 16px 0 rgba(0,0,0,0.24), 0px 17px 50px 0 rgba(0,0,0,0.19);
-    background-color: var(--hover-color);
-    padding: 2px;
-  }
-  #Ulheader>li>a:hover{
-    transition: 0.5s;
-    color: black;
-  }
   /*search bar*/
   input[type=search]{
     display: inline-block;
@@ -55,6 +32,7 @@
     box-shadow: 0 0 5px rgba(109,207,246,.5);
     transition: all .5s;
   }
+ 
   /*search bar fin*/
 
 /*navbar  fin*/

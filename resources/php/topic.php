@@ -16,6 +16,8 @@ if(isset($_SESSION['acceso'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.2/css/bootstrap.min.css">
     <title>Hilo</title>
     
     <?php $article->create_reply();?>

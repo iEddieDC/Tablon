@@ -19,11 +19,11 @@ class Topics extends DB
         <?php
         //validamos que se vaya a la pagina 1 
         if(!$_GET){
-            header('Location: topics.php?pagina=1');
+            header('Location:topics.php?pagina=1');
         }
         //validamos que no agreguen más paginas en el navegador
         if($_GET['pagina'] > $pages || $_GET['pagina'] <= 0 ){
-            header('Location: topics.php?pagina=1');
+            header('Location:topics.php?pagina=1');
         }
         //para tomar la pagina y el # topics que debemos mostrar
         $iniciar = ($_GET['pagina']-1) * $topic_x_page;
@@ -50,6 +50,7 @@ class Topics extends DB
                         </a>
                     </div>
                     <!--id del creador del post-->
+                    <h4>Publicado por:</h4>
                     <?php echo $topic['user_name'] ?>
                     <!--Fecha de publicación-->
                     <?php echo $topic['topic_date'] ?>
@@ -77,18 +78,18 @@ class Topics extends DB
 
                 <li class="page-item <?php echo $_GET['pagina']==$i+1 ? 'active' : '' ?>">
                     <a class="page-link" 
-                    href="topics.php?pagina=<?php echo $i+1?>">
-                        <?php echo $i+1?>
+                     href="topics.php?pagina=<?php echo $i+1?>">
+                    <?php echo $i+1?>
                     </a>
                 </li>
 
                 <?php endfor ?>
 
                 <li class="page-item
-                <?php echo $_GET['pagina']>=$pages ? 'disabled' : '' ?>
-                ">
-
-                    <a class="page-link" href="topics.php?pagina=<?php echo $_GET['pagina']+1?>">Siguiente</a>
+                <?php echo $_GET['pagina']>=$pages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="topics.php?pagina=<?php echo $_GET['pagina']+1?>">
+                    Siguiente
+                </a>
                 </li>
             </ul>
         </nav>
@@ -195,23 +196,23 @@ class Topics extends DB
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
             <!--Este metodo sirve para mediante server mandarselo a si mismo-->
             <div class="DivHijo">
-                <label>TÍTULO</label>
+                <label class="col-sm-2 col-form-label">TÍTULO</label>
                 <input type="text" name="title" id="title" placeholder="Título del post" require><br>
             </div>
 
             <div class="DivHijo">
-                <label>DESCRIPCIÓN</label>
+                <label class="col-sm-2 col-form-label">DESCRIPCIÓN</label>
                 <textarea name="subject" id="post" rows="8" cols="50" maxlength="500" placeholder="Escribe aquí la descripción del post" require></textarea><br>
             </div>
 
             <div class="DivHijo">
-                <label>ARCHIVO</label>
+                <label class="col-sm-2 col-form-label">ARCHIVO</label>
                 <input type="file" name="image" id="image" class="" require><br>
             </div>
 
 
             <div class="DivHijo">
-                <label>CATEGORÍA</label>
+                <label class="col-sm-2 col-form-label">CATEGORÍA</label>
                 <select name="category" id="category">
                     <?php foreach ($categorie as $output) { ?>
                         <option value="<?php echo $output["cat_id"] ?>"><?php echo $output["cat_name"] ?></option>
@@ -221,14 +222,13 @@ class Topics extends DB
                 </select>
             </div>
 
-
             <?php if (isset($error)) : ?>
                 <p class="error"><?php echo $error; ?></p>
             <?php elseif (isset($msg)) : ?>
                 <p class="ok"><?php echo $msg; ?></p>
             <?php endif; ?>
-            <input type="submit" value="Crear" class="boton">
-            <input type="reset" value="Limpiar campos" class="boton"><br>
+            <input type="submit" value="Crear" button type="button" class="btn btn-primary btn-lg btn-block">
+            <input type="reset" value="Limpiar campos" button type="button" class="btn btn-secondary btn-lg btn-block"><br>
         </form>
     <?php
     } //fin create_topic
@@ -331,8 +331,21 @@ class Topics extends DB
                 echo "El campo descripción está vacío";
             } else {
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    //Si el campo "username" está vacío
+                    #validación nombre de categoria no se repita# 
+                    $buscarCat = $this->connect()->prepare("SELECT * FROM categories
+                    WHERE cat_name = '$_POST[title]'");//preparamos la consulta a la BD
+                    $buscarCat->execute();
+                    $count = $buscarCat->rowCount();
 
+                    if ($count == 1 ) {
+                        ?>
+                         <script type ="text/javascript">
+                            alert("¡ERROR! \n¡La categoría ya existe! \n Por favor cree una diferente");
+                        </script>
+                        <?php 
+                    }else{
+
+                    #ingresamos los datos si no se repite la cat
                     $state = $this->connect()->prepare('INSERT INTO categories (cat_name, cat_description) VALUES (:title, :subject)');/*preparamos las variables para pasar los archivos a la BD*/
                     /*Ejecutamos state para ingresar mediante POST los datos*/
                     $state->execute(array(
@@ -340,9 +353,18 @@ class Topics extends DB
                         ':subject' => $_POST['subject'],
                     ));
 
-                    $msg = "Categoría creada con éxito";
+                        ?>
+                         <script type ="text/javascript">
+                            alert("¡CATEGORÍA CREADA CON EXITO!");
+                        </script>
+                        <?php 
+                    }
                 } else {
-                    $error = "Hubo un error, intenta de nuevo";
+                        ?>
+                         <script type ="text/javascript">
+                            alert("¡ERROR! Por favor, intentelo de nuevo!");
+                        </script>
+                        <?php 
                 }
             }
         }
@@ -354,13 +376,13 @@ class Topics extends DB
         <div id="formulario">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" enctype="multipart/form-data">
                 <div class="DivHijo">
-                    <label>TÍTULO</label>
-                    <input type="text" name="title" id="title" placeholder="Título de la categoría" require><br>
+                    <label class="col-sm-2 col-form-label">TÍTULO</label>
+                    <input type="text" name="title" id="title"  placeholder="Título de la categoría" require><br>
                 </div>
 
                 <div class="DivHijo">
-                    <label>DESCRIPCIÓN</label>
-                    <textarea name="subject" id="subject" rows="8" cols="20" maxlength="120" placeholder="Escribe aquí la descripción de la categoría" require></textarea><br>
+                    <label class="col-sm-2 col-form-label">DESCRIPCIÓN</label>
+                    <textarea name="subject" id="post" rows="8" cols="20" maxlength="120" placeholder="Escribe aquí la descripción de la categoría" require></textarea><br>
                 </div>
                 <?php if (isset($error)) : ?>
                     <p class="error"><?php echo $error; ?></p>
@@ -368,8 +390,8 @@ class Topics extends DB
                     <p class="ok"><?php echo $msg; ?></p>
                 <?php endif; ?>
 
-                <input type="submit" name="enviar" value="Crear" class="boton">
-                <input type="reset" value="Limpiar campos" class="boton"><br>
+                <input type="submit" name="enviar" value="Crear" button type="button" class="btn btn-primary btn-lg btn-block">
+                <input type="reset" value="Limpiar campos" button type="button" class="btn btn-primary btn-lg btn-block"><br>
 
             </form>
         </div>

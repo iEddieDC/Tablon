@@ -24,7 +24,21 @@ if(isset($_SESSION['acceso'])){
 </head>
 <body>
     <!--Inluimos los php correspondientes-->
-    <?php include "header.php"?>
+    <div class="container-fluid navbar-inverse bg-primary">
+        <nav class="navbar navbar-dark navbar-expand-md text-white bg-primary navigation-clean-search">
+            <div class="container-fluid"><a class="navbar-brand" href="#"><h1>Cualtos Chan</h1></a>
+                <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav">
+                        <li><a class="nav-link text-white" href="resources/php/upload.php">Crear un hilo</a></li>
+                    </ul>
+                    <form class="form-inline mr-auto" target="_self">
+                        <div class="form-group"><label for="search-field"></label></div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
     <?php include "upload.php"?>
     <header><h3>Publicaciones</h3></header>
     <section id="topics">

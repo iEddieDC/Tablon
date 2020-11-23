@@ -1,25 +1,15 @@
 @import url("Colors.css");
 
 #Estadisticas{
-    display: block;
-    float: left;
     border: 2px solid pink;
-    margin: 1rem;
     padding: 1rem;
-    
-    width: 20%;
-    overflow: hidden;
 }
 #UltimosPost{
-    display: block;
-    float: right;
     border: 2px solid red;
-    margin: 1rem;
+  
     padding: 1rem;
-    width: 70%;
-    overflow: hidden;
-}
 
+}
 #LastPost{
     border: 2px solid red;
     list-style: none;

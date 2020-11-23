@@ -5,8 +5,9 @@ class NewUser extends DB
 
     public function create_new_user()
     {
-        #validación nombre de usuario#
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {   
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {  
+            #validación nombre de usuario# 
             $buscarUsuario = $this->connect()->prepare("SELECT * FROM users
             WHERE user_name = '$_POST[username]'");//preparamos la consulta a la BD
             $buscarUsuario->execute();
@@ -66,7 +67,7 @@ class NewUser extends DB
 
             <div class="DivHijo">
                 <label>Contraseña</label>
-                <input type="password" name="password" id="password" placeholder="Escribe aquí tu contraseña" maxlength="8" require></textarea><br>
+                <input type="password" name="password" id="password" placeholder="Escribe aquí tu contraseña" maxlength="32" require></textarea><br>
                 <button class="btn btn-primary" type="button" onclick="mostrarContrasena()">Mostrar Contraseña</button>
             </div>
 

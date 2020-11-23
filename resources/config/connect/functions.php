@@ -20,6 +20,8 @@ require 'config.php';
         $this->db       = 'tablon';
         $this->user     = 'root';
         $this->password = "root";
+        //$this->user     = 'tablon';
+        //$this->password = "nVasM0&fLc";
         $this->charset  = 'utf8mb4';
     }
     

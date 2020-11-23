@@ -16,32 +16,20 @@ if (isset($_SESSION['acceso'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cualtos chan</title>
-    <link rel="stylesheet" href="resources/css/Main.css">
     <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
-    </head>
-
+    <!--<link rel="stylesheet" href="resources/css/Main.css">-->
+</head>
+<?php include 'resources/php/header.php'; ?>
 <body>
-    <header>
-        <h1>CUALTOS-CHAN</h1>
-    </header>
-
-    <div class="container" id="phpHeader">
-    <?php include 'resources/php/header.php';?>
-    </div>
-    
-    <main class="container" id="IndexMain">
-
-        <div class="container" id="phpCategories">  
-        <?php include 'resources/php/categories.php';?>
-        
+    <main class="container-fluid" id="IndexMain">
+        <div class="container-fluid" id="phpCategories">
+            <?php include 'resources/php/categories.php'; ?>
         </div>
-        <div class="container" id="phpLastPost">
-        <?php include 'resources/php/lastpost.php';?>
+        <div class="container-fluid">
+                <?php include 'resources/php/lastpost.php'; ?>
         </div>
     </main>
-    <div  class="container" id="phpFooter">
-    <?php include 'resources/php/footer.php';?>
-    </div>
+    <?php include 'resources/php/footer.php'; ?>
 </body>
-    
+
 </html>

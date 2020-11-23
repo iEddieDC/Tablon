@@ -1,6 +1,8 @@
 <?php
-$server = "localhost";//creacion de archivo0 para hacer conexion 
-$db = "tablon";
-$user = "root";
-$pass = "root";
+
+        $host     = 'localhost';
+        $db       = 'tablon';
+        $user     = 'root';
+        $password = "root";
+        $charset  = 'utf8mb4';
 ?>
