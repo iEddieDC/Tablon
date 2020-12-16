@@ -17,6 +17,9 @@ if (isset($_SESSION['acceso'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cualtos chan</title>
     <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+    
     <!--<link rel="stylesheet" href="resources/css/Main.css">-->
 </head>
 <?php include 'resources/php/header.php'; ?>

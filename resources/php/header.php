@@ -4,31 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/nuevos.css">
+
+    </script>
+
     <title>Header</title>
 </head>
 
 <body>
+    <span class="icon-menu"></span>
     <div class="container-fluid navbar-inverse bg-primary">
         <nav class="navbar navbar-dark navbar-expand-md text-white bg-primary navigation-clean-search">
-            <div class="container-fluid"><a class="navbar-brand" href="#"><h1>Cualtos Chan</h1></a>
+            <div class="container-fluid"><a class="navbar-brand" href="#">
+                    <h1>Cualtos Chan</h1>
+                </a>
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
-                        <li><a class="nav-link text-white" href="resources/php/upload.php">Crear un hilo</a></li>
-                        <li><a class="nav-link text-white" href="resources/php/createcategory.php">Crear una categoría</a></li>
-                        <li> <a class="nav-link text-white" href="resources/html/rules.html">Reglas</a>
+                        <li><a class="btn btn-primary" href="resources/php/upload.php">Crear un hilo</a></li>
+                        <li><a class="btn btn-primary" href="resources/php/createcategory.php">Crear una categoría</a></li>
+                        <!--MODAL-->
+                        <li>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalScrollable">
+                                Reglas
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalScrollableTitle">Lee las reglas atentamente</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><h1>REGLAS</h1></span>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="modal-body">
+                                            <h1>El tablón de imagenes es una comunidad</h1>
+                                            <h2>y para mantener el orden se han creado las siguientes reglas:</h2>
+                                            <ul>
+                                                <li>1.- No se aceptan insultos. Trata a las demas personas con respeto, recuerda que en su mayoria son alumnos.</li>
+                                                <li>2.- El spam no es bienvenido. Hacer spam es publicar cualquier tema de manera masiva, ya sea una pagina web, canal de youtube, algun FB etc.</li>
+                                                <li>3.- No republiques posts viejos. Los post que ya han sido resueltos y fueron publicados hace un tiempo deben mantenerse así.</li>
+                                                <li>4.- Evita ser troll. Está comunidad se mantiene gracias a que los usuarios se ayudan entre si.</li>
+                                            </ul>
+
+                                            <adver>NO ROMPAS LAS REGLAS, DE LO CONTRARIO TUS COMENTARIOS O POST SERAN BORRADOS.</adver>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Entendido</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                     <form class="form-inline mr-auto" target="_self">
                         <div class="form-group"><label for="search-field"></label></div>
                     </form>
-                    <span class="navbar-text "><a class="text-white login" href="resources/php/register.php">Registrarse</a></span>
+                    <span class="btn btn-primary"><a class="text-white" href="resources/php/register.php">Registrarse</a></span>
+
                     <a class="btn btn-light action-button" role="button" href="resources/php/login.php">Iniciar sesión</a>
-                    <span class="navbar-text "><a class="text-white login" href="resources/config/sesions_config/logout.php">Cerrar sesión</a></span>
+                    </span>
+                    <span class="btn btn-light action-button "><a class="login" href="resources/config/sesions_config/logout.php">Cerrar sesión</a>
+
                 </div>
             </div>
         </nav>
     </div>
+
 </body>
 
 </html>
