@@ -1,79 +1,10 @@
-@import url("Last.css");
-@import url("HeaderFooter.css");
-@import url("Upload.css");
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-/*clases*/
-/*botones*/
-.boton{
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 15px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: var(--text-color1);
-    background-color: var(--BtnBackground-color);
-    border: 1px solid var(--BtnBorder-color);
-    border-radius: 15px;
-    box-shadow: 0 9px var(--BtnBorder-color);
-  }
-  .boton:hover{
-    transition: 0.5s;
-    background-color: var(--hover-color);
-  }
-  .boton:active {
-    transition: 0.2s;
-    background-color: var(--hover-color);
-    box-shadow: 0 5px var(--BtnBorder-color);
-    transform: translateY(4px);
-  }
-/*fin botones*/
-
-/*fin clases*/
-/*elementos*/
-main{
-  border: 2px solid var(--border-color);
-  margin: 1rem;
-  padding: 1rem;
-  overflow: hidden;
-}
-
-body{
-  background-color: var(--Background-color);
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-}
-/*fin elementos*/
-/*Elementos completos a partir de un php*/
-/*main*/
-#IndexMain{
-  background-color: var(--Background-color);
-  margin: 1rem;
-  padding: 0rem;
-  border: 2px solid var(--border-color);
-}
-/*fin main*/
-#phpFooter{
-  background-color: var(--Background-color);
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-  }
 /*elementos completos fin*/
-
+#cabeza{
+  background-color:  #86d57f;
+}
 /*elementos individuales que se modificaran siempre*/
 
 /*sacar esto a otro css para topics*/
-img{
-  width:200px;
-  height:200px;
-  } 
 
 /*elementos individuales fin*/

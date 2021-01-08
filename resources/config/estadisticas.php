@@ -28,11 +28,19 @@ class ClassVisitas extends DB
             if ($HoraExtraer > $this->Limite) {
                 $this->InsertarVisitas();
             }
-        }
+        }?>
+        <IMG src="resources/img/icons/today.png">
+        <?php
         echo "VISITAS HOY: " . $SelectDay -> rowCount() . "";
         echo "<br>";
+        ?>
+        <IMG src="resources/img/icons/earth.png">
+        <?php
         echo "VISITAS GLOBALES: " . $SelectGlobal->rowCount() . ""; 
         echo "<br>";
+        ?>
+        <IMG src="resources/img/icons/user.png">
+        <?php
         echo "TUS VISITAS: " . $Select->rowCount() . "";
     }
 

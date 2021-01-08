@@ -26,28 +26,28 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         switch ($rol) {
             case 0: //Usuario normal
                 echo "user";
-                header("location: ../../../index.php");
+                header("location: index.php");
                 break;
             case 1: //Usuario Moderador
                 echo "Moder";
-                header("location: ../../../index.php");
+                header("location: index.php");
                 break;
 
             case 2: // Usuario Administrador
                 echo "Admin";
-                header("location: ../../../index.php");
+                header("location: index.php");
                 break;
                 #Nota: Se pueden añadir pestañas y acciones unicas para cada uno
             default:
-            header ("location: ../../php/login.php");
+            header ("location: login");
         }
     } else {
         # No existe el usuario
-        
+        header ("location: login");
         ?>
-        <script type="text/javascript">
+        <!--<script type="text/javascript">
             alert("Nombre de usuario y/o contraseña incorrecto");
-        </script>
+        </script>-->
         <?php
         
         

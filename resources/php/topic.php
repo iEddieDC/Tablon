@@ -16,8 +16,8 @@ if(isset($_SESSION['acceso'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/css/main.css">
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap-4.5.2/css/bootstrap.min.css">
     <title>Hilo</title>
     
     <?php $article->create_reply();?>
@@ -25,6 +25,6 @@ if(isset($_SESSION['acceso'])){
     <body>
         <?php $article->extraer_uno(); ?>
         <?php $article-> view_coments();?>
-        <a href="topics.php"> <div id="boton">Regresar</div></a>    
+        
     </body>
 </html>

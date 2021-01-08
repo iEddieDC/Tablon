@@ -5,13 +5,6 @@ require_once '../config/consulta.php';
 $create_cat = new Topics();
 
 session_start();
-
-if (isset($_SESSION['acceso'])) {
-    #echo ($_SESSION['acceso']);
-    echo "Bienvenido ", ($_SESSION['user']);
-} else {
-    #mensaje o acciones sin sesion
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +14,7 @@ if (isset($_SESSION['acceso'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Categoría</title>
     <!--<link rel="stylesheet" href="../css/Main.css">-->
-    <link rel="stylesheet" href="../bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
 </head>
 <?php include 'header.php'; ?>
 <body>

@@ -19,8 +19,8 @@ if(isset($_SESSION['acceso'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear hilo</title>
-    <link rel="stylesheet" href="../css/Main.css">
-    <link rel="stylesheet" href="../bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/Main.css">
+    <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>

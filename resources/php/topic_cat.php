@@ -9,13 +9,15 @@ $extraer = new Topics();//instanciar objeto
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categoría</title>
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="<?php echo SERVERURL ?>resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
 </head>
-<header id="phpCatHeader">
-    <h2>Categorías</h2>
-</header>
-<body>
+
+<body class="container-fluid p-3">
     <main>
+    <?php include "header.php"?>
+    <?php include "upload.php"?>
     <?php $extraer -> topics_cat();?>
     </main>
 </body>

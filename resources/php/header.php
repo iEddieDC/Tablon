@@ -1,31 +1,30 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </script>
-
     <title>Header</title>
+
 </head>
 
-<body>
+<body >
     <span class="icon-menu"></span>
-    <div class="container-fluid navbar-inverse bg-primary">
-        <nav class="navbar navbar-dark navbar-expand-md text-white bg-primary navigation-clean-search">
-            <div class="container-fluid"><a class="navbar-brand" href="#">
-                    <h1>Cualtos Chan</h1>
+    <div  class="container-fluid navbar-inverse bg-primary" >
+        <nav  class="navbar navbar-dark navbar-expand-md text-white bg-primary navigation-clean-search">
+            <div class="container-fluid"><a class="navbar-brand" href="<?php echo SERVERURL ?>">
+                    <h1 >CUAltos Chan</h1>
                 </a>
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
-                        <li><a class="btn btn-primary" href="resources/php/upload.php">Crear un hilo</a></li>
-                        <li><a class="btn btn-primary" href="resources/php/createcategory.php">Crear una categoría</a></li>
+                        <li><a class="btn btn-primary" href="upload">Crear un hilo</a></li>
+                        <li><a class="btn btn-primary" href="create-cat">Crear una categoría</a></li>
                         <!--MODAL-->
                         <li>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalScrollable">
+                            <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalScrollable">
                                 Reglas
                             </button>
 
@@ -34,13 +33,13 @@
                                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalScrollableTitle">Lee las reglas atentamente</h5>
+                                            <h5 class="modal-title text-dark" id="exampleModalScrollableTitle">Lee las reglas atentamente</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><h1>REGLAS</h1></span>
                                             </button>
                                         </div>
                                         
-                                        <div class="modal-body">
+                                        <div class="modal-body text-dark">
                                             <h1>El tablón de imagenes es una comunidad</h1>
                                             <h2>y para mantener el orden se han creado las siguientes reglas:</h2>
                                             <ul>
@@ -63,12 +62,18 @@
                     <form class="form-inline mr-auto" target="_self">
                         <div class="form-group"><label for="search-field"></label></div>
                     </form>
-                    <span class="btn btn-primary"><a class="text-white" href="resources/php/register.php">Registrarse</a></span>
-
-                    <a class="btn btn-light action-button" role="button" href="resources/php/login.php">Iniciar sesión</a>
+                    <span class="btn btn-primary">
+                    <a class="text-white" href="register">Registrarse</a>
                     </span>
-                    <span class="btn btn-light action-button "><a class="login" href="resources/config/sesions_config/logout.php">Cerrar sesión</a>
-
+                    <!--Pequeño php isset que sirve para ocultar o mostrar el boton de cerrar sesión y iniciar sesión-->
+                    <?php if (isset($_SESSION['user'])){?>
+                        <a class=" btn btn-light login" id="nologin" href="resources/config/sesions_config/logout.php">Cerrar sesión</a>
+                    <?php }else{ ?>
+                        <a class="btn btn-light action-button" role="button" href="login">Iniciar sesión</a>
+                    </span>
+                    <?php }?>
+                    
+                
                 </div>
             </div>
         </nav>

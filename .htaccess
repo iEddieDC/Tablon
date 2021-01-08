@@ -1,0 +1,35 @@
+#Sintaxis que sirven para la creacion de URLS amigables
+Options +FollowSymLinks  
+RewriteEngine on 
+
+# Regla
+RewriteRule ^topics resources/php/topics.php
+
+# Regla
+RewriteRule ^topic/([0-9]+)$ resources/php/topic.php?q=$1
+
+# Regla
+RewriteRule ^categoria/([0-9]+)$ resources/php/topic_cat.php?q=$1
+
+# Regla
+RewriteRule ^upload resources/php/upload.php
+
+# Regla
+RewriteRule ^topic-cat resources/php/upload.php
+
+# Regla
+RewriteRule ^create-cat resources/php/createcategory.php
+
+# Regla
+RewriteRule ^register resources/php/register.php
+
+# Regla
+RewriteRule ^login resources/php/login.php
+
+# Regla
+RewriteRule ^comprobarlogin resources/config/sesions_config/login_val.php
+
+
+
+
+
