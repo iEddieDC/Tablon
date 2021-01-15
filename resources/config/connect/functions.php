@@ -18,10 +18,13 @@ require 'config.php';
         #para la conexion
         $this->host     = 'localhost';
         $this->db       = 'tablon';
+        /*para local*/
         $this->user     = 'root';
         $this->password = "root";
+        /*para pagina*/
         //$this->user     = 'tablon';
         //$this->password = "nVasM0&fLc";
+        
         $this->charset  = 'utf8mb4';
     }
     

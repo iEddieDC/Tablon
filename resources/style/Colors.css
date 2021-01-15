@@ -1,0 +1,53 @@
+:root {
+    --main-color: rgb(71, 120, 255);
+    --second-color: #67b8fa;
+    --third-color: #3f3f3f;
+    --BtnBorder-color: #c4c4c4;
+    --BtnBackground-color: #6c6c;
+	--background-color: #dddddd;
+    --border-color: #ccc;
+    --text-color1: #fcfcfc;
+    --hover-color: #7b7b;
+}
+*{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+/*Color de fondo*/
+  .alfrente{
+    background-color: white;
+  }
+  .alfondo{
+    background-color: var(--background-color);
+  }
+  /*----------barra id hilo---------------*/
+  .dot {
+    text-align: center;
+    font-size: 15px;
+    height: 25px;
+    width: 20px;
+    background-color: #bbb;
+  }
+  /*botones*/
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file:hover {
+	cursor: pointer;
+}
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+  

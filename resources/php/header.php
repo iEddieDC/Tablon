@@ -1,4 +1,4 @@
-
+<!--Este header es para el index-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,13 +8,13 @@
     <title>Header</title>
 
 </head>
-
-<body >
+<body>
+<main>
     <span class="icon-menu"></span>
-    <div  class="container-fluid navbar-inverse bg-primary" >
+    <div  class="container-fluid navbar-inverse bg-primary rounded-bottom shadow-sm" >
         <nav  class="navbar navbar-dark navbar-expand-md text-white bg-primary navigation-clean-search">
-            <div class="container-fluid"><a class="navbar-brand" href="<?php echo SERVERURL ?>">
-                    <h1 >CUAltos Chan</h1>
+            <div class="container-fluid"><a class="navbar-brand" href="index.php">
+                    <h1>CUAltos Chan</h1>
                 </a>
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
@@ -34,8 +34,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title text-dark" id="exampleModalScrollableTitle">Lee las reglas atentamente</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true"><h1>REGLAS</h1></span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             </button>
                                         </div>
                                         
@@ -72,13 +71,10 @@
                         <a class="btn btn-light action-button" role="button" href="login">Iniciar sesión</a>
                     </span>
                     <?php }?>
-                    
-                
                 </div>
             </div>
         </nav>
     </div>
-
+</main>
 </body>
-
 </html>

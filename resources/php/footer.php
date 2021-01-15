@@ -1,4 +1,4 @@
-<footer class="bg-primary text-center text-lg-start container-fluid pt-3 mt-1">
+<footer class="bg-primary text-center text-lg-start container-fluid pt-3 mt-1 rounded-top">
   <!-- Grid container -->
   <div class="container p-1">
     <!--Grid row-->
@@ -7,7 +7,7 @@
       <div class="col">
         <ul class="list-unstyled mb-0">
           <li>
-          <a type="button" href="<?php echo SERVERURL ?>" class="btn btn-primary">Inicio</a>
+          <a type="button" href="index.php" class="btn btn-primary">Inicio</a>
           </li>
         </ul>
       </div>
@@ -22,7 +22,7 @@
         </ul>
       </div>
       <!--Grid column-->
-
+      
       <!--Grid column-->
       <div class="col">
         <ul class="list-unstyled mb-0">

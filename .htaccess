@@ -11,6 +11,8 @@ RewriteRule ^topic/([0-9]+)$ resources/php/topic.php?q=$1
 # Regla
 RewriteRule ^categoria/([0-9]+)$ resources/php/topic_cat.php?q=$1
 
+RewriteRule ^categoria/([0-9]+)([0-9])$ resources/php/topic_cat.php?q=$1&page=$1
+
 # Regla
 RewriteRule ^upload resources/php/upload.php
 
@@ -29,6 +31,11 @@ RewriteRule ^login resources/php/login.php
 # Regla
 RewriteRule ^comprobarlogin resources/config/sesions_config/login_val.php
 
+# Regla
+RewriteRule ^logout resources/config/sesions_config/logout.php
+
+#Regla
+RewriteRule ^view_coments resources/php/view_coments.php
 
 
 

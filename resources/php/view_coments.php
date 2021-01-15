@@ -1,18 +1,25 @@
-<?php 
+<?php
 require_once '../config/consulta.php';
 
-$reply = new Topics();//instanciar objeto
-    
+$reply = new Topics(); //instanciar objeto
+
 
 ?>
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Replies</title>
-    </head>
-    <body>
-    <?php $reply -> view_coments();?>
-    </body>
-    </html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replies</title>
+    <!--CSS bootstrap-->
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <!--CSS personalizados-->
+    <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/colors.css">
+</head>
+<main class="container p-4 shadow">
+    <?php $reply->view_coments(); ?>
+</main>
+</body>
+
+</html>
