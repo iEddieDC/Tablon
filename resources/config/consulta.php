@@ -182,8 +182,8 @@ class Topics extends DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
             $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
             if ($check !== false) {
-                $folder = '../img/uploads/';
-                $archivo = $folder . $_FILES['image']['name']; //image campo de form// name nombre del archivo
+                $folder = '../img/uploads/'; /*revisar permisos de la carpeta en el servidor*/
+                $archivo = $folder . $_FILES['image']['name']; //image campo de form //name nombre del archivo
                 move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
 
                 $state = $this->connect()->prepare('INSERT INTO topics (topic_title, topic_subject, topic_image, topic_cat,topic_by) VALUES (:title, :subject, :image, :cat, :by)');/*preparamos las variables para pasar los archivos a la BD*/
@@ -284,7 +284,7 @@ class Topics extends DB
     public function extraer_ult()
     {
         /*consulta para hacer la lista*/
-        $state = $this->connect()->prepare('SELECT topic_id, topic_date, cat_name, topic_title FROM topics, categories WHERE cat_id=topic_cat order by topic_date desc limit 10');
+        $state = $this->connect()->prepare('SELECT topic_id, topic_date, cat_name, topic_title FROM topics, categories WHERE cat_id=topic_cat order by topic_date desc limit 5');
         $state->execute();
         $result = $state->fetchAll();
     ?>
@@ -355,16 +355,15 @@ class Topics extends DB
         if (!$id) { //validacion del id
             header('Location: topics.php');
         }
-
-        /*consultar la cantidad de articulos totales*/
-        $state =  $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id ');
+        /*consulta para extraer los hilos de la categoria*/
+        $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id order by topic_date desc LIMIT 12');
         $state->execute(array(
             ':id' => $id
         ));
-        $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) 
+        $resultado = $state->fetchAll();
+
 
         /*Paginación*/
-
         //numero de hilos por pagina
         $topic_x_page = 12;
         //Contar hilos de la base de datos
@@ -375,22 +374,29 @@ class Topics extends DB
         //redondear el numero de paginas
         $pages = ceil($pages); 
         //echo $pages;
-
-        /*consulta para extraer los hilos de la categoria*/
-        $sql_articulos = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id order by topic_date desc LIMIT 12');
-        $sql_articulos->execute(array(
-            ':id' => $id
-        ));
-
-        $resultado = $sql_articulos->fetchAll();
         
         $iniciar = ($_GET['page']-1)*$topic_x_page;
         //echo $iniciar;
     ?>
+        
+        <?php foreach ($resultado as $topic) : 
+            /*contar los comentarios de cada publicacion*/
+            $contar_comentarios = $this->connect()->prepare('SELECT * FROM replies WHERE reply_topic = :id ');
+            $contar_comentarios->execute(array(
+                ':id' => $topic['topic_id']
+            ));
+            $num_com = $contar_comentarios->rowCount();
+
+            /*contar el numero de likes dependiendo de nuestro ID*/
+            $contar_likes = $this->connect()->prepare('SELECT * FROM likes WHERE user = :user_id AND post = :topic_id');
+            $contar_likes->execute(array(
+                ':user_id' => $_SESSION['id'],
+                ':topic_id' => $topic['topic_id']
+            ));
+            $cLikes = $contar_likes->rowCount();//
+        ?>
         <!--Comienza HTML-->
         <!--foreach inicio -->
-        
-        <?php foreach ($resultado as $topic) : ?>
         <div class="container border-top rounded mb-3 shadow">
             <div class="card mt-3" >
                 <div class="col-lg-12 my-5">
@@ -420,9 +426,30 @@ class Topics extends DB
                 </div>
                 </div>
             </div>
-        
-            <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"><img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset=""></a><!-- construye un enlace con el id que se encuentre en la base de datos -->
-        
+            <!--Seccion de likes y comentarios-->
+            <div class="hl-section-likes">
+                <!--si no hemos dado like se muestra vacio el corazón-->
+                <?php if($cLikes == 0){?>
+                    <div id="<?php echo $topic['topic_id']?>" class="like">
+                    <a class ="btn btn-outline-primary m-3 p-2">
+                        <?php echo $cLikes;?>
+                        <img src="<?php echo SERVERURL ?>resources/img/icons/heart_no.png" alt="">
+                    </a>
+                    </div>
+                <!--si ya dimos like, corazón rojo-->
+                <?php }else{?>
+                    <div id="<?php echo $topic['topic_id']?>" class="like">
+                    <a class ="btn btn-outline-primary m-3 p-2">
+                        <?php echo $cLikes;?>
+                        <img src="<?php echo SERVERURL ?>resources/img/icons/heart.png" alt="">
+                    </a>
+                    </div>
+                <?php }?>
+                <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
+                    <?php echo $num_com;?>
+                    <img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset="">
+                </a><!-- construye un enlace con el id que se encuentre en la base de datos -->
+            </div>
         </div>
         <?php endforeach ?>
         <!--Paginacion-->
@@ -461,6 +488,7 @@ class Topics extends DB
                     $buscarCat->execute();
                     $count = $buscarCat->rowCount();
 
+                    /*validamos no se repita la categoria*/
                     if ($count == 1 ) {
                         ?>
                          <script type ="text/javascript">
@@ -478,6 +506,7 @@ class Topics extends DB
                     ));
 
                     ?>
+                    <!--Mensaje flotante para correcto-->
                     <script type="text/javascript">
                             Swal.fire({
                                 icon: 'success',
@@ -491,6 +520,7 @@ class Topics extends DB
                     }
                 } else {
                     ?>
+                    <!--Mensaje flotante para Error-->
                     <script type="text/javascript">
                         Swal.fire({
                             icon: 'error',
@@ -524,6 +554,7 @@ class Topics extends DB
             <?php echo "POSTS: " . $a[0];
         endforeach;
     }
+
     /* Función 9 -Para crear un comentario en donde sea-*/
     public function create_reply()
     {

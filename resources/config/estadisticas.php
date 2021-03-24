@@ -29,7 +29,7 @@ class ClassVisitas extends DB
                 $this->InsertarVisitas();
             }
         }?>
-        <IMG src="resources/img/icons/today.png">
+        <IMG src="resources/img/icons/today.png"> <!--Cambiar a icons de boots-->
         <?php
         echo "VISITAS HOY: " . $SelectDay -> rowCount() . "";
         echo "<br>";
