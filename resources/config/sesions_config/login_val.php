@@ -35,7 +35,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
             case 2: // Usuario Administrador
                 echo "Admin";
-                header("location: index.php");
+                header("location: admin_config");
                 break;
                 #Nota: Se pueden añadir pestañas y acciones unicas para cada uno
             default:

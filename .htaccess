@@ -37,6 +37,13 @@ RewriteRule ^logout resources/config/sesions_config/logout.php
 #Regla
 RewriteRule ^view_coments resources/php/view_coments.php
 
+#Regla
+RewriteRule ^admin_config resources/php/admin.php
+
+#Regla
+RewriteRule ^main index.php
+
+
 
 
 

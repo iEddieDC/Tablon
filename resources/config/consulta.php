@@ -291,7 +291,7 @@ class Topics extends DB
         <!--Comienza HTML-->
         <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
-                <a href="resources/php/topic.php?q=<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
+                <a href="topic/<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
                 list($id, $date, $cat, $name) = $last;
                 ?>
                 <img src="resources/img/icons/history.png" >
@@ -429,11 +429,12 @@ class Topics extends DB
             <!--Seccion de likes y comentarios-->
             <div class="hl-section-likes">
                 <!--si no hemos dado like se muestra vacio el corazón-->
+                <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
                 <?php if($cLikes == 0){?>
                     <div id="<?php echo $topic['topic_id']?>" class="like">
                     <a class ="btn btn-outline-primary m-3 p-2">
                         <?php echo $cLikes;?>
-                        <img src="<?php echo SERVERURL ?>resources/img/icons/heart_no.png" alt="">
+                        <img src="<?php echo SERVERURL?>resources/img/icons/heart_no.png" alt="">
                     </a>
                     </div>
                 <!--si ya dimos like, corazón rojo-->

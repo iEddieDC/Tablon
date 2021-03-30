@@ -10,6 +10,7 @@ $postid = $_POST['id'];
 $user = $_SESSION['id'];
 echo "si llega";
 
+
 $contar_likes = $this->connect()->prepare('SELECT * FROM likes WHERE user = :user_id AND post = :topic_id');
 $contar_likes->execute(array(
     ':user_id' => $user,
@@ -31,7 +32,9 @@ if($cLikes == 0) {
         ':post' => $postid
         ));
 /*si ya le hemos dado like*/
-}else{
+}
+
+else {
     /*quitamos el like a la tabla likes*/
     $insertLike = $this->connect()->prepare('DELETE FROM likes WHERE user = :user AND post = :post');
     $insertLike->execute(array(
@@ -45,13 +48,14 @@ if($cLikes == 0) {
         ));
 }
 
-/*imagenes de like*/
-if($cLike == 0) {
-    $megusta = "<img src='resources/img/icons/heart_no.png'>";
-} else{
-    $megusta = "<img src='resources/img/icons/heart.png'>";
-}
+$contar = mysql_query("SELECT likes FROM publicaciones WHERE id_pub = ".$post."");
+$cont = mysql_fetch_array($contar);
+$likes = $cont['likes'];
 
-$return = array("img"=>$megusta);
+if ($count >= 1) { $megusta = "<i class='fa fa-thumbs-o-up'></i> Me gusta"; $likes = " (".$likes++.")"; } else { $megusta = "<i class='fa fa-thumbs-o-up'></i> No me gusta"; $likes = " (".$likes--.")"; }
 
-echo json_encode($return);
+$datos = array('likes' =>$likes,'text' =>$megusta);
+
+echo json_encode($datos);
+
+?>
