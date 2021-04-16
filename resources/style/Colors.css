@@ -51,3 +51,8 @@
     display: block;
   }
   
+  .UDG{
+    background-image: url("../img/icons/degradado.jpg");
+    background-color: 	#CD5700 ;
+    background-position: center; /* Center the image */
+  }

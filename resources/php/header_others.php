@@ -19,7 +19,6 @@
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <ul class="nav navbar-nav">
                         <li><a class="btn btn-primary" href="<?php echo SERVERURL?>upload">Crear un hilo</a></li>
-                        <li><a class="btn btn-primary" href="<?php echo SERVERURL?>create-cat">Crear una categoría</a></li>
                         <!--MODAL-->
                         <li>
                             <!-- Button trigger modal -->

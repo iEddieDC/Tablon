@@ -9,7 +9,7 @@ session_start(); //Buscamos la sesión
 //Extraemos la variable 'rol' para que los demas usuarios que no sean admin no vean esta pagina
 /*validacion*/
 if($_SESSION['rol'] != 2){
-    echo "error";
+    echo "Usted no es administrador!";
 }else{?>
     <!DOCTYPE html>
 <html lang="en">
@@ -30,10 +30,15 @@ if($_SESSION['rol'] != 2){
 </header>
 <body class="container alfondo">
     <main class="border p-3 alfrente shadow">
-    <h4 class="font-weight-bold">Gestionar publicaciones</h4>
+    <h4 class="font-weight-bold mt-3 text-center">Gestionar publicaciones</h4>
         <div class="container border p-2 hilos">
             <!--Administrar hilos-->
             <?php $query ->ver_hilos();?>
+        </div>
+    <h4 class="font-weight-bold mt-3 text-center">Crear una categoría</h4>
+        <div class="container border p-2 mt-2 ">
+            <p class="text-justify p-2">En este apartado usted podra crear las categorías necesarias para el funcionamiento del tablón. Es recomendable que haga una encuesta primero o un analisis para crear la categoría necesaria.</p>
+            <a class="btn btn-primary d-block mx-auto" href="create-cat">Presione aquí para crear</a>
         </div>
     </main>
 </body>

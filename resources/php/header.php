@@ -10,17 +10,21 @@
 </head>
 <body>
 <main>
+<img alt="Enlace al sitio de la Universidad de Guadalajara" src="resources/img/icons/logo_0.png" style="width: 355px; height: 83px;">
+    <div  class="container-fluid navbar-inverse UDG rounded-bottom shadow-sm" >
+        <a class="navbar-brand text-white" href="index.php">
+            <h1>CUAltos Chan</h1>
+        </a>
+    </div>
     <span class="icon-menu"></span>
-    <div  class="container-fluid navbar-inverse bg-primary rounded-bottom shadow-sm" >
-        <nav  class="navbar navbar-dark navbar-expand-md text-white bg-primary navigation-clean-search">
-            <div class="container-fluid"><a class="navbar-brand" href="index.php">
-                    <h1>CUAltos Chan</h1>
-                </a>
+    <div  class="container-fluid navbar-inverse bg-light rounded-bottom shadow-sm" >
+        <nav  class="navbar navbar-dark navbar-expand-md text-white navigation-clean-search">
+            <div class="container-fluid">
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
                         <li><a class="btn btn-primary" href="upload">Crear un hilo</a></li>
-                        <li><a class="btn btn-primary" href="create-cat">Crear una categoría</a></li>
+                        
                         <!--MODAL-->
                         <li>
                             <!-- Button trigger modal -->

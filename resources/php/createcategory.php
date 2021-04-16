@@ -5,6 +5,10 @@ require_once '../config/consulta.php';
 $create_cat = new Topics();
 
 session_start();
+
+if($_SESSION['rol']!=2){
+    echo "Error, solo disponible para Administradores!";
+}else{
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,3 +66,4 @@ session_start();
 <?php include 'footer.php'; ?>
 </footer>
 </html>
+<?php } ?>
