@@ -10,6 +10,7 @@ class Topics extends DB
         //state hace la consulta para contar los hilos
         $state = $this->connect()->prepare('SELECT topic_id FROM topics');
         $state->execute();
+        
         /*paginación*/
         //numero de hilos por pagina
         $topic_x_page = 12;
@@ -22,7 +23,6 @@ class Topics extends DB
         //validamos que se vaya a la pagina 1 
         if(!$_GET){
              echo "<script>
-            
              window.location= 'topics/?pagina=1'
             </script>";
         }
@@ -182,10 +182,12 @@ class Topics extends DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
             $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
             if ($check !== false) {
-                $folder = '../img/uploads/'; /*revisar permisos de la carpeta en el servidor*/
+                $folder = "../img/uploads/";/*para local*/
+                //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
                 $archivo = $folder . $_FILES['image']['name']; //image campo de form //name nombre del archivo
+                
                 move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
-
+                
                 $state = $this->connect()->prepare('INSERT INTO topics (topic_title, topic_subject, topic_image, topic_cat,topic_by) VALUES (:title, :subject, :image, :cat, :by)');/*preparamos las variables para pasar los archivos a la BD*/
                 /*Ejecutamos state para ingresar mediante POST los datos*/
                 if (isset($_SESSION['acceso'])) {
@@ -327,7 +329,7 @@ class Topics extends DB
                                         echo " $name <br> ";
                                         ?></h5>
                     <p class="card-text font-weight-light text-justify"><?php echo $last['cat_description'] ?></p>
-                    <a href="resources/php/topic_cat.php?q=<?php echo $last['cat_id'] ?>" class="btn btn-primary rounded-pill">Ver categoría</a>
+                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-primary rounded-pill">Ver categoría</a>
                     </div>
                 </div>
             </div>
@@ -349,124 +351,108 @@ class Topics extends DB
     /*función 6 -Consulta para mostrar hilos de una sola categoria*/
     public function topics_cat()
     {
-        /*Consulta para id de categoria*/
-        $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
+         /*Consulta para id de categoria*/
+         $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
         
-        if (!$id) { //validacion del id
-            header('Location: topics.php');
-        }
-        /*consulta para extraer los hilos de la categoria*/
-        $state = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id order by topic_date desc LIMIT 12');
-        $state->execute(array(
-            ':id' => $id
-        ));
-        $resultado = $state->fetchAll();
-
-
+         if (!$id) { //validacion del id
+             header('Location: topics.php');
+         }
         /*Paginación*/
-        //numero de hilos por pagina
-        $topic_x_page = 12;
-        //Contar hilos de la base de datos
-        $total_topics_bd = $state->rowCount();
-        //echo $total_topics_bd;
-        //dividir las paginas entre los articulos
-        $pages = $total_topics_bd / $topic_x_page;
-        //redondear el numero de paginas
-        $pages = ceil($pages); 
-        //echo $pages;
+         /*consultar la cantidad de articulos totales*/
+         $state =  $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id ');
+         $state->execute(array(
+             ':id' => $id
+         ));
+         $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) 
+ 
+         //numero de hilos por pagina
+         $topic_x_page = 1;
+         //Contar hilos de la base de datos
+         $total_topics_bd = $state->rowCount();
+         
+         //echo $total_topics_bd;
+         //dividir las paginas entre los articulos
+         $pages = $total_topics_bd / $topic_x_page;
+         //redondear el numero de paginas
+         $pages = ceil($pages); 
+         //echo $pages;
+          //validamos que se vaya a la pagina 1 
         
-        $iniciar = ($_GET['page']-1)*$topic_x_page;
-        //echo $iniciar;
-    ?>
-        
-        <?php foreach ($resultado as $topic) : 
-            /*contar los comentarios de cada publicacion*/
-            $contar_comentarios = $this->connect()->prepare('SELECT * FROM replies WHERE reply_topic = :id ');
-            $contar_comentarios->execute(array(
-                ':id' => $topic['topic_id']
-            ));
-            $num_com = $contar_comentarios->rowCount();
+         /*consulta para extraer los hilos de la categoria
+         $sql_articulos = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id order by topic_date desc LIMIT 1');
+         $sql_articulos->execute(array(
+             ':id' => $id
+         ));
+ 
+         $resultado = $sql_articulos->fetchAll();
+         */
 
-            /*contar el numero de likes dependiendo de nuestro ID*/
-            $contar_likes = $this->connect()->prepare('SELECT * FROM likes WHERE user = :user_id AND post = :topic_id');
-            $contar_likes->execute(array(
-                ':user_id' => $_SESSION['id'],
-                ':topic_id' => $topic['topic_id']
-            ));
-            $cLikes = $contar_likes->rowCount();//
-        ?>
-        <!--Comienza HTML-->
-        <!--foreach inicio -->
-        <div class="container border-top rounded mb-3 shadow">
-            <div class="card mt-3" >
-                <div class="col-lg-12 my-5">
-                <!-- construye un enlace con el id que se encuentre en la base de datos -->
-                <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
-                <!-- construye un enlace con la imagen que se encuentre en la base de datos -->
-                    <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $topic['topic_image'] ?>" />
-                </a>
-                <h4 class="font-weight-bold">
-                    <?php echo $topic['topic_title'] ?>
-                </h4>
-                Publicado por 
-                <a class="text-primary">
-                <!--id del creador del post-->
-                <?php echo $topic['user_name'] ?>
-                </a>
-                el dia
-                <!--Fecha de publicación-->
-                <?php echo $topic['topic_date'] ?>
-                <p class="font-weight-bold">ID de hilo
-                <!--id de publicación-->
-                <a class="text-primary"><?php echo $topic['topic_id'] ?></a>
-                </p>
-                <hr>
-                <div class="card-text">
-                    <p><?php echo $topic['topic_subject'] ?></p>
-                </div>
-                </div>
-            </div>
-            <!--Seccion de likes y comentarios-->
-            <div class="hl-section-likes">
-                <!--si no hemos dado like se muestra vacio el corazón-->
-                <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
-                <?php if($cLikes == 0){?>
-                    <div id="<?php echo $topic['topic_id']?>" class="like">
-                    <a class ="btn btn-outline-primary m-3 p-2">
-                        <?php echo $cLikes;?>
-                        <img src="<?php echo SERVERURL?>resources/img/icons/heart_no.png" alt="">
-                    </a>
-                    </div>
-                <!--si ya dimos like, corazón rojo-->
-                <?php }else{?>
-                    <div id="<?php echo $topic['topic_id']?>" class="like">
-                    <a class ="btn btn-outline-primary m-3 p-2">
-                        <?php echo $cLikes;?>
-                        <img src="<?php echo SERVERURL ?>resources/img/icons/heart.png" alt="">
-                    </a>
-                    </div>
-                <?php }?>
-                <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
-                    <?php echo $num_com;?>
-                    <img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset="">
-                </a><!-- construye un enlace con el id que se encuentre en la base de datos -->
-            </div>
-        </div>
-        <?php endforeach ?>
+         $iniciar = ($_GET['page']-1)*$topic_x_page;
+         //echo $iniciar;
+     ?>
+         <!--Comienza HTML-->
+         <!--foreach inicio -->
+         
+         <?php foreach ($result as $topic) : ?>
+         <div class="container border-top rounded mb-3 shadow">
+             <div class="card mt-3" >
+                 <div class="col-lg-12 my-5">
+                 <!-- construye un enlace con el id que se encuentre en la base de datos -->
+                 <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
+                 <!-- construye un enlace con la imagen que se encuentre en la base de datos -->
+                     <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $topic['topic_image'] ?>" />
+                 </a>
+                 <h4 class="font-weight-bold">
+                     <?php echo $topic['topic_title'] ?>
+                 </h4>
+                 Publicado por 
+                 <a class="text-primary">
+                 <!--id del creador del post-->
+                 <?php echo $topic['user_name'] ?>
+                 </a>
+                 el dia
+                 <!--Fecha de publicación-->
+                 <?php echo $topic['topic_date'] ?>
+                 <p class="font-weight-bold">ID de hilo
+                 <!--id de publicación-->
+                 <a class="text-primary"><?php echo $topic['topic_id'] ?></a>
+                 </p>
+                 <hr>
+                 <div class="card-text">
+                     <p><?php echo $topic['topic_subject'] ?></p>
+                 </div>
+                 </div>
+             </div>
+         
+             <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"><img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset=""></a><!-- construye un enlace con el id que se encuentre en la base de datos -->
+         
+         </div>
+         <?php endforeach ?>
         <!--Paginacion-->
         <nav aria-label="...">
             <ul class="pagination">
+            <li class="page-item <?php echo $_GET['page']<=0 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="categoria/?q=<?php echo $id?>?page=<?php echo $_GET['page']-1?>">
+                        Anterior
+                    </a>
+                </li>
                 
                 <?php for($i=0; $i<$pages; $i++):?>
                 <li class="page-item 
                 <?php echo $_GET['page']==$i+1 ? 'active' : '' ?>">
                     <a class="page-link" 
-                        href="topic_cat.php?q=<?php echo $id?>&page=<?php echo $i+1?>">
+                        href="<?php echo SERVERURL ?>categoria/?q=<?php echo $id?>?page=<?php echo $i+1?>">
                      <?php echo $i+1?>
                     </a>
                 </li>
                 <?php endfor ?>
-                
+
+                <li class="page-item
+                <?php echo $_GET['page']>=$pages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="<?php echo SERVERURL ?>categoria/?q=<?php echo $id?>?page=<?echo $_GET['page']+1?>">
+                    Siguiente
+                </a>
+                </li>
             </ul>
         </nav>
     <?php
@@ -535,9 +521,6 @@ class Topics extends DB
             }
         }
     ?>
-        <!--Comienza HTML-->
-        
-
     <?php
     } //fin create_category
 
@@ -565,7 +548,8 @@ class Topics extends DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
             $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
             if ($check !== false) {
-                $folder = '../img/uploads/coments/'; //ruta donde se guardan los archivos
+                $folder = '../img/uploads/coments/'; //ruta donde se guardan los archivos/*para local*/
+                //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
                 $archivo = $folder . $_FILES['image']['name']; //image campo de form// name nombre del archivo
                 move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
 
@@ -644,7 +628,7 @@ class Topics extends DB
                         <!--id del creador del comentario-->
                         <hr>
                     </div>
-                
+            </div>
         <?php endforeach ?>
 
         

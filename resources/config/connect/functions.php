@@ -22,8 +22,8 @@ require 'config.php';
         $this->user     = 'root';
         $this->password = "root";
         /*para pagina*/
-        //$this->user     = 'tablon';
-        //$this->password = "nVasM0&fLc";
+       //$this->user     = 'tablon';
+       // $this->password = "nVasM0&fLc";
         
         $this->charset  = 'utf8mb4';
     }

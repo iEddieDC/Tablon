@@ -9,11 +9,6 @@ RewriteRule ^topics resources/php/topics.php
 RewriteRule ^topic/([0-9]+)$ resources/php/topic.php?q=$1
 
 # Regla
-RewriteRule ^categoria/([0-9]+)$ resources/php/topic_cat.php?q=$1
-
-RewriteRule ^categoria/([0-9]+)([0-9])$ resources/php/topic_cat.php?q=$1&page=$1
-
-# Regla
 RewriteRule ^upload resources/php/upload.php
 
 # Regla
@@ -43,6 +38,10 @@ RewriteRule ^admin_config resources/php/admin.php
 #Regla
 RewriteRule ^main index.php
 
+#Regla Categorias
+RewriteRule ^categoria resources/php/topic_cat.php
+
+#Regla Categorias
 
 
 

@@ -41,10 +41,14 @@ error_reporting(0);
             <?php include 'resources/php/categories.php'; ?>
         </div>
         <div class="container-fluid mt-4">
+        
                 <hr>
                 <?php include 'resources/php/lastpost.php'; ?>
         </div>
     </main>
+    
+
+
 </body>
 <footer class="mt-3">
 <?php include 'resources/php/footer.php'; ?>

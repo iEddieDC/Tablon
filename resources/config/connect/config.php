@@ -9,4 +9,5 @@
         #SERVERURL se utiliza para acortar la URL y hacerla amigable
         
         const SERVERURL="http://localhost/cualtos-chan/";
+        //const SERVERURL="https://apps.cualtos.udg.mx/app/tablon/";
 ?>
