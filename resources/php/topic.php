@@ -3,19 +3,7 @@ include_once '../config/consulta.php';
 
 $article = new Topics();
 session_start();
-/*Mensaje de sesión activa*/
-if (isset($_SESSION['acceso'])) {
-    #echo ($_SESSION['acceso']);
-    ?>
-    <div class="col-2 text-white border-danger bg-success rounded-top">
-     <h7>En sesión: 
-     <?php echo($_SESSION['user']);?>
-     </h7>
-</div>
-     <?php 
-} else {
-    #mensaje o acciones sin sesion
-}
+
 
 ?>
 <!DOCTYPE html>
