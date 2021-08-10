@@ -15,10 +15,10 @@ error_reporting(0);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--CSS bootstrap-->
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap/css/bootstrap.min.css">
     <!---Javascript & Jquery-->
     <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
-    <script src="<?php echo SERVERURL ?>/resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
     <!--alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--CSS personalizados-->

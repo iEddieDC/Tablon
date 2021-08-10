@@ -11,12 +11,12 @@ $newuser = new NewUser();
     <title>Registrar un usuario</title>
 
     <!--CSS bootstrap-->
-    <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <!---Javascript & Jquery-->
     <script src="resources/js/bs4-form-validation.min.js"></script>
     <script src="resources/js/jquery-3.2.1.min.js"></script>
     <script src="resources/js/functions.js"></script>
-    <script src="resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
     <!--alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--CSS personalizados-->

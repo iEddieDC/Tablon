@@ -17,10 +17,10 @@ if($_SESSION['rol'] != 2){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--CSS Bootstrap-->
-    <link rel="stylesheet" href="resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <!--Javascript & Jquery Bootstrap-->
     <script src="resources/js/jquery-3.2.1.min.js"></script>
-    <script src="resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
     <!--CSS personalizado-->
     <link rel="stylesheet" href="resources/style/main.css">
     <link rel="stylesheet" href="resources/style/Colors.css">

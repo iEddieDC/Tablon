@@ -13,7 +13,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--CSS bootstrap-->
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap/css/bootstrap.min.css">
     <!--CSS personalizado-->
     <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/style/Colors.css">
     <title>Hilo</title>

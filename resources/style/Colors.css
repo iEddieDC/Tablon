@@ -1,17 +1,11 @@
 :root {
-    --main-color: rgb(71, 120, 255);
+    --main-color: #cd5700; /*Color Oficial UDG Cualtos*/
     --second-color: #67b8fa;
     --third-color: #3f3f3f;
-    --BtnBorder-color: #c4c4c4;
-    --BtnBackground-color: #6c6c;
-	--background-color: #dddddd;
-    --border-color: #ccc;
-    --text-color1: #fcfcfc;
-    --hover-color: #7b7b;
+	  --background-color: #dddddd;
+    
 }
-*{
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
+
 /*Color de fondo*/
   .alfrente{
     background-color: white;
@@ -46,7 +40,7 @@
     filter: alpha(opacity=0);
     opacity: 0;
     outline: none;
-    background: white;
+    background: #cd5700;
     cursor: inherit;
     display: block;
   }
@@ -56,3 +50,4 @@
     background-color: 	#CD5700 ;
     background-position: center; /* Center the image */
   }
+  

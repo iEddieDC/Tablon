@@ -38,6 +38,7 @@
   <!-- Copyright -->
   <div class="text-center p-3">
     <h3 class="text-white" href="">CUAltos Chan</h3>
+    <img alt="Enlace al sitio de la Universidad de Guadalajara" src="resources/img/icons/logo_0.png" style="width: 355px; height: 83px;">
   </div>
   <!-- Copyright -->
 </footer>

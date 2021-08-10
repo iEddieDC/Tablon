@@ -27,11 +27,11 @@ error_reporting(0);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--CSS Bootstrap-->
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap/css/bootstrap.min.css">
     <!--Javascript & Jquery Bootstrap-->
     <script type="text/javascript" src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
     <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
-    <script src="<?php echo SERVERURL ?>/resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
     <!--CSS personalizado-->
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/main.css">
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/Colors.css">

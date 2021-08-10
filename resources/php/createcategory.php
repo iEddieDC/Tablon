@@ -18,10 +18,10 @@ if($_SESSION['rol']!=2){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Categoría</title>
     <!--CSS bootstrap-->
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap/css/bootstrap.min.css">
     <!---Javascript & Jquery-->
     <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
-    <script src="<?php echo SERVERURL ?>/resources/bootstrap-4.5.2/js/bootstrap.min.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
     <!--CSS personalizados-->
     <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/main.css">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
