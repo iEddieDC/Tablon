@@ -29,17 +29,24 @@ class ClassVisitas extends DB
                 $this->InsertarVisitas();
             }
         }?>
-        <IMG src="resources/img/icons/today.png"> <!--Cambiar a icons de boots-->
+        <i class="fas fa-users"></i>
+        <!--Cambiar a icons de boots
+        <IMG src="resources/img/icons/today.png"> -->
         <?php
         echo "VISITAS HOY: " . $SelectDay -> rowCount() . "";
         echo "<br>";
         ?>
-        <IMG src="resources/img/icons/earth.png">
+        <hr>
+        <i class="fas fa-globe-americas"></i>
+        <!--<IMG src="resources/img/icons/earth.png">-->
         <?php
         echo "VISITAS GLOBALES: " . $SelectGlobal->rowCount() . ""; 
         echo "<br>";
         ?>
-        <IMG src="resources/img/icons/user.png">
+        <hr>
+        
+        <!--<IMG src="resources/img/icons/user.png">-->
+        <i class="fas fa-house-user"></i>
         <?php
         echo "TUS VISITAS: " . $Select->rowCount() . "";
     }

@@ -22,7 +22,7 @@
     <title>Login</title>
 </head>
 <header class="mb-3">
-<?php include 'header.php';?>
+<?php include 'header_others.php';?>
 </header>
 <body class="container alfondo">
     <main class="rounded shadow">

@@ -24,7 +24,7 @@ $newuser = new NewUser();
     <link rel="stylesheet" type="text/css" href="resources/style/main.css">
 </head>
 <header class="mb-3">
-    <?php include 'header.php'; ?>
+    <?php include 'header_others.php'; ?>
 </header>
 
 <body class="container alfondo">
