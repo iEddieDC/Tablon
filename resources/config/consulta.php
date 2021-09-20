@@ -292,11 +292,10 @@ class Topics extends DB
                 <!--Comienza HTML-->
                 <!--foreach inicio -->
                 <?php foreach ($result as $last) : ?>
-                    <a href="topic/<?php echo $last['topic_id'] ?>"><?php //mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues
-                                                                    list($id, $date, $cat, $name) = $last;
-                                                                    ?>
+                    <a href="topic/<?php echo $last['topic_id'] ?>">
+                        <!--mediante esta linea se extrae el ID del topic y se busca en la base de datos para cargarlo despues-->
+                        <?php list($id, $date, $cat, $name) = $last; ?>
                         <i class="fas fa-history"></i>
-
                         <!--<img src="resources/img/icons/history.png" >-->
                         <?php
                         echo "$name > $cat > $date  <br>";
@@ -312,28 +311,79 @@ class Topics extends DB
             /*función 5 -Extrae las categorias-*/
             public function extraer_cat()
             {
-                /*consulta para hacer la lista*/
-                $state = $this->connect()->prepare('SELECT cat_name, cat_id,cat_description FROM categories ');
+                /*consulta para hacer la lista de categorias*/
+                $state = $this->connect()->prepare('SELECT cat_name, cat_id, cat_description, cat_image FROM categories ');
                 $state->execute();
                 $result = $state->fetchAll();
+
+                /*consulta para extraer topics aleatorios*/
+                $topics = $this->connect()->prepare('SELECT * FROM topics');
+                $topics->execute();
+                $carrousel = $topics->fetchAll();
             ?>
                 <!--Comienza HTML-->
-                <header>
-                    <h2 class="text-center">Categorías</h2>
-                </header>
+                <!--Carrousel-->
+                <h2 class="text-center">Publicaciónes aleatorias</h2>
+                <hr>
+                <div class="bd-example">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleCaptions" data-slide-to="0" class=""></li>
+                            <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
+                            <li data-target="#carouselExampleCaptions" data-slide-to="2" class="active"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c0431e11a%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c0431e11a%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9000015258789%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Publicacion aleatoria</h5>
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=666&amp;fg=444&amp;text=Second slide" alt="Second slide [800x400]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c0431e11b%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c0431e11b%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.2916717529297%22%20y%3D%22217.7%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Second slide label</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=555&amp;fg=333&amp;text=Third slide" alt="Third slide [800x400]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c0431e11c%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c0431e11c%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22276.9749984741211%22%20y%3D%22217.7%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Third slide label</h5>
+                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <!--categorias-->
+                <hr>
+                <h2 class="text-center mt-3">Categorías</h2>
+                <hr>
                 <!--foreach inicio -->
                 <div class="row m-1">
                     <?php foreach ($result as $last) : ?>
                         <div class="col-sm-3">
-                            <div class="card mt-3" style="height: 13rem;">
+                            <div class="card mt-2" style="width: 15rem;">
+                                <img class="card-img-top" src="<?php echo SERVERURL ?>resources/img/categorie/<?php echo $last['cat_image'] ?> ">
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-uppercase text-center">
                                         <?php list($name) = $last;
-                                        echo " $name <br> ";
-                                        ?>
+                                        echo " $name <br> "; ?>
                                     </h5>
-                                    <p class="card-text font-weight-light text-justify"><?php echo $last['cat_description'] ?></p>
-                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-primary rounded-pill">Ver categoría</a>
+                                    <p class="card-text  font-weight-light text-justify">
+                                        <?php echo $last['cat_description'] ?>
+                                    </p>
+                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-primary">Ver categoría</a>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +393,7 @@ class Topics extends DB
                             <div class="card-body text-center">
                                 <h5 class="card-title text-uppercase text-center">General</h5>
                                 <p class="card-text font-weight-light text-justify">Todo el contenido del tablón con hilos de diferentes categorías.</p>
-                                <a href="topics" class="btn btn-primary rounded-pill">Ver categoría</a>
+                                <a href="topics" class="btn btn-primary">Ver categoría</a>
                             </div>
                         </div>
                     </div>
@@ -644,39 +694,49 @@ class Topics extends DB
             public function search()
             { ?>
 
-        <div class="alfrente mt-3">
-            <?php
+
+        <?php
                 if (isset($_GET['enviar'])) {
 
                     $busqueda = $_GET['busqueda'];
-                    $consulta =  $this->connect()->prepare("SELECT * FROM topics WHERE topic_title LIKE '%$busqueda%' ");
+                    $consulta =  $this->connect()->prepare("SELECT *,user_name FROM topics, users WHERE topic_by = user_id AND topic_title LIKE '%$busqueda%' ");
                     $consulta->execute();
                     $row = $consulta->fetchAll();
                 }
-            ?>
-            <div class="card-group">
-                <?php
-                foreach ($row as $topic) : ?>
+        ?>
 
-                    <div class="card">
+        <?php
+                foreach ($row as $topic) : ?>
+            <div class="container border-top rounded mb-3 shadow">
+                <div class="card mt-3">
+                    <div class="col-lg-12 my-5">
+                        <!-- construye un enlace con el id que se encuentre en la base de datos -->
                         <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
                             <!-- construye un enlace con la imagen que se encuentre en la base de datos -->
-                            <img class="card-img-top" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $topic['topic_image'] ?>" alt="Card image cap">
+                            <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $topic['topic_image'] ?>" />
                         </a>
                         <div class="card-body">
                             <!--Titulo del post-->
-                            <h5 class="card-title"><?php echo $topic['topic_title'] ?></h5>
+                            <h4 class="card-title"><?php echo $topic['topic_title'] ?></h4>
+                            <!--id del creador del post-->
+                            Publicado por
+                            <a class="text-primary"><?php echo $topic['user_name'] ?></a>
+                            <!--Fecha de publicación-->
+                            el dia
+                            <p class="card-text"><small class="text-muted">Ultima actualización <?php echo $topic['topic_date'] ?></small></p>
+                            <hr>
                             <!--Texto del post-->
                             <p class="card-text"><?php echo $topic['topic_subject'] ?></p>
                             <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>" class="btn btn-primary">Ver</a>
-                            <!--Publicado el-->
-                            <p class="card-text"><small class="text-muted">Ultima actualización <?php echo $topic['topic_date']?></small></p>
-
                         </div>
                     </div>
-                <?php endforeach;
-                ?>
+                </div>
+
+                <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"><img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset=""></a><!-- construye un enlace con el id que se encuentre en la base de datos -->
             </div>
-        </div>
+            </div>
+        <?php endforeach; ?>
+
+
 <?php } //fin clase TOPICS 
         } ?>

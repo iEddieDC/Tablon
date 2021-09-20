@@ -90,10 +90,10 @@
                                 <a class="nav-link" href="#"></a>
                             </li>
                         </ul>
-                        <!--formulario/ barra de busqueda-->
+                        <!--formulario / barra de busqueda-->
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <form class="form-inline my-2 my-lg-0" method="get" action="resources/php/search_page.php">
+                                <form class="form-inline my-2 my-lg-0" method="get" action="search">
                                     <input type="text" class="form-control " name="busqueda" placeholder="Buscar">
                                     <button type="submit" class="btn btn-outline-success" value="Buscar" name="enviar">
                                         <i class="fas fa-search"></i>

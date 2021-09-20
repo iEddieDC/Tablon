@@ -41,4 +41,9 @@ RewriteRule ^main index.php
 #Regla Categorias
 RewriteRule ^categoria resources/php/topic_cat.php
 
+#Regla Categorias
+RewriteRule ^search resources/php/search_page.php
+
+
+
 

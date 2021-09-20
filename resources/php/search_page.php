@@ -6,16 +6,22 @@ $extraer = new Topics(); //instanciar objeto
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap/css/bootstrap.css">
-<header class="mb-3">
-    <?php include 'header.php'; ?>
+<!--Header-->
+<header class="mb-3 ">
+    <?php include "header_others.php" ?>
 </header>
 
+<!--Cuerpo-->
 <body class="container alfondo">
-    <!--Acceder a la función de busqueda-->
-    <?php $extraer->search(); ?>
-        <footer class="mt-3">
-            <?php include 'footer.php'; ?>
-        </footer>
+    <main class="border p-3 alfrente shadow">
+        <!--Acceder a la función de busqueda-->
+        <?php $extraer->search(); ?>
+    </main>
 </body>
+
+<!--Footer-->
+<footer class="mt-3">
+    <?php include "footer.php" ?>
+</footer>
 
 </html>
