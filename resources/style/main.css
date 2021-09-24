@@ -229,4 +229,8 @@ textarea.input100 {
   }
 }
 
+.embed-responsive .card-img-top {
+  object-fit: cover;
+}
+
 

@@ -365,16 +365,18 @@ class Topics extends DB
                         </a>
                     </div>
                 </div>
-                <!--categorias-->
+                <!--Categorias-->
                 <hr>
                 <h2 class="text-center mt-3">Categorías</h2>
                 <hr>
                 <!--foreach inicio -->
                 <div class="row m-1">
                     <?php foreach ($result as $last) : ?>
-                        <div class="col-sm-3">
-                            <div class="card mt-2" style="width: 15rem;">
-                                <img class="card-img-top" src="<?php echo SERVERURL ?>resources/img/categorie/<?php echo $last['cat_image'] ?> ">
+                        <div class="col-sm-3 mt-3 ">
+                            <div class="card">
+                                <div class=" embed-responsive embed-responsive-16by9">
+                                    <img class="card-img-top Card image cap embed-responsive-item" src="<?php echo SERVERURL ?>resources/img/categorie/<?php echo $last['cat_image'] ?> ">
+                                </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-uppercase text-center">
                                         <?php list($name) = $last;
