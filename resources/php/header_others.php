@@ -60,7 +60,7 @@
                         <div class="form-group"><label for="search-field"></label></div>
                     </form>
                     <span class="btn btn-primary">
-                    <a class="text-white" href="<?php echo SERVERURL?>register">Registrarse</a>
+                    <a class="text-white" href="<?php echo SERVERURL?>/register">Registrarse</a>
                     </span>
                     <!--Pequeño php isset que sirve para ocultar o mostrar el boton de cerrar sesión y iniciar sesión-->
                     <?php if (isset($_SESSION['user'])){?>

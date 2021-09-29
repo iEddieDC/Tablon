@@ -16,6 +16,8 @@ session_start();
     <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap/css/bootstrap.min.css">
     <!--CSS personalizado-->
     <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/style/Colors.css">
+    <!--Font awesome-->
+    <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <title>Hilo</title>
     <header class="mb-1">
         <?php include "header_others.php" ?>

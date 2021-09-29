@@ -4,6 +4,7 @@ session_start();
 /*Mensaje de sesión activa*/
 
 error_reporting(0);
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@ error_reporting(0);
 <!--Cuerpo-->
     <body class="container alfondo">
         <main class=" alfrente pt-4 shadow rounded border" id="IndexMain">
-            <div class="container-fluid " id="phpCategories">
+            <div class="container-fluid" id="phpCategories">
                 <?php include 'resources/php/categories.php'; ?>
             </div>
             <div class="container-fluid mt-4">
@@ -46,5 +47,5 @@ error_reporting(0);
     <footer class="mt-3">
         <?php include 'resources/php/footer.php'; ?>
     </footer>
-
-</html>
+      
+    

@@ -45,9 +45,48 @@
     display: block;
   }
   
-  .UDG{
-    background-image: url("../img/icons/degradado");
-    background-color: 	#CD5700 ;
-    background-position: center; /* Center the image */
+  .carru-image{
+      background-size: cover;
   }
+  .UDG{
+    /*background-image: url("../img/icons/degradado");*/
+    /*background-color: 	#CD5700 ;*/
+    background: rgb(255,242,233);
+    background: linear-gradient(270deg, rgba(255,242,233,1) 0%, rgba(255,187,138,1) 20%, rgba(255,179,124,1) 40%, rgba(255,140,58,1) 60%, rgba(248,103,0,1) 80%, rgba(205,87,0,1) 100%); 
+  }
+  .UDG2{
+    background: rgb(255,255,255);
+  }
+  .btn-like{
+    /*background-color:red;*/
+    color:black;
+    border:none;
+    transition: ease-out 0.4s;
+  }
+  .btn-like:hover{
+    color:red;
+  }
+  .btn-comment{
+    color:black;
+    border:none;
+    transition: ease-out 0.3s;
+  }
+  .btn-comment:hover{
+    color:lightskyblue;
+  }
+  .btn-all{
+    border:5px;
+    border-color:red;
+    color: #F86700;
+    background-color: #F86700;
+    transition: ease-out 0.3s;
+  }
+  .btn-all:hover{
+    color:lightskyblue;
+  }
+ 
+    
+    
+    
+  
   

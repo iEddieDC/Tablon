@@ -18,7 +18,10 @@ session_start();
     <!--CSS personalizados-->
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/main.css">
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
+    <!--Font awesome-->
+    <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <title>Publicaciones</title>
+    
 </head>
 <!--Header-->
 <header class="mb-3 ">
