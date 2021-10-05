@@ -20,16 +20,21 @@ session_start();
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <title>Hilo</title>
     <header class="mb-1">
-        <?php include "header_others.php" ?>
+        <?php include "header.php" ?>
     </header>
 </head>
 
 <body class="container alfondo">
     <main class="border rounded mt-3 mb-3  p-3 alfrente">
         <?php $article->extraer_uno(); ?>
-        <?php $article->create_reply(); ?>
-        <?php include "view_coments.php" ?>
     </main>
+    <div class="alfrente border rounded p-2 m-2">
+        
+        <?php $article->view_coments(); ?>
+        
+        <?php $article->create_reply(); ?>
+    </div>
 </body>
 <?php include "footer.php" ?>
+
 </html>

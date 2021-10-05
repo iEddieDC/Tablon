@@ -24,9 +24,11 @@ error_reporting(0);
     <!--CSS personalizados-->
     <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/main.css">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
+    <!--Font awesome-->
+    <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
 </head>
 <header class="mb-3">
-    <?php include "header_others.php" ?>
+    <?php include "header.php" ?>
 </header>
 <body class="container alfondo">
     <main class="rounded shadow">

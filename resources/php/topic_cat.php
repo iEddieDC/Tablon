@@ -6,19 +6,6 @@ include_once '../config/connect/functions.php';
 $extraer = new Topics();
 
 session_start();
-
-if (isset($_SESSION['acceso'])) {
-    #echo ($_SESSION['acceso']);
-    ?>
-    <div class="col-2 text-white border-danger bg-success rounded-top">
-     <h7>En sesión: 
-     <?php echo($_SESSION['user']);?>
-     </h7>
-</div>
-     <?php 
-} else {
-    #mensaje o acciones sin sesion
-}
 error_reporting(0);
 ?>
 <!DOCTYPE html>
@@ -40,7 +27,7 @@ error_reporting(0);
     
 </head>
 <header class="mb-3">
-<?php include "header_others.php"?>
+<?php include "header.php"?>
 </header>
 <body class="container alfondo">
     <main class="border p-3 alfrente shadow">

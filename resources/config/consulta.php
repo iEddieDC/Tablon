@@ -256,7 +256,7 @@ class Topics extends DB
                             </div>
 
                             <div class="">
-                                <label class=" input100  text-muted col-sm-2 col-form-label">Archivo</label>
+                                <label class=" input100  text-muted col-sm-2 col-form-label">Imagen</label>
                                 <input class="form-control" type="file" name="image" id="image" required><br>
                             </div>
 
@@ -272,7 +272,7 @@ class Topics extends DB
                                 </select>
                             </div>
 
-                            <input type="submit" value="Crear" button type="button" class="btn btn-primary btn-lg btn-block">
+                            <input type="submit" value="Crear nuevo hilo" button type="button" class="btn btn-reg btn-lg btn-block">
                             <input type="reset" value="Limpiar campos" button type="button" class="btn btn-secondary btn-lg btn-block"><br>
                         </form>
                     </div>
@@ -322,7 +322,7 @@ class Topics extends DB
                 $carrousel = $topics->fetchAll();
             ?>
                 <!--Comienza HTML-->
-
+                <hr>
                 <h2 class="text-center">Publicaciónes aleatorias</h2>
                 <hr>
                 <!--Carrousel-->
@@ -364,7 +364,7 @@ class Topics extends DB
 
                 <!--Categorias-->
                 <hr>
-                <h2 class="text-center mt-3">Categorías</h2>
+                <h2 class="text-center mt-3">Tablones</h2>
                 <hr>
                 <!--foreach inicio -->
                 <div class="row m-1">
@@ -379,23 +379,31 @@ class Topics extends DB
                                         <?php list($name) = $last;
                                         echo " $name <br> "; ?>
                                     </h5>
-                                    <p class="card-text  font-weight-light text-justify">
+                                    <p class="card-text text-justify">
                                         <?php echo $last['cat_description'] ?>
                                     </p>
-                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-primary">Ver categoría</a>
+                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-all" style="color:white">Ver categoría</a>
                                 </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
-                    <div class="col-sm-3">
-                        <div class="card mt-3" style="height: 13rem;">
+                    <div class="col-sm-3 mt-3 ">
+                        <div class="card">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <img class="card-img-top Card image cap embed-responsive-item" src="<?php echo SERVERURL ?>resources/img/categorie/general.png">
+                            </div>
                             <div class="card-body text-center">
-                                <h5 class="card-title text-uppercase text-center">General</h5>
-                                <p class="card-text font-weight-light text-justify">Todo el contenido del tablón con hilos de diferentes categorías.</p>
-                                <a href="topics" class="btn btn-primary">Ver categoría</a>
+                                <h5 class="card-title text-uppercase text-center">
+                                    General
+                                </h5>
+                                <p class="card-text text-justify">
+                                    Todo el contenido del tablón con hilos de diferentes categorías.
+                                </p>
+                                <a href="<?php echo SERVERURL ?>topics" class="btn btn-all" style="color:white">Ver categoría</a>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!--foreach cerrado -->
             <?php
@@ -410,40 +418,27 @@ class Topics extends DB
                 if (!$id) { //validacion del id
                     header('Location: topics.php');
                 }
-                /*Paginación*/
+
+
                 /*consultar la cantidad de articulos totales*/
-                $state =  $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id ');
+                $state =  $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id order by topic_date desc ');
                 $state->execute(array(
                     ':id' => $id
                 ));
                 $result = $state->fetchAll(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo) 
+                /*Consulta el nombre de la categoria*/
+                $name = $this->connect()->prepare('SELECT * FROM categories WHERE cat_id = :id');
+                $name->execute(array(
+                    ':id' => $id
+                ));
+                $rname = $name->fetchAll();
 
-                //numero de hilos por pagina
-                $topic_x_page = 1;
-                //Contar hilos de la base de datos
-                $total_topics_bd = $state->rowCount();
-
-                //echo $total_topics_bd;
-                //dividir las paginas entre los articulos
-                $pages = $total_topics_bd / $topic_x_page;
-                //redondear el numero de paginas
-                $pages = ceil($pages);
-                //echo $pages;
-                //validamos que se vaya a la pagina 1 
-
-                /*consulta para extraer los hilos de la categoria
-         $sql_articulos = $this->connect()->prepare('SELECT topic_id, topic_title, topic_image, topic_subject, topic_date, topic_by, user_name FROM topics,users WHERE topic_cat = :id AND topic_by = user_id order by topic_date desc LIMIT 1');
-         $sql_articulos->execute(array(
-             ':id' => $id
-         ));
- 
-         $resultado = $sql_articulos->fetchAll();
-         */
-
-                $iniciar = ($_GET['page'] - 1) * $topic_x_page;
-                //echo $iniciar;
             ?>
                 <!--Comienza HTML-->
+
+                <h2 class="text-center border p-5 mb-3"><?php echo $rname[0][1] ?></h2>
+
+
                 <!--foreach inicio -->
 
                 <?php foreach ($result as $topic) : ?>
@@ -482,32 +477,7 @@ class Topics extends DB
                         </div>
                     </div>
                 <?php endforeach ?>
-                <!--Paginacion-->
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item <?php echo $_GET['page'] <= 0 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="categoria/?q=<?php echo $id ?>?page=<?php echo $_GET['page'] - 1 ?>">
-                                Anterior
-                            </a>
-                        </li>
 
-                        <?php for ($i = 0; $i < $pages; $i++) : ?>
-                            <li class="page-item 
-                <?php echo $_GET['page'] == $i + 1 ? 'active' : '' ?>">
-                                <a class="page-link" href="<?php echo SERVERURL ?>categoria/?q=<?php echo $id ?>?page=<?php echo $i + 1 ?>">
-                                    <?php echo $i + 1 ?>
-                                </a>
-                            </li>
-                        <?php endfor ?>
-
-                        <li class="page-item
-                <?php echo $_GET['page'] >= $pages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="<?php echo SERVERURL ?>categoria/?q=<?php echo $id ?>?page=<? echo $_GET['page'] + 1 ?>">
-                                Siguiente
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <?php
             }
 
@@ -632,62 +602,62 @@ class Topics extends DB
                         $error = "El archivo no es una imagen";
                     }
                 } ?>
-                <div class="container p-2">
-                    <form class="form-inline text-center" action="" method="post" enctype="multipart/form-data">
-                        <label for="email" class="mr-sm-2"></label>
-                        <input type="text" class="form-control mb-2 mr-sm-2 " placeholder="Escribe un comentario" name="content">
-                        <span class="btn btn-primary btn-file  mb-2 mr-sm-2">
-                            <img src="<?php echo SERVERURL ?>resources/img/icons/subir.png" style="height: 20px"><input type="file" name="image">
-                        </span>
 
-                        <input type="submit" value="Comentar" class="btn btn-primary btn-file mb-2 mr-sm-2">
+                <form class="mt-2 p-1" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Escribe un comentario..." name="content">
+                        <small class="form-text text-muted m-2">Recuerda ser respetuoso.</small>
+                        <div class="btn-group m-2 p-2">
+                            <label class="btn btn-file  form-control border-secondary">
+                                <i class="mr-1 fas fa-camera"></i>
+                                <input type="file" hidden name="image">
+                            </label>
+                            <input type="submit" value="Comentar" class="btn btn-reg form-control" style="color:white">
+                        </div>
+                    </div>
+                </form>
 
-                    </form>
-                </div>
-            </div>
-
-        </main>
-    <?php
+            <?php
             } //fin create_reply
 
             /*Funcion 9 ver comentarios*/
             public function view_coments()
             {
-                $replie = $this->connect()->prepare('SELECT * FROM replies WHERE reply_topic = :id');/*preparamos las variables para pasar los archivos a la BD*/
+                $replie = $this->connect()->prepare('SELECT *, user_name FROM replies,users WHERE reply_topic = :id AND reply_by = user_id');/*preparamos las variables para pasar los archivos a la BD*/
                 $replie->execute(array(
                     ':id' => $_SESSION["topic_id"]
                 ));
 
                 $replies = $replie->fetchAll();
 
-    ?>
-        <!--Comienza HTML-->
-        <h2>
-            <header>Comentarios</header>
-        </h2>
-        <?php foreach ($replies as $reply) : ?>
-            <div class="card">
+            ?>
+                <!--Comienza HTML-->
+                <h2>
+                    <header>Comentarios</header>
+                </h2>
+                <?php foreach ($replies as $reply) : ?>
+                    <div class="card">
 
-                <div class="col-lg-12 my-5">
-                    <!--Seccion de texto-->
+                        <div class="col-lg-12 my-5">
+                            
 
-                    <!--id del comentario-->
+                            <!--id del creador del comentario-->
+                            Publicado por<a class="text-primary"> <?php echo $reply['user_name'] ?></a>
+                            <!--fecha del comentario-->
+                            el
+                            <?php echo $reply['reply_date'] ?>
+                            <!--imagen del comentario-->
+                            <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/coments/<?php echo $reply['reply_image'] ?>" />
+                            <hr>
+                            <!--Seccion de texto-->
+                            <p><?php echo  $reply['reply_content'] ?></p>
+                        </div>
+                    </div>
+                <?php endforeach ?>
 
-                    <!--imagen del comentario-->
-                    <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/coments/<?php echo $reply['reply_image'] ?>" />
-                    <p><?php echo  $reply['reply_content'] ?></p>
-                    <!--fecha del comentario-->
-                    Publicado el
-                    <?php echo $reply['reply_date'] ?>
-                    <!--id del creador del comentario-->
-                    <hr>
-                </div>
-            </div>
-        <?php endforeach ?>
 
 
-
-    <?php
+            <?php
             } //fin view coments
 
             /*Función 10* Buscar navbar*/
@@ -695,7 +665,7 @@ class Topics extends DB
             { ?>
 
 
-        <?php
+                <?php
                 if (isset($_GET['enviar'])) {
 
                     $busqueda = $_GET['busqueda'];
@@ -703,37 +673,37 @@ class Topics extends DB
                     $consulta->execute();
                     $row = $consulta->fetchAll();
                 }
-        ?>
+                ?>
 
-        <?php
+                <?php
                 foreach ($row as $topic) : ?>
-            <div class="container border-top rounded mb-3 shadow">
-                <div class="card mt-3">
-                    <div class="col-lg-12 my-5">
-                        <!-- construye un enlace con el id que se encuentre en la base de datos -->
-                        <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
-                            <!-- construye un enlace con la imagen que se encuentre en la base de datos -->
-                            <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $topic['topic_image'] ?>" />
-                        </a>
-                        <div class="card-body">
-                            <!--Titulo del post-->
-                            <h4 class="card-title"><?php echo $topic['topic_title'] ?></h4>
-                            <!--id del creador del post-->
-                            Publicado por
-                            <a class="text-primary"><?php echo $topic['user_name'] ?></a>
-                            <!--Fecha de publicación-->
-                            el dia
-                            <p class="card-text"><small class="text-muted">Ultima actualización <?php echo $topic['topic_date'] ?></small></p>
-                            <hr>
-                            <!--Texto del post-->
-                            <p class="card-text"><?php echo $topic['topic_subject'] ?></p>
-                            <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>" class="btn btn-primary">Ver</a>
+                    <div class="container border-top rounded mb-3 shadow">
+                        <div class="card mt-3">
+                            <div class="col-lg-12 my-5">
+                                <!-- construye un enlace con el id que se encuentre en la base de datos -->
+                                <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
+                                    <!-- construye un enlace con la imagen que se encuentre en la base de datos -->
+                                    <img class="rounded float-left mr-2" style="width: 18rem;" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $topic['topic_image'] ?>" />
+                                </a>
+                                <div class="card-body">
+                                    <!--Titulo del post-->
+                                    <h4 class="card-title"><?php echo $topic['topic_title'] ?></h4>
+                                    <!--id del creador del post-->
+                                    Publicado por
+                                    <a class="text-primary"><?php echo $topic['user_name'] ?></a>
+                                    <!--Fecha de publicación-->
+                                    el dia
+                                    <p class="card-text"><small class="text-muted">Ultima actualización <?php echo $topic['topic_date'] ?></small></p>
+                                    <hr>
+                                    <!--Texto del post-->
+                                    <p class="card-text"><?php echo $topic['topic_subject'] ?></p>
+                                    <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>" class="btn btn-primary">Ver</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"><img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset=""></a><!-- construye un enlace con el id que se encuentre en la base de datos -->
-            </div>
+                        <a class="btn btn-outline-primary m-3 p-2" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"><img src="<?php echo SERVERURL ?>resources/img/icons/coment.png" alt="" srcset=""></a><!-- construye un enlace con el id que se encuentre en la base de datos -->
+                    </div>
             </div>
         <?php endforeach; ?>
 

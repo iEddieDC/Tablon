@@ -13,11 +13,10 @@
     <main>
         <!--Navbar-->
         <div class="UDG border-bottom-0 border-top-0 navbar navbar-expand-lg justify-content-between">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="<?php echo SERVERURL ?>index.php">
                 <h1>
                     <!--<img alt="Enlace al sitio de la Universidad de Guadalajara" src="resources/img/icons/udg-leon-vector-logo3.png" style="width: 50px; height: 50px;">-->
-                    <img class="ml-4" alt="Cualtoschan" src="resources/img/icons/logo-v1.0.png" style="width: 200px; height: 100px;">
-
+                    <img class="ml-4" alt="Cualtoschan" src="<?php echo SERVERURL ?>resources/img/icons/logo-v1.0.png" style="width: 200px; height: 100px;">
                 </h1>
             </a>
             <!--Mostrar nombre de usuario-->
@@ -38,18 +37,22 @@
 
         </div>
         <span class="icon-menu"></span>
-        <div class="UDG2 border-top-0 container-fluid navbar-inverse bg-light rounded-bottom shadow-sm">
+        <div class=" border-top-0 container-fluid navbar-inverse bg-light rounded-bottom shadow-sm">
             <!--Navbar sticky-->
             <nav class="navbar navbar-expand-sm navbar-light">
-                <div class="container">
+                
                     <div class="btn-group" role="group" aria-label="Basic example">
-                    <a class="text-white" href="upload"><button class=" far fa-file-alt btn btn-all">Crear un hilo</button></a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
-                            <i class="fas fa-ruler"></i>
+                        <!--botón Crear hilo-->
+                        <button type="button" class="btn btn-all text-white" onclick="window.location.href='<?php echo SERVERURL ?>upload'">
+                            <i class="mr-1 far fa-file"></i>
+                            Crear
+                        </button>
+                        <!--botón reglas modal-->
+                        <button type="button" class="btn btn-all text-white" data-toggle="modal" data-target="#exampleModalScrollable">
+                            <i class="mr-1 fas fa-ruler"></i>
                             Reglas
                         </button>
                     </div>
-                    <!-- Button trigger modal -->
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -78,18 +81,12 @@
                         </div>
                     </div>
                     </li>
-                    <!--para boton extra en caso de ser necesario-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
-                    </li>
-
                     <!--formulario / barra de busqueda-->
-
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item ">
-                            <form class="form-inline  my-2 my-lg-0" method="get" action="search">
+                            <form class="form-inline  my-2 my-lg-0" method="get" action="<?php echo SERVERURL ?>search">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <input type="text" class="form-control rounded-left" name="busqueda" placeholder="Buscar"></input>
+                                    <input type="text" class="form-control border border-dark border-right-0" name="busqueda" placeholder="Buscar"></input>
                                     <button type="submit" class="btn btn-outline-dark rounded-right" value="Buscar" name="enviar">
                                         <i class="fas fa-search"></i>
                                     </button>
@@ -99,18 +96,24 @@
                         <!--Pequeño php isset que sirve para ocultar o mostrar el boton de cerrar sesión y iniciar sesión, dependiendo si hay usuario login o no-->
                         <li class="nav-item active">
                             <?php if (isset($_SESSION['user'])) { ?>
-                                <a class=" btn btn-outline-primary ml-2 mr-2 login" id="nologin" href="resources/config/sesions_config/logout.php">Cerrar sesión</a>
+                                <a class=" btn btn-outline-secondary ml-2 mr-2 login" id="nologin" href="<?php echo SERVERURL ?>resources/config/sesions_config/logout.php">
+                                    Cerrar sesión
+                                </a>
                             <?php } else { ?>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-primary ml-2">
-                                        <a class="text-white" href="register">Registrarse</a>
-                                    </button>
-                                    <button class="btn btn-outline-secondary action-button mr-2 ">
-                                        <a class="text-dark" role="button" href="login">Iniciar sesión</a>
-                                    </button>
+                                    <!--botón Registrarse-->
+                                    <a class="btn btn btn-all ml-2 text-white" href="<?php echo SERVERURL ?>register">
+                                        <i class="mr-1 fas fa-user-plus"></i>
+                                        Registrarse
+                                    </a>
+                                    <!--botón Iniciar sesión-->
+                                    <a class="btn btn-outline-secondary action-button mr-2 text-dark" href="<?php echo SERVERURL ?>login">
+                                        <i class="mr-1 fas fa-sign-in-alt"></i>
+                                        Iniciar sesión
+                                    </a>
                                 </div>
-                                <?php } ?>
-                                
+                            <?php } ?>
+
                         </li>
                     </ul>
             </nav>

@@ -22,13 +22,15 @@ $newuser = new NewUser();
     <!--CSS personalizados-->
     <link rel="stylesheet" type="text/css" href="resources/style/Colors.css">
     <link rel="stylesheet" type="text/css" href="resources/style/main.css">
+    <!--Font awesome-->
+    <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
 </head>
 <header class="mb-3">
-    <?php include 'header_others.php'; ?>
+    <?php include 'header.php'; ?>
 </header>
 
 <body class="container alfondo">
-    <main class="rounded shadow">
+    <main class="rounded shadow registros">
         <!--Llamamos a la función para registrar los datos del Form-->
         <?php $newuser->create_new_user(); ?>
         <!--Inicializo bs4 validacion de formulario-->
@@ -36,7 +38,7 @@ $newuser = new NewUser();
             let form = new Validation("register-form");
         </script>
 
-        <!--Formulario para registrase-->
+        <!--Formulario para registrarse-->
         <div id="register-form" class="container-contact100">
             <div class="wrap-contact100">
                 <span class="contact100-form-symbol">
@@ -66,7 +68,7 @@ $newuser = new NewUser();
                     <div class="wrap-input100 validate-input">
                         <input class="input100 form-control" type="password" name="password2" id="password2" placeholder="Contraseña" maxlength="32" minlength="6" required>
                         <span class="no alert-danger">¡No coinciden las contraseñas!</span>
-                        <span class="si  alert-success">Las contraseñas coinciden.</span>
+                        <span class="si alert-success">Las contraseñas coinciden.</span>
                     </div>
 
                     <label>Correo Electronico</label>
@@ -75,7 +77,7 @@ $newuser = new NewUser();
                         <span class="focus-input100"></span>
                     </div>
                     <!-- Button HTML (Modal) & Submit -->
-                    <input type="submit" value="Crear" button type="button" class="btn btn-primary btn-lg btn-block">
+                    <input type="submit" value="Crear" button type="button" class="btn btn-reg  btn-lg btn-block">
                     <input type="reset" value="Limpiar campos" button type="button" class="btn btn-secondary btn-lg btn-block"><br>
                 </form>
                 <!--Validaciones de caracteres-->

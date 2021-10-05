@@ -13,11 +13,14 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>resources/bootstrap-4.5.2/css/bootstrap.min.css">
+    <!--CSS bootstrap-->
+    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap/css/bootstrap.min.css">
+    <!---Javascript & Jquery-->
+    <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
     <!--CSS personalizados-->
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/main.css">
-    <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
     <!--Font awesome-->
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <title>Publicaciones</title>
@@ -25,7 +28,7 @@ session_start();
 </head>
 <!--Header-->
 <header class="mb-3 ">
-    <?php include "header_others.php" ?>
+    <?php include "header.php" ?>
 </header>
 <!--Cuerpo-->
 <body class="container alfondo">

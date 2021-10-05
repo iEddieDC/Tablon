@@ -1,5 +1,5 @@
 
-<footer class="UDG shadow-sm text-center text-lg-start container-fluid pt-3 mt-1 rounded-top">
+<footer class="UDG2 shadow-sm text-center text-lg-start container-fluid pt-3 mt-1 rounded-top">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 mb-5 mb-lg-0">
@@ -31,8 +31,8 @@
       </div>
       <div class="col-lg-4">
         <h6 class="" href=""><p>Todos los derechos reservados.</p></h6>
-        <img class="p-1"alt="Enlace al sitio de la Universidad de Guadalajara" src="<?php echo SERVERURL?>resources/img/icons/logo_0.png" style="width: 160px; height: 150px;">
-        <img class="p-1"alt="Enlace al sitio de la Universidad de Guadalajara" src="<?php echo SERVERURL?>resources/img/icons/logo_1.png" style="width: 160px; height: 125px; border-left:thick solid grey;">
+        <img class="p-1"alt="Enlace al sitio de la Universidad de Guadalajara" src="<?php echo SERVERURL?>resources/img/icons/logo_udg.png" style="width: 160px; height: 150px;">
+        <img class="p-1"alt="Enlace al sitio de la Universidad de Guadalajara" src="<?php echo SERVERURL?>resources/img/icons/logo_cualtos.png" style="width: 160px; height: 125px; border-left:thick solid white;">
       </div>
     </div>
   </div>

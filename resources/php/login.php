@@ -1,3 +1,10 @@
+<?php
+require_once '../config/consulta.php';
+include_once '../config/connect/functions.php';
+
+session_start();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +18,8 @@
     <!--CSS personalizados-->
     <link rel="stylesheet" type="text/css" href="resources/style/Colors.css">
     <link rel="stylesheet" type="text/css" href="resources/style/main.css">
+    <!--Font awesome-->
+    <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <title>Login</title>
     
 </head>
@@ -22,12 +31,12 @@
     <title>Login</title>
 </head>
 <header class="mb-3">
-<?php include 'header_others.php';?>
+<?php include 'header.php';?>
 </header>
 <body class="container alfondo">
     <main class="rounded shadow">
     <!--Formulario para registrar una categoría nueva-->
-    <div class="container-contact100">
+    <div class="registros container-contact100">
         <div class="wrap-contact100">
             <span class="contact100-form-symbol">
                 <img src="resources/img/icons/user.png" alt="SYMBOL-MAIL">
@@ -51,7 +60,7 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <input type="submit" value="Iniciar Sesión" button type="button" class="btn btn-primary btn-lg btn-block">
+                <input type="submit" value="Iniciar Sesión" button type="button" class="btn btn-reg  btn-lg btn-block">
             </form>
         </div>
     </div>

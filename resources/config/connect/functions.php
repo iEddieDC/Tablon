@@ -11,7 +11,7 @@ class DB
 
     public function __construct()
     {
-        #para las visitas
+        #para las visi tas
         $this->Id = 0;
         $this->Ip = $_SERVER['REMOTE_ADDR'];
         $this->Data = date("Y/m/d");
