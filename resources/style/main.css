@@ -227,6 +227,9 @@ textarea.input100 {
   .wrap-contact100 {
     padding: 92px 15px 88px 15px;
   }
+  .btn-all{
+    margin: 0%;
+  }
 }
 
 .embed-responsive .card-img-top {

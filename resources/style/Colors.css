@@ -1,130 +1,196 @@
 :root {
-    --main-color: #cd5700; /*Color Oficial UDG Cualtos*/
-    --ok-color: #179915;
-    --third-color: #3f3f3f;
-	  --background-color: #dddddd;
-    
+  --main-color: #cd5700;
+  /*Color Oficial UDG Cualtos*/
+  --ok-color: #179915;
+  --third-color: #3f3f3f;
+  --background-color: #dddddd;
 }
 
 /*Color de fondo*/
-  .alfrente{
-    background-color: white;
-  }
-  .alfondo{
-    background-color: var(--background-color);
-  }
-  .registros{
-    background-color: var(--background-color);
-    background-image: url("../img/icons/circuitos.png");
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  /*----------barra id hilo---------------*/
-  .dot {
-    text-align: center;
-    font-size: 15px;
-    height: 25px;
-    width: 20px;
-    background-color: #bbb;
-  }
-  
-  
-  .carru-image{
-      background-size: cover;
-  }
-  /*-------------HEADER/FOOTER---------------*/
-  .UDG{
-    /*background-image: url("../img/icons/degradado");*/
-    background-color: var(--main-color) !important;
-    background-image: url("../img/icons/circuitos.png");
-    background-repeat: no-repeat;
-    background-position: top;
-    /*background: rgb(255,242,233);
-    background:#cd5700;*/
-  }
-  .UDG2{
-    background-color: var(--main-color) !important;
-    background-image: url("../img/icons/circuitos.png");
-    background-repeat: no-repeat;
-    background-position: bottom;
-  }
 
-  /*-------------botones---------------*/
-  /*botones*/
-  .btn-file {
-    background-color: white;
-    cursor: pointer;
-    transition: ease-out 0.4s;
-  }
-  .btn-file:hover {
+.alfrente {
+  background-color: white;
+}
+
+.alfondo {
+  background-color: var(--background-color);
+  transition:background-color .5s;
+}
+
+.registros {
+  background-color: var(--background-color);
+  background-image: url("../img/icons/circuitos.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*----------barra id hilo---------------*/
+
+.dot {
+  text-align: center;
+  font-size: 15px;
+  height: 25px;
+  width: 20px;
+  background-color: #bbb;
+}
+
+.carru-image {
+  background-size: cover;
+}
+
+/*-------------HEADER/FOOTER---------------*/
+
+.UDG {
+  /*background-image: url("../img/icons/degradado");*/
+  background-color: var(--main-color) !important;
+  background-image: url("../img/icons/circuitos.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  /*background: rgb(255,242,233);
+    background:#cd5700;*/
+}
+
+.UDG2 {
+  background-color: var(--main-color) !important;
+  background-image: url("../img/icons/circuitos.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+/*-------------botones---------------*/
+/*botones*/
+#subir {
+  font-size: 50px;
+  color: var(--main-color);
+  border: white;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10;
+}
+#subir:hover {
+  cursor: pointer;
+  color: grey;
+  transition: ease-out 0.4s;
+}
+
+.btn-file {
+  background-color: white;
+  cursor: pointer;
+  transition: ease-out 0.4s;
+}
+
+.btn-file:hover {
   color: white;
   background-color: grey;
   transition: ease-out 0.4s;
 }
-  .btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: var(--main-color);
-    cursor: inherit;
-    display: block;
-  }
-  .btn-like{
-    /*background-color:red;*/
-    color:black;
-    border:none;
-    transition: ease-out 0.4s;
-  }
-  .btn-like:hover{
-    color:red;
-  }
-  .btn-comment{
-    color:black;
-    border:none;
-    transition: ease-out 0.3s;
-  }
-  .btn-comment:hover{
-    color:lightskyblue;
-  }
-  .btn-all {
-    background-color: var(--main-color) !important;
-    border:none;
-    transition: ease-out 0.3s;
-    color: white;
-    
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: var(--main-color);
+  cursor: inherit;
+  display: block;
 }
-  .btn-all:hover {
-    transition: ease-out 0.3s;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
-  .btn-reg{
-    background-color: var(--main-color) !important;
-    box-shadow: inset 0 0 0 0 #c3d100;
-    transition: ease-out 0.4s;
-    border: none;
-    outline: none;
-  }
-  .btn-reg:hover {
-    box-shadow: inset 1000px 0 0 0 var(--ok-color);
-    cursor: pointer;
-    color:white;
-  }
+
+.btn-like {
+  /*background-color:red;*/
+  color: black;
+  border: none;
+  transition: ease-out 0.4s;
+}
+
+.btn-like:hover {
+  color: red;
+}
+
+.btn-comment {
+  color: black;
+  border: none;
+  transition: ease-out 0.3s;
+}
+
+.btn-comment:hover {
+  color: lightskyblue;
+}
+
+.btn-all {
+  background-color: var(--main-color) !important;
+  border: none;
+  transition: ease-out 0.3s;
+  color: white;
+}
+
+.btn-all:hover {
+  transition: ease-out 0.3s;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-reg {
+  background-color: var(--main-color) !important;
+  box-shadow: inset 0 0 0 0 #c3d100;
+  transition: ease-out 0.4s;
+  border: none;
+  outline: none;
+}
+
+.btn-reg:hover {
+  box-shadow: inset 1000px 0 0 0 var(--ok-color);
+  cursor: pointer;
+  color: white;
+}
+
+/*carrousel*/
+.carousel-item {
+ transition: ease-out 0.4s;
+}
+.carousel-item:hover{
+  transition: ease-out 0.4s;
+ }
+
+/*modal*/
+
+#exampleModalScrollable {
+  transition: ease-out 0.4s;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cat_box {
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  transition: ease-out 0.3s;
+}
+
+.cat_box:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  transition: ease-out 0.3s;
+}
+
+/*modo oscuro*/
+.oscuro{ 
+  background-color: #18191A;
+  transition:background-color .5s;
+  
+}
+.oscuro .alfrente{
+  background-color: #242526;
+}
+.oscuro .card{
+  background-color: #3A3B3C;
+  color: white;
+}
+.oscuro h1, .oscuro h2,.oscuro h3,.oscuro h4,.oscuro h5,.oscuro p{
+  color:white;
+}
+
+/*Botón del modo oscuro*/
 
 
-  #exampleModalScrollable{
-    transition: ease-out 0.4s;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
- 
-    
-    
-    
-  
-  

@@ -137,9 +137,6 @@ class Topics extends DB
         }
     ?>
         <!--Comienza HTML-->
-
-        <main class="pt-4 mb-4">
-            <div class="shadow container border rounded mb-3">
                 <div class="row mb-5">
                     <div class="col-1 mt-2 dot shadow-sm rounded-right ">
                         <p class="text-white">ID
@@ -157,7 +154,7 @@ class Topics extends DB
                     <img class=" rounded img-fluid" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $article['topic_image'] ?>" />
                     <hr>
                 </div>
-                <div class="container">
+                <div class="container mb-4">
                     <p><?php echo  $article['topic_subject'] ?></p>
                     <!--nombre del creador del post-->
                     <p class="text-secondary mt-2">Publicado por
@@ -181,8 +178,8 @@ class Topics extends DB
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
                     $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
                     if ($check !== false) {
-                        $folder = "../img/uploads/";/*para local*/
-                        //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
+                        //$folder = "../img/uploads/";/*para local*/
+                        $folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
                         $archivo = $folder . $_FILES['image']['name']; //image campo de form //name nombre del archivo
 
                         move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
@@ -326,27 +323,28 @@ class Topics extends DB
                 <h2 class="text-center">Publicaciónes aleatorias</h2>
                 <hr>
                 <!--Carrousel-->
+
                 <div id="carouselExampleControls" class="carousel slide p-5" data-ride="carousel">
                     <div class="carousel-inner">
                         <!--Foreach para mostrar los topics en pantalla-->
                         <?php foreach ($carrousel as $topic) : ?>
-                            <div class="carousel-item">
-                                <img class="d-block w-100 bg-dark rounded border border-dark" src="resources/img/uploads/<?php echo $topic['topic_image'] ?>" height="500" width="700">
+                            <div class="carousel-item" style="transition: ease-out 0.4s;">
+                                <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"><img  class="d-block w-100 bg-dark rounded border border-dark" src="resources/img/uploads/<?php echo $topic['topic_image'] ?>" height="500" width="700"></a>
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5 class="text-white bg-dark"><?php echo $topic['topic_title'] ?></h5>
                                     <p class="text-dark bg-white"><?php echo $topic['topic_subject'] ?></p>
-                                    <span class="btn btn-dark">
+                                    <!--<span class="btn btn-dark">
                                         <a class="text-white" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">Ver hilo</a>
-                                    </span>
+                                    </span>-->
                                 </div>
                             </div>
                         <?php endforeach ?>
                         <!--Con este item comienza el carrousel para la presentación-->
-                        <div class="carousel-item active ">
+                        <div class="carousel-item active" style="transition: ease-out 0.4s;">
                             <img class="d-block w-100 rounded border border-dark" src="resources/img/categorie/poke.jpg" height="500" width="700" alt="First slide">
                             <div class="carousel-caption d-none d-md-block ">
                                 <h5 class="text-white bg-dark">¡Comienza a explorar!</h5>
-                                <p class="text-dark bg-white">Haz click en las flechas derecha o izquierda para ver los diferentes hilos que hay para ti</p>
+                                <p class="text-dark bg-white">Haz click en las flechas derecha o izquierda para ver los diferentes hilos que hay para ti, entra a cualquiera de ellos haciendo click en la imagen.</p>
                             </div>
                         </div>
                     </div>
@@ -360,6 +358,7 @@ class Topics extends DB
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
                 <!--Fin carrousel-->
 
                 <!--Categorias-->
@@ -370,9 +369,9 @@ class Topics extends DB
                 <div class="row m-1">
                     <?php foreach ($result as $last) : ?>
                         <div class="col-sm-3 mt-3 ">
-                            <div class="card">
+                            <div class="card cat_box">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <img class="card-img-top Card image cap embed-responsive-item" src="<?php echo SERVERURL ?>resources/img/categorie/<?php echo $last['cat_image'] ?> ">
+                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/"><img class="card-img-top Card image cap embed-responsive-item" src="<?php echo SERVERURL ?>resources/img/categorie/<?php echo $last['cat_image'] ?> "></a>
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-uppercase text-center">
@@ -382,15 +381,15 @@ class Topics extends DB
                                     <p class="card-text text-justify">
                                         <?php echo $last['cat_description'] ?>
                                     </p>
-                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-all" style="color:white">Ver categoría</a>
+                                    <a href="categoria/?q=<?php echo $last['cat_id'] ?>/" class="btn btn-all" style="color:white">Ver tablón</a>
                                 </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                     <div class="col-sm-3 mt-3 ">
-                        <div class="card">
+                        <div class="card cat_box">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <img class="card-img-top Card image cap embed-responsive-item" src="<?php echo SERVERURL ?>resources/img/categorie/general.png">
+                                <a href="<?php echo SERVERURL ?>topics"><img class="card-img-top Card image cap embed-responsive-item" src="<?php echo SERVERURL ?>resources/img/categorie/general.png"></a>
                             </div>
                             <div class="card-body text-center">
                                 <h5 class="card-title text-uppercase text-center">
@@ -472,7 +471,7 @@ class Topics extends DB
                             </div>
                         </div>
                         <div class="buttons">
-                            <button class="btn btn-light m-2 p-2 fas fa-heart fa-2x btn-like" data-toggle="tooltip" data-placement="bottom" title="Me gusta"></button>
+                            <button class="btn btn-light m-2 p-2 fas fa-heart fa-2x btn-like" data-toggle="tooltip" data-placement="bottom" title="Me gusta" id="like"></button>
                             <a class="btn btn-light m-2 p-2 fas fa-comment-alt fa-2x btn-comment" data-toggle="tooltip" data-placement="bottom" title="Comentarios" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"></a>
                         </div>
                     </div>
@@ -493,20 +492,17 @@ class Topics extends DB
                     } else {
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             #validación nombre de categoria no se repita# 
-                            $buscarCat = $this->connect()->prepare("SELECT * FROM categories
-                    WHERE cat_name = '$_POST[title]'"); //preparamos la consulta a la BD
+                            $buscarCat = $this->connect()->prepare("SELECT * FROM categories WHERE cat_name = '$_POST[title]'"); //preparamos la consulta a la BD
                             $buscarCat->execute();
                             $count = $buscarCat->rowCount();
 
                             /*validamos no se repita la categoria*/
-                            if ($count == 1) {
-                ?>
+                            if ($count == 1) { ?>
                                 <script type="text/javascript">
                                     alert("¡ERROR! \n¡La categoría ya existe! \n Por favor cree una diferente");
                                 </script>
                             <?php
                             } else {
-
                                 #ingresamos los datos si no se repite la cat
                                 $state = $this->connect()->prepare('INSERT INTO categories (cat_name, cat_description) VALUES (:title, :subject)');/*preparamos las variables para pasar los archivos a la BD*/
                                 /*Ejecutamos state para ingresar mediante POST los datos*/
@@ -514,7 +510,6 @@ class Topics extends DB
                                     ':title' => $_POST['title'],
                                     ':subject' => $_POST['subject'],
                                 ));
-
                             ?>
                                 <!--Mensaje flotante para correcto-->
                                 <script type="text/javascript">
@@ -559,7 +554,7 @@ class Topics extends DB
                 ?>
                     <i class="far fa-newspaper"></i>
                     <!--<IMG src="resources/img/icons/newspaper.png">-->
-                <?php echo "POSTS: " . $a[0];
+                    <?php echo "POSTS: " . $a[0];
                 endforeach;
             }
 
@@ -572,8 +567,8 @@ class Topics extends DB
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
                     $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
                     if ($check !== false) {
-                        $folder = '../img/uploads/coments/'; //ruta donde se guardan los archivos/*para local*/
-                        //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
+                        //$folder = '../img/uploads/coments/'; //ruta donde se guardan los archivos/*para local*/
+                        $folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
                         $archivo = $folder . $_FILES['image']['name']; //image campo de form// name nombre del archivo
                         move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
 
@@ -596,10 +591,32 @@ class Topics extends DB
                                 'by' => 6
                             ));
                         }
-
-                        $msg = "Imagen creada con éxito";
+                    ?>
+                        <!--Mensaje flotante para correcto-->
+                        <script type="text/javascript">
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Comentario Creado!',
+                                footer: '<a href="">Recargar.</a>',
+                                showConfirmButton: false,
+                                timer: 5500
+                            })
+                        </script>
+                <?php
+                        echo $_SESSION;
                     } else {
-                        $error = "El archivo no es una imagen";
+                        ?>
+                            <!--Mensaje flotante para Error-->
+                            <script type="text/javascript">
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: '¡Hubo algun error, Por favor intente de nuevo!',
+                                    footer: '<a href="">Recargar</a>',
+                                    timer: 5500
+                                })
+                            </script>
+                <?php
                     }
                 } ?>
 
@@ -639,7 +656,7 @@ class Topics extends DB
                     <div class="card">
 
                         <div class="col-lg-12 my-5">
-                            
+
 
                             <!--id del creador del comentario-->
                             Publicado por<a class="text-primary"> <?php echo $reply['user_name'] ?></a>

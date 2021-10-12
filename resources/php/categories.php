@@ -1,5 +1,4 @@
 <?php
-include "config.php";
 require_once 'resources/config/consulta.php';
 
 $extraer = new Topics();//instanciar objeto

@@ -7,7 +7,7 @@ $extraer = new Topics();
 
 session_start();
 
-error_reporting(0);
+
 ?>
 
 <!DOCTYPE html>
@@ -20,19 +20,20 @@ error_reporting(0);
     <!--Jquery & Bootsrap js-->
     <script src="resources/js/jquery-3.2.1.min.js"></script>
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <!--JS Personalizado-->
+    <script src="resources/js/animations.js"></script>
+    <script src="resources/js/likes.js"></script>
     <!--CSS personalizado-->
     <link rel="stylesheet" href="resources/style/main.css"><!--fuente-->
     <link rel="stylesheet" href="resources/style/Colors.css"><!--colores-->
     <!--Font awesome-->
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
-    
 </head>
 <!--Header-->
 
     <header class="mb-3"><!--stickytop **Falla con el modal ¿?**-->
         <?php include 'resources/php/header.php';?>
     </header>
-    
 <!--Cuerpo-->
     <body class="container alfondo">
         <main class=" alfrente pt-4 shadow rounded border" id="IndexMain">
@@ -49,5 +50,4 @@ error_reporting(0);
     <footer class="mt-3">
         <?php include 'resources/php/footer.php'; ?>
     </footer>
-      
-    
+</html>

@@ -38,10 +38,10 @@ RewriteRule ^admin_config resources/php/admin.php
 #Regla
 RewriteRule ^main index.php
 
-#Regla Categorias
+#Regla 
 RewriteRule ^categoria resources/php/topic_cat.php
 
-#Regla Categorias
+#Regla 
 RewriteRule ^search resources/php/search_page.php
 
 

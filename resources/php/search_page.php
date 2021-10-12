@@ -18,6 +18,9 @@ error_reporting(0);
     <script type="text/javascript" src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
     <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
     <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
+    <!--JS Personalizado-->
+    <script src="<?php echo SERVERURL ?>/resources/js/animations.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
     <!--CSS personalizado-->
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/main.css">
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/Colors.css">

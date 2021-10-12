@@ -15,6 +15,9 @@ error_reporting(0);
     <!---Javascript & Jquery-->
     <script src="resources/js/jquery-3.2.1.min.js"></script>
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <!--JS Personalizado-->
+    <script src="<?php echo SERVERURL ?>/resources/js/animations.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
     <!--CSS personalizados-->
     <link rel="stylesheet" type="text/css" href="resources/style/Colors.css">
     <link rel="stylesheet" type="text/css" href="resources/style/main.css">

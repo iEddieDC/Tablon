@@ -17,6 +17,9 @@ $newuser = new NewUser();
     <script src="resources/js/jquery-3.2.1.min.js"></script>
     <script src="resources/js/functions.js"></script>
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <!--JS Personalizado-->
+    <script src="<?php echo SERVERURL ?>/resources/js/animations.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
     <!--alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--CSS personalizados-->
@@ -51,7 +54,7 @@ $newuser = new NewUser();
                         Registrarse
                     </span>
 
-                    <label class=" input100 col-sm-2 col-form-label">Usuario</label>
+                    <label class="input100 col-sm-2 col-form-label">Usuario</label>
                     <div class="wrap-input100  validate-input">
                         <input class="input100 form-control" type="text" name="username" id="username" placeholder="Ej: Usuario1725" maxlength="32" minlength="4" required>
                         <span class="focus-input100"></span>

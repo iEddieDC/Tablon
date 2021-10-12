@@ -24,7 +24,7 @@ class DB
         $this->user     = 'root';
         $this->password = "root";
         /*para pagina*/
-        //$this->user     = 'tablon';
+       //$this->user     = 'tablon';
         //$this->password = "nVasM0&fLc";
 
         $this->charset  = 'utf8mb4';

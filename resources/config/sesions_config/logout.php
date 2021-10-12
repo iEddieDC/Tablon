@@ -5,9 +5,11 @@ if($_SESSION['user']){
     session_unset();
     session_destroy();
     unset($_SESSION);
-	header("location: ../../../index.php");
+    unset($_SESSION['rol']);
+    unset($_SESSION['acceso']);
+	header("location: index.php");
 }
 else{
-	header("location: ../../../index.php");
+	header("location: index.php");
 }
 ?>

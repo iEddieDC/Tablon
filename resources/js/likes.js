@@ -1,9 +1,9 @@
+(function (){
 $(document).ready(function() {
     /*obtenemos la id */
-    $(".like").click(function(){
+    $("#like").click(function(){
         var id = this.id;
-      // alert(id);
-        
+       alert(id);
       //AJAX
         $.ajax({
             url: 'likes.php',
@@ -18,4 +18,4 @@ $(document).ready(function() {
         });
     });
 });
-
+})

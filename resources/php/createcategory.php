@@ -21,6 +21,11 @@ if($_SESSION['rol']!=2){
     <!---Javascript & Jquery-->
     <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
     <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
+    <!--JS Personalizado-->
+    <script src="<?php echo SERVERURL ?>/resources/js/animations.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
+    <!--alertas-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--CSS personalizados-->
     <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/main.css">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
@@ -30,19 +35,16 @@ if($_SESSION['rol']!=2){
 </header>
 <body class="container alfondo">
     <!--Formulario para registrar una categoría nueva-->
-    <div class="container-contact100 shadow">
+    <div class="container-contact100 shadow registros">
         <div class="wrap-contact100">
             <span class="contact100-form-symbol">
                 <img src="resources/img/icons/stack.png" alt="SYMBOL-MAIL">
             </span>
             <!--Mediante action se lo enviamos a si mismo-->
             <form class="contact100-form flex-sb flex-w" action="create-cat" method="post" enctype="multipart/form-data">
-
                 <span class="contact100-form-title">
                     Registrar una categoría
                 </span>
-
-                
                 <div class="wrap-input100  validate-input">
                     <input class="input100 form-control" type="text" name="title" id="title" placeholder="Título de la categoría" required>
                     <span class="focus-input100"></span>
@@ -53,7 +55,7 @@ if($_SESSION['rol']!=2){
                     <span class="focus-input100"></span>
                 </div>
 
-                <input type="submit" name="enviar" value="Crear" button type="button" class="btn btn-primary btn-lg btn-block">
+                <input type="submit" name="enviar" value="Crear" button type="button" class="btn btn-reg btn-lg btn-block">
                 <input type="reset" value="Limpiar campos" button type="button" class="btn btn-secondary btn-lg btn-block">
             </form>
         </div>

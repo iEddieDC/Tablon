@@ -31,7 +31,7 @@ error_reporting(0);
     <?php include "header.php" ?>
 </header>
 <body class="container alfondo">
-    <main class="rounded shadow">
+    <main class="rounded shadow registros">
         <?php $create_topic->create_topic(); ?>
     </main>
 </body>

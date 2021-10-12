@@ -33,14 +33,45 @@
             } else {
                 #mensaje o acciones sin sesion
             } ?>
-            <!--Buscador-->
-
+            <!--Botón modo oscuro-->
+            <button type="button" class="btn btn-dark rounded-pill fas fa-moon" id="Darkmode"></button>
         </div>
-        <span class="icon-menu"></span>
-        <div class=" border-top-0 container-fluid navbar-inverse bg-light rounded-bottom shadow-sm">
-            <!--Navbar sticky-->
-            <nav class="navbar navbar-expand-sm navbar-light">
-                
+        <!--Navbar sticky-->
+        <nav class="navbar navbar-expand-lg border-top-0 bg-light rounded-bottom shadow-sm">
+            <button class="navbar-toggler btn-all mb-2 ml-auto" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon p-2 mb-2"><i class="fas fa-bars" ></i></span>
+            </button>
+            
+        
+            <div class="collapse navbar-collapse" id="navbarText">
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-dark" id="exampleModalScrollableTitle">Lee las reglas atentamente</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </button>
+                            </div>
+                            <div class="modal-body text-dark">
+                                <h1>El tablón de imagenes es una comunidad</h1>
+                                <h2>y para mantener el orden se han creado las siguientes reglas:</h2>
+                                <ul>
+                                    <li>1.- No se aceptan insultos. Trata a las demas personas con respeto, recuerda que en su mayoria son alumnos.</li>
+                                    <li>2.- El spam no es bienvenido. Hacer spam es publicar cualquier tema de manera masiva, ya sea una pagina web, canal de youtube, algun FB etc.</li>
+                                    <li>3.- No republiques posts viejos. Los post que ya han sido resueltos y fueron publicados hace un tiempo deben mantenerse así.</li>
+                                    <li>4.- Evita ser troll. Está comunidad se mantiene gracias a que los usuarios se ayudan entre si.</li>
+                                </ul>
+                                <adver>NO ROMPAS LAS REGLAS, DE LO CONTRARIO TUS COMENTARIOS O POST SERAN BORRADOS.</adver>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Entendido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Botones-->
+                <ul class="navbar-nav m-2">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <!--botón Crear hilo-->
                         <button type="button" class="btn btn-all text-white" onclick="window.location.href='<?php echo SERVERURL ?>upload'">
@@ -53,72 +84,52 @@
                             Reglas
                         </button>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-dark" id="exampleModalScrollableTitle">Lee las reglas atentamente</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body text-dark">
-                                    <h1>El tablón de imagenes es una comunidad</h1>
-                                    <h2>y para mantener el orden se han creado las siguientes reglas:</h2>
-                                    <ul>
-                                        <li>1.- No se aceptan insultos. Trata a las demas personas con respeto, recuerda que en su mayoria son alumnos.</li>
-                                        <li>2.- El spam no es bienvenido. Hacer spam es publicar cualquier tema de manera masiva, ya sea una pagina web, canal de youtube, algun FB etc.</li>
-                                        <li>3.- No republiques posts viejos. Los post que ya han sido resueltos y fueron publicados hace un tiempo deben mantenerse así.</li>
-                                        <li>4.- Evita ser troll. Está comunidad se mantiene gracias a que los usuarios se ayudan entre si.</li>
-                                    </ul>
-                                    <adver>NO ROMPAS LAS REGLAS, DE LO CONTRARIO TUS COMENTARIOS O POST SERAN BORRADOS.</adver>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Entendido</button>
-                                </div>
-                            </div>
+                </ul>
+                <!--formulario / barra de busqueda-->
+                <ul class="navbar-nav ml-auto">
+                    <!--Pequeño php isset que sirve para ocultar o mostrar el boton de cerrar sesión y iniciar sesión, dependiendo si hay usuario login o no-->
+                    <?php if (isset($_SESSION['rol'])) {
+                        if ($_SESSION['rol'] == 2) { ?>
+                            <a class=" btn btn-danger  login m-2" id="nologin" href="<?php echo SERVERURL ?>admin_config">
+                                Pestaña de administrador
+                            </a>
+                    <?php }
+                    } ?>
+                    <?php if (isset($_SESSION['user'])) { ?>
+                        <a class=" btn btn-outline-secondary m-2 login " id="nologin" href="<?php echo SERVERURL ?>logout">
+                            Cerrar sesión
+                        </a>
+                    <?php } else { ?>
+                        <div class="btn-group m-2" id="botones" role="group" aria-label="Basic example">
+                            <!--botón Registrarse-->
+                            <a class="btn btn btn-all text-white" href="<?php echo SERVERURL ?>register">
+                                <i class="mr-1 fas fa-user-plus"></i>
+                                Registrarse
+                            </a>
+                            <!--botón Iniciar sesión-->
+                            <a class="btn btn-outline-secondary action-button text-dark" href="<?php echo SERVERURL ?>login">
+                                <i class="mr-1 fas fa-sign-in-alt"></i>
+                                Iniciar sesión
+                            </a>
                         </div>
-                    </div>
+                    <?php } ?>
+                    <li class="nav-item m-2">
+                        <form class="form-inline" method="get" action="<?php echo SERVERURL ?>search">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <input type="text" class="form-control border border-dark border-right-0" name="busqueda" placeholder="Buscar"></input>
+                                <button type="submit" class="btn btn-outline-dark rounded-right" value="Buscar" name="enviar">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </li>
-                    <!--formulario / barra de busqueda-->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item ">
-                            <form class="form-inline  my-2 my-lg-0" method="get" action="<?php echo SERVERURL ?>search">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <input type="text" class="form-control border border-dark border-right-0" name="busqueda" placeholder="Buscar"></input>
-                                    <button type="submit" class="btn btn-outline-dark rounded-right" value="Buscar" name="enviar">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </li>
-                        <!--Pequeño php isset que sirve para ocultar o mostrar el boton de cerrar sesión y iniciar sesión, dependiendo si hay usuario login o no-->
-                        <li class="nav-item active">
-                            <?php if (isset($_SESSION['user'])) { ?>
-                                <a class=" btn btn-outline-secondary ml-2 mr-2 login" id="nologin" href="<?php echo SERVERURL ?>resources/config/sesions_config/logout.php">
-                                    Cerrar sesión
-                                </a>
-                            <?php } else { ?>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <!--botón Registrarse-->
-                                    <a class="btn btn btn-all ml-2 text-white" href="<?php echo SERVERURL ?>register">
-                                        <i class="mr-1 fas fa-user-plus"></i>
-                                        Registrarse
-                                    </a>
-                                    <!--botón Iniciar sesión-->
-                                    <a class="btn btn-outline-secondary action-button mr-2 text-dark" href="<?php echo SERVERURL ?>login">
-                                        <i class="mr-1 fas fa-sign-in-alt"></i>
-                                        Iniciar sesión
-                                    </a>
-                                </div>
-                            <?php } ?>
+                </ul>
+            </div>
+        </nav>
 
-                        </li>
-                    </ul>
-            </nav>
-        </div>
     </main>
+    
 </body>
+
 
 </html>
