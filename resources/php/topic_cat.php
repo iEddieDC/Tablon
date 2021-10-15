@@ -10,6 +10,7 @@ error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,18 +28,20 @@ error_reporting(0);
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/style/Colors.css">
     <!--Font awesome-->
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
-    
+
 </head>
 <header class="mb-3">
-<?php include "header.php"?>
+    <?php include "header.php" ?>
 </header>
+
 <body class="container alfondo">
     <main class="border p-3 alfrente shadow">
-    <?php 
-   $extraer->topics_cat(); ?>
+        <?php
+        $extraer->topics_cat(); ?>
     </main>
 </body>
 <footer class="mt-3">
-    <?php include "footer.php"?>
+    <?php include "footer.php" ?>
 </footer>
+
 </html>

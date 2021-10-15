@@ -37,9 +37,16 @@ session_start();
         <?php $article->extraer_uno(); ?>
     </div>
     <div class="alfrente border rounded p-4 mb-2">
-        <?php $article->view_coments(); ?>
-        <?php $article->create_reply(); ?>
+        <?php 
+        /*llamamos a la función para ver comentarios*/
+        $article->view_coments(); 
+        /*llamamos a la función para crear comentarios*/
+        $article->create_reply();
+        ?>
     </div>
 </body>
-<?php include "footer.php" ?>
+<footer class="mt-3">
+    <?php include "footer.php" ?>
+</footer>
+
 </html>

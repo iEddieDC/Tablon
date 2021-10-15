@@ -93,5 +93,7 @@ $newuser = new NewUser();
         </div>
     </main>
 </body>
-<footer class="mt-3"><?php include 'footer.php'; ?></footer>
+<footer class="mt-3">
+    <?php include 'footer.php'; ?>
+</footer>
 </html>

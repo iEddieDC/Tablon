@@ -1,18 +1,10 @@
 <?php
 require_once 'resources/config/consulta.php';
-include_once 'resources/config/connect/functions.php';
-
-//Llamamos a la clase y creamos objeto
-$extraer = new Topics();
 
 session_start();
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,24 +22,24 @@ session_start();
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
 </head>
 <!--Header-->
-
-    <header class="mb-3"><!--stickytop **Falla con el modal ¿?**-->
-        <?php include 'resources/php/header.php';?>
-    </header>
+<header class="mb-3">
+    <?php include 'resources/php/header.php'; ?>
+</header>
 <!--Cuerpo-->
-    <body class="container alfondo">
-        <main class=" alfrente pt-4 shadow rounded border" id="IndexMain">
-            <div class="container-fluid" id="phpCategories">
-                <?php include 'resources/php/categories.php'; ?>
-            </div>
-            <div class="container-fluid mt-4">
-                <hr>
-                <?php include 'resources/php/lastpost.php'; ?>
-            </div>
-        </main>
-    </body>
+<body class="container alfondo">
+    <main class=" alfrente pt-4 shadow rounded border" id="IndexMain">
+        <div class="container-fluid" id="phpCategories">
+            <?php include 'resources/php/categories.php'; ?>
+        </div>
+        <div class="container-fluid mt-4">
+            <hr>
+            <?php include 'resources/php/lastpost.php'; ?>
+        </div>
+    </main>
+</body>
 <!--Footer-->
-    <footer class="mt-3">
-        <?php include 'resources/php/footer.php'; ?>
-    </footer>
+<footer class="mt-3">
+    <?php include 'resources/php/footer.php'; ?>
+</footer>
+
 </html>

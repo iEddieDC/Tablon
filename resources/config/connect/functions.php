@@ -19,14 +19,14 @@ class DB
         $this->Limite = 50; //tiempo limite para el registro de ip
         #para la conexion
         $this->host     = 'localhost';
+        //$this->db       = 'u435669249_tablon';
         $this->db       = 'tablon';
         /*para local*/
         $this->user     = 'root';
         $this->password = "root";
         /*para pagina*/
-       //$this->user     = 'tablon';
+        //$this->user     = 'tablon';
         //$this->password = "nVasM0&fLc";
-
         $this->charset  = 'utf8mb4';
     }
 

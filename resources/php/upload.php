@@ -1,11 +1,10 @@
 <?php
-/*Conexión a la BD mediante PDO//require once para que muera la conexión con este doc-*/
 include_once '../config/consulta.php';
 
 $create_topic = new Topics();
 
 session_start();
-error_reporting(0);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +18,9 @@ error_reporting(0);
     <!---Javascript & Jquery-->
     <script src="<?php echo SERVERURL ?>/resources/js/jquery-3.2.1.min.js"></script>
     <script src="<?php echo SERVERURL ?>/resources/bootstrap/js/bootstrap.min.js"></script>
+    <!--JS Personalizado-->
+    <script src="<?php echo SERVERURL ?>/resources/js/animations.js"></script>
+    <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
     <!--alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--CSS personalizados-->
@@ -30,6 +32,7 @@ error_reporting(0);
 <header class="mb-3">
     <?php include "header.php" ?>
 </header>
+
 <body class="container alfondo">
     <main class="rounded shadow registros">
         <?php $create_topic->create_topic(); ?>
