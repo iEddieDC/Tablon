@@ -22,8 +22,8 @@
         </h6>
         <ul class="list-unstyled">
           <li> <a class="text-white" href="<?php echo SERVERURL ?>index.php" class="btn btn-primary">Inicio</a></li>
-          <li> <a class="text-white" href="">Información</a></li>
-          <li> <a class="text-white" href="#">Contacto</a></li>
+          <li> <a class="text-white" href="<?php echo SERVERURL ?>preguntas">Preguntas frecuentes</a></li>
+          <li> <a class="text-white" href="http://www.cualtos.udg.mx/webform/contacto">Contacto</a></li>
         </ul>
       </div>
       <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">

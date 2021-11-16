@@ -8,8 +8,7 @@ $newuser = new NewUser();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar un usuario</title>
-
+    <title>Registrarse</title>
     <!--CSS bootstrap-->
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <!---Javascript & Jquery-->
@@ -33,7 +32,7 @@ $newuser = new NewUser();
 </header>
 
 <body class="container alfondo">
-    <main class="rounded shadow registros">
+    <main class="rounded shadow">
         <!--Llamamos a la función para registrar los datos del Form-->
         <?php $newuser->create_new_user(); ?>
         <!--Inicializo bs4 validacion de formulario-->
@@ -42,7 +41,7 @@ $newuser = new NewUser();
         </script>
 
         <!--Formulario para registrarse-->
-        <div id="register-form" class="container-contact100">
+        <div id="register-form" class="registros container-contact100 border rounded">
             <div class="wrap-contact100">
                 <span class="contact100-form-symbol">
                     <img src="resources/img/icons/user-plus.png" alt="SYMBOL-MAIL">

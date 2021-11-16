@@ -3,7 +3,7 @@ include_once '../config/consulta.php';
 
 $article = new Topics();
 session_start();
-
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">

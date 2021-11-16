@@ -44,6 +44,10 @@ RewriteRule ^categoria resources/php/topic_cat.php
 #Regla 
 RewriteRule ^search resources/php/search_page.php
 
+#Regla 
+RewriteRule ^preguntas resources/php/preguntas-frecuentes.php
+
+
 
 
 

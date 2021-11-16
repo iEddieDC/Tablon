@@ -23,9 +23,9 @@ class DB
         $this->db       = 'tablon';
         /*para local*/
         $this->user     = 'root';
-        $this->password = "root";
+       $this->password = "root";
         /*para pagina*/
-        //$this->user     = 'tablon';
+        //$this->user     = 'u435669249_tablon';
         //$this->password = "nVasM0&fLc";
         $this->charset  = 'utf8mb4';
     }
@@ -48,3 +48,4 @@ class DB
         }
     }
 }
+ 

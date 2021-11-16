@@ -19,7 +19,7 @@ $numPost = new Topics();
 
   <div class="row">
     <div class="col-sm-3">
-      <h4 class="text-center">Estadisticas</h4>
+      <h4 class="text-center">Estadísticas</h4>
       <hr>
       <h5><?php $contador->VerificaUsuario(); ?></h5><br>
       <hr>
@@ -27,7 +27,7 @@ $numPost = new Topics();
       <hr>
     </div>
     <div class="col-sm-8">
-      <h2>Ultimos Post</h2>
+      <h2>Últimos Post</h2>
       <ul id="LastPost">
         <br>
         <?php $extraer->extraer_ult(); ?>

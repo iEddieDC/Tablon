@@ -8,9 +8,8 @@ error_reporting(0);
 
 //Extraemos la variable 'rol' para que los demas usuarios que no sean admin no vean esta pagina
 /*validacion*/
-if ($_SESSION['rol'] != 2) { ?>
-    pendiente pagina de error
-<?php
+if ($_SESSION['rol'] != 2) {
+    include "adm_error.php";
 } else { ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -18,6 +17,7 @@ if ($_SESSION['rol'] != 2) { ?>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pestaña de administrador</title>
         <!--CSS Bootstrap-->
         <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
         <!--Javascript & Jquery Bootstrap-->
@@ -50,8 +50,14 @@ if ($_SESSION['rol'] != 2) { ?>
                 <!--Administrar hilos-->
                 <?php $query->ver_hilos(); ?>
             </div>
-
-
+            <h4 class="font-weight-bold m-5 text-center">Gestión usuarios</h4>
+            <div class="container border p-4 mt-2 ">
+                <p class="text-justify mb-4">En este apartado usted podra ascender usuarios a administradores o borrarlos.</p>
+                <p class="text-justify mb-4">Recuerde Nivel de usuario 0 para usuarios normales <br>
+                    Nivel de usuario 2 para administradores</p>
+                <!--Administrar hilos-->
+                <?php $query->ascend(); ?>
+            </div>
         </main>
     </body>
     <footer class="mt-3">

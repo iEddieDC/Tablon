@@ -10,7 +10,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     #comprueba que haya un login correcto y crea la sesión ademas de las variables SESSION
     if ($query->rowCount()) {
-        session_start(); //genera una cookie especial 
+        session_start(); //genera una variable especial 
         $_SESSION['acceso'] = true; //por default, dura hasta que se cierra el navegador
         $_SESSION['user'] = $username; //paso a variable SESSION mi usuario
     }
@@ -28,11 +28,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 echo "user";
                 header("location: index.php");
                 break;
-            case 1: //Usuario Moderador
-                echo "Moder";
-                header("location: index.php");
-                break;
-
             case 2: // Usuario Administrador
                 echo "Admin";
                 header("location: admin_config");

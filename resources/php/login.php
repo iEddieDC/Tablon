@@ -3,7 +3,7 @@ require_once '../config/consulta.php';
 include_once '../config/connect/functions.php';
 
 session_start();
-error_reporting(0);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,18 +14,17 @@ error_reporting(0);
     <!--CSS bootstrap-->
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <!---Javascript & Jquery-->
-    <script src="resources/js/jquery-3.2.1.min.js"></script>
-    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo SERVERURL ?>resources/js/jquery-3.2.1.min.js"></script>
+    <script src="<?php echo SERVERURL ?>resources/bootstrap/js/bootstrap.min.js"></script>
     <!--JS Personalizado-->
-    <script src="<?php echo SERVERURL ?>/resources/js/animations.js"></script>
-    <script src="<?php echo SERVERURL ?>/resources/js/likes.js"></script>
+    <script src="<?php echo SERVERURL ?>resources/js/animations.js"></script>
+    <script src="<?php echo SERVERURL ?>resources/js/likes.js"></script>
     <!--CSS personalizados-->
-    <link rel="stylesheet" type="text/css" href="resources/style/Colors.css">
-    <link rel="stylesheet" type="text/css" href="resources/style/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/Colors.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo SERVERURL ?>resources/style/main.css">
     <!--Font awesome-->
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
-    <title>Login</title>
-
+    <title>Iniciar sesión</title>
 </head>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +41,7 @@ error_reporting(0);
 <body class="container alfondo">
     <main class="rounded shadow">
         <!--Formulario para registrar una categoría nueva-->
-        <div class="registros container-contact100">
+        <div class="registros container-contact100 border rounded">
             <div class="wrap-contact100">
                 <span class="contact100-form-symbol">
                     <img src="resources/img/icons/user.png" alt="SYMBOL-MAIL">
@@ -65,9 +64,11 @@ error_reporting(0);
                         <input class="input100 form-control" type="password" name="password" placeholder="Contraseña" required>
                         <span class="focus-input100"></span>
                     </div>
-
+                    
                     <input type="submit" value="Iniciar Sesión" button type="button" class="btn btn-reg  btn-lg btn-block">
                 </form>
+                <?php include '../../glogin.php'; ?>
+                <a href="glogout.php">cerrar sesion</a>
             </div>
         </div>
     </main>

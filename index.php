@@ -8,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cualtos chan</title>
+    <title>Cualtos-chan</title>
     <!--Jquery & Bootsrap js-->
     <script src="resources/js/jquery-3.2.1.min.js"></script>
     <script src="resources/bootstrap/js/bootstrap.min.js"></script>

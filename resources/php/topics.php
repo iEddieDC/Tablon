@@ -28,7 +28,6 @@ session_start();
     <!--Font awesome-->
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <title>Publicaciones</title>
-    
 </head>
 <!--Header-->
 <header class="mb-3 ">

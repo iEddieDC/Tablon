@@ -1,6 +1,5 @@
 :root {
-  --main-color: #cd5700;
-  /*Color Oficial UDG Cualtos*/
+  --main-color: #cd5700;/*Color Oficial UDG Cualtos*/
   --ok-color: #179915;
   --third-color: #3f3f3f;
   --background-color: #dddddd;
@@ -9,7 +8,7 @@
 /*Color de fondo*/
 
 .alfrente {
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 .alfondo {
@@ -22,6 +21,10 @@
   background-image: url("../img/icons/circuitos.png");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.navbar{
+  background-color: whitesmoke;
 }
 
 /*----------barra id hilo---------------*/
@@ -41,15 +44,11 @@
 /*-------------HEADER/FOOTER---------------*/
 
 .UDG {
-  /*background-image: url("../img/icons/degradado");*/
   background-color: var(--main-color) !important;
   background-image: url("../img/icons/circuitos.png");
   background-repeat: no-repeat;
   background-position: top;
-  /*background: rgb(255,242,233);
-    background:#cd5700;*/
 }
-
 .UDG2 {
   background-color: var(--main-color) !important;
   background-image: url("../img/icons/circuitos.png");
@@ -148,6 +147,9 @@
   cursor: pointer;
   color: white;
 }
+#navbarText{
+  transition: ease-out 0.3s;
+}
 
 /*carrousel*/
 .carousel-item {
@@ -164,21 +166,21 @@
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-.cat_box {
+/*Categorias/Tablones*/
+
+.cat_card {
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   transition: ease-out 0.3s;
 }
 
-.cat_box:hover {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.cat_card:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),  0 5px 8px 0 rgba(0, 0, 0, 0.19);
   transition: ease-out 0.3s;
 }
 
 /*modo oscuro*/
 .oscuro{ 
   background-color: #18191A;
-  transition:background-color .5s;
-  
 }
 .oscuro .alfrente{
   background-color: #242526;
@@ -186,9 +188,37 @@
 .oscuro .card{
   background-color: #3A3B3C;
   color: white;
+  box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.5);
+  transition: ease-out 0.3s;
 }
-.oscuro h1, .oscuro h2,.oscuro h3,.oscuro h4,.oscuro h5,.oscuro p{
+.oscuro .card:hover {
+  box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.24), 0 5px 8px 0 rgba(255, 255, 255, 0.19);
+  transition: ease-out 0.3s;
+}
+.oscuro h1, .oscuro h2,.oscuro h3,.oscuro h4,.oscuro h5,.oscuro p, .oscuro label{
   color:white;
+}
+.oscuro .UDG{
+  background-color: black;
+}
+/*modo oscuro header*/
+.oscuro .modal-body, .oscuro .modal-header, .oscuro .modal-footer, .oscuro #navbarText,.oscuro .fa-search, .oscuro .close {
+  background-color: #242526;
+  color: white;
+  border-color: whitesmoke;
+}
+.oscuro .btn-outline-secondary,  .oscuro .navbar{
+  background-color: #242526;
+  color: white;
+}
+/*modo oscuro formularios */
+.oscuro .container-contact100{
+  background-color: #242526;
+  color: white;
+  border-color: whitesmoke;
+}
+.oscuro .wrap-contact100{
+  background-color: #3A3B3C;
 }
 
 /*Botón del modo oscuro*/

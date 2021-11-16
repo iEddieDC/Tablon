@@ -4,6 +4,7 @@ include_once '../config/consulta.php';
 $create_topic = new Topics();
 
 session_start();
+error_reporting(0);
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +35,7 @@ session_start();
 </header>
 
 <body class="container alfondo">
-    <main class="rounded shadow registros">
+    <main class="rounded shadow ">
         <?php $create_topic->create_topic(); ?>
     </main>
 </body>

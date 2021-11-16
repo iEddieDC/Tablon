@@ -12,6 +12,7 @@ error_reporting(0);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de la busqueda</title>
     <!--CSS Bootstrap-->
     <link rel="stylesheet" href="<?php echo SERVERURL ?>/resources/bootstrap/css/bootstrap.min.css">
     <!--Javascript & Jquery Bootstrap-->
