@@ -135,162 +135,69 @@ class Topics extends DB
 
         $article = $state->fetch(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo)
 
+        /*contar numero de comentarios*/
+        $comentarios = $state =  $this->connect()->prepare("SELECT * FROM replies WHERE reply_topic = :id");
+        $comentarios->execute(array(
+            ':id' => $id
+        ));
+
+        $comentarios = $state->rowCount(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo)
+
         if ($article == null) { //validacion que sean solo los registros de la bd
             include 'error.php';
         } else {
+
+            $url= $_SERVER["REQUEST_URI"];//obtenemos la URL actual
         ?>
             <!--Comienza HTML-->
-            <div class="row mb-5">
-                <div class="col-1 mt-2 dot shadow-sm rounded-right ">
-                    <p class="text-white">ID
-                        <a class="text-primary">
-                            <?php echo $article['topic_id'] ?>
-                        </a>
-                    </p>
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-1 mt-2 dot shadow-sm rounded-right ">
+                        <p class="text-white">ID
+                            <a class="text-primary">
+                                <?php echo $article['topic_id'] ?>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-10">
+                        <h2 class="font-weight-bold mt-3"><?php echo $article['topic_title'] ?></h2>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <h2 class="font-weight-bold mt-3"><?php echo $article['topic_title'] ?></h2>
-                </div>
-            </div>
-            <hr>
-            <div class="container text-center">
-                <img class=" rounded img-fluid" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $article['topic_image'] ?>" />
                 <hr>
-            </div>
-            <div class="container mb-4">
-                <p><?php echo  $article['topic_subject'] ?></p>
-                <!--nombre del creador del post-->
-                <p class="text-secondary mt-2">Publicado por
-                    <a class="text-primary">
-                        <?php echo $article['user_name'] ?>
-                    </a>
-                    <!--Fecha de publicación-->
-                    el dia
-                    <?php echo $article['topic_date'] ?>
-                    <!--id de publicación-->
-                </p>
+
+                <div class="container">
+                    <p class="mb-2"><?php echo  $article['topic_subject'] ?></p>
+                    <img class=" rounded img-fluid" src="<?php echo SERVERURL ?>resources/img/uploads/<?php echo $article['topic_image'] ?>" />
+                    <hr>
+                </div>
+                <div class="container">
+
+                </div>
+                <div class="container mb-4">
+
+                    <!--nombre del creador del post-->
+                    <p class="text-secondary mt-2">Publicado por
+                        <t class="text-primary">
+                            <?php echo $article['user_name'] ?>
+                        </t>
+                        <!--Fecha de publicación-->
+                        el dia
+                        <?php echo $article['topic_date'] ?>
+                        <!--id de publicación-->
+                    <p class="text-right">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url ?>">Compartir</a>
+                        <a href="#comentarios"> <?php echo $comentarios ?> Comentarios</a>
+
+                    </p>
+                    </p>
+
+                </div>
             </div>
 
-
-            <?php
+        <?php
         } //fin else
     } //Fin extraer uno
 
-    /* Función 3 -Para crear un topic en donde sea-*/
-    public function create_topic()
-    {
-        //Consultar el id del ultimo topic para renombrar el nuevo
-        $consulta = $this->connect()->prepare('SELECT topic_id FROM topics order by topic_id desc limit 1');
-        $consulta->execute();
-        /*concatenamos y pasamos a una variable numerica*/
-        $save_id = $consulta->fetchAll();
-        $id = $save_id[0]["topic_id"] + 1; //sumamos 1 para que tenga el id del topic nuevo
-        /*validación si no hay topics creados*/
-        if ($id == null) {
-            $id = 0;
-        }
-        /*pide acceso al servidor y despues valida que no esten vacios*/
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
-            $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
-            if ($check !== false) {
-                $folder = "../img/uploads/";/*para local*/
-                //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
-                $archivo = $folder . $id . $_FILES['image']['name']; //topic_id//image campo de form //name nombre del archivo
-                move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
-
-                $state = $this->connect()->prepare('INSERT INTO topics (topic_title, topic_subject, topic_image, topic_cat,topic_by) VALUES (:title, :subject, :image, :cat, :by)');/*preparamos las variables para pasar los archivos a la BD*/
-                /*Ejecutamos state para ingresar mediante POST los datos*/
-                if (isset($_SESSION['acceso'])) {
-                    $state->execute(array(
-                        ':cat' => $_POST['category'],
-                        ':title' => $_POST['title'],
-                        ':subject' => $_POST['subject'],
-                        ':image' => $id . $_FILES['image']['name'],
-                        'by' => $_SESSION['id']
-                    ));
-                } else {
-                    $state->execute(array(
-                        ':cat' => $_POST['category'],
-                        ':title' => $_POST['title'],
-                        ':subject' => $_POST['subject'],
-                        ':image' => $id . $_FILES['image']['name'],
-                        'by' => 6
-                    ));
-                }
-                /*Mensaje de exito, publicacion creada*/
-            ?>
-                <script type="text/javascript">
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Publicación Creada!',
-                        footer: '<a href="index.php">Ir al inicio.</a>',
-                        showConfirmButton: false,
-                        timer: 5500
-                    })
-                </script>
-        <?php
-            } else {
-                //echo "Apartados incompletos!";
-            }
-        }
-        /*consulta a la bd para sacar y luego almacenar la categoria correpondiente*/
-        $sql = "SELECT cat_name, cat_id from categories"; //consulta a la bd
-        try {
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute();
-            $categorie = $stmt->fetchAll();
-        } catch (Exception $ex) {
-            echo ($ex->getMessage());
-        }
-
-        ?>
-
-        <!--Comienza HTML-->
-        <div class="registros container-contact100 border rounded">
-            <div class="wrap-contact100">
-                <span class="contact100-form-symbol">
-                    <img src="<?php echo SERVERURL ?>/resources/img/icons/image.png" alt="SYMBOL-MAIL">
-                </span>
-                <form class="contact100-form flex-sb flex-w" action="upload" method="post" enctype="multipart/form-data">
-                    <!--Este metodo sirve para mediante server mandarselo a si mismo-->
-                    <span class="contact100-form-title">
-                        Crea un hilo
-                    </span>
-                    <div class="wrap-input100  validate-input" data-validate="¡El título es necesario!">
-                        <input class="input100 form-control" type="text" name="title" id="title" placeholder="Título del post" required>
-                        <span class="focus-input100"></span>
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="¡Descripción necesaria!">
-                        <textarea class="input100 form-control" name="subject" id="post" rows="8" cols="50" maxlength="500" placeholder="Escribe aquí la descripción del post" required></textarea>
-                        <span class="focus-input100"></span>
-                    </div>
-
-                    <div class="">
-                        <label class=" input100 col-sm-2 col-form-label">Imagen</label>
-                        <input class="form-control" type="file" name="image" id="image" required><br>
-                    </div>
-
-
-                    <div class="mb-2">
-                        <label class=" input100  col-sm-2 col-form-label">Categoría</label>
-                        <select class="form-control" name="category" id="category">
-                            <?php foreach ($categorie as $output) { ?>
-                                <option value="<?php echo $output["cat_id"] ?>"><?php echo $output["cat_name"] ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <input type="submit" value="Crear nuevo hilo" button type="button" class="btn btn-reg btn-lg btn-block">
-                    <input type="reset" value="Limpiar campos" button type="button" class="btn btn-secondary btn-lg btn-block"><br>
-                </form>
-            </div>
-        </div>
-
-    <?php
-    } //fin create_topic
 
     /*función 4 -Extraer los ultimos post para el Index-*/
     public function extraer_ult()
@@ -299,7 +206,7 @@ class Topics extends DB
         $state = $this->connect()->prepare('SELECT topic_id, topic_date, cat_name, topic_title FROM topics, categories WHERE cat_id=topic_cat order by topic_date desc limit 5');
         $state->execute();
         $result = $state->fetchAll();
-    ?>
+        ?>
         <!--Comienza HTML-->
         <!--foreach inicio -->
         <?php foreach ($result as $last) : ?>
@@ -467,10 +374,10 @@ class Topics extends DB
                                 <?php echo $topic['topic_title'] ?>
                             </h4>
                             Publicado por
-                            <a class="text-primary">
+                            <t class="text-primary">
                                 <!--id del creador del post-->
                                 <?php echo $topic['user_name'] ?>
-                            </a>
+                            </t>
                             el dia
                             <!--Fecha de publicación-->
                             <?php echo $topic['topic_date'] ?>
@@ -491,82 +398,11 @@ class Topics extends DB
                 </div>
             <?php endforeach ?>
 
-            <?php
+        <?php
         } else {
             include "error.php";
         }
     }
-
-    /* Función 7 -Para crear una categoría-*/
-    public function create_category()
-    {
-        /*Validar que los campos no estn vacíos*/
-        if (isset($_POST['enviar'])) {
-            if (empty($_POST['title'])) {
-                echo "El campo título está vacío";
-            } else if (empty($_POST['subject'])) {
-                echo "El campo descripción está vacío";
-            } else {
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
-                    $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
-                    if ($check !== false) {
-                        $folder = "../img/categorie/";/*para local*/
-                        //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
-                        $archivo = $folder . $_FILES['image']['name']; //topic_id//image campo de form //name nombre del archivo
-                        move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
-
-                        #validación nombre de categoria no se repita# 
-                        $buscarCat = $this->connect()->prepare("SELECT * FROM categories WHERE cat_name = '$_POST[title]'"); //preparamos la consulta a la BD
-                        $buscarCat->execute();
-                        $count = $buscarCat->rowCount();
-
-                        /*validamos no se repita la categoria*/
-                        if ($count == 1) { ?>
-                            <script type="text/javascript">
-                                alert("¡ERROR! \n¡La categoría ya existe! \n Por favor cree una diferente");
-                            </script>
-                        <?php
-                        } else {
-                            #ingresamos los datos si no se repite la cat
-                            $state = $this->connect()->prepare('INSERT INTO categories (cat_name, cat_description, cat_image) VALUES (:title, :subject, :image)');/*preparamos las variables para pasar los archivos a la BD*/
-                            /*Ejecutamos state para ingresar mediante POST los datos*/
-                            $state->execute(array(
-                                ':title' => $_POST['title'],
-                                ':subject' => $_POST['subject'],
-                                ':image' => $_FILES['image']['name'],
-                            ));
-                        ?>
-                            <!--Mensaje flotante para correcto-->
-                            <script type="text/javascript">
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: '¡Categoría Creada!',
-                                    footer: '<a href="index.php">Ir al inicio.</a>',
-                                    showConfirmButton: false,
-                                    timer: 5500
-                                })
-                            </script>
-                    <?php
-                        }
-                    }
-                } else {
-                    ?>
-                    <!--Mensaje flotante para Error-->
-                    <script type="text/javascript">
-                        Swal.fire({
-                            icon: 'error',
-                            title: '¡Error!',
-                            text: '¡Hubo algun error, Por favor intente de nuevo!',
-                            footer: '<a href="index.php">Volver al inicio</a>'
-                        })
-                    </script>
-        <?php
-                }
-            }
-        }
-        ?>
-        <?php
-    } //fin create_category
 
     /* Función 8 -Para contar el # de posts publicados-*/
     public function num_posts()
@@ -579,130 +415,10 @@ class Topics extends DB
         ?>
             <i class="far fa-newspaper"></i>
             <!--<IMG src="resources/img/icons/newspaper.png">-->
-            <?php echo "POSTS: " . $a[0];
+        <?php echo "POSTS: " . $a[0];
         endforeach;
     }
 
-    /* Función 9 -Para crear un comentario en donde sea-*/
-    public function create_reply()
-    {
-        //Consultar el id del ultimo reply para renombrar el nuevo
-        $consulta = $this->connect()->prepare('SELECT reply_id FROM replies order by reply_id desc limit 1');
-        $consulta->execute();
-        /*concatenamos y pasamos a una variable numerica*/
-        $save_id = $consulta->fetchAll();
-        $id = $save_id[0]["reply_id"] + 1; //sumamos 1 para que tenga el id del reply nuevo
-        /*validación si no hay replies creados*/
-        if ($id == null) {
-            $id = 0;
-        }
-        /*pide acceso al servidor y despues valida que no esten vacios*/
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_FILES)) {
-            $check = @getimagesize($_FILES['image']['tmp_name']);/*valida que sea una imagen y le da un nombre temporal*/
-            /*If existe imagen en el comentario*/
-            if ($check !== false) {
-                $folder = '../img/uploads/coments/'; //ruta donde se guardan los archivos/*para local*/
-                //$folder = 'https://apps.cualtos.udg.mx/app/tablon/resources/img/uploads/'; /*para servidor*/
-                $archivo = $folder . $id . $_FILES['image']['name']; //reply_id//image campo de form// name nombre del archivo
-                move_uploaded_file($_FILES['image']['tmp_name'], $archivo); //obtiene la imagen y la pone en esa ruta con su nombre
-
-                /*Consulta para insertar los datos*/
-                $state = $this->connect()->prepare('INSERT INTO replies (reply_content, reply_image, reply_topic, reply_by) VALUES (:content, :image, :topic, :by)'); //preparamos las variables para pasar los archivos a la BD
-                /*Ejecutamos state para ingresar mediante POST los datos*/
-                if (isset($_SESSION['acceso'])) { //if existe un usuario logueado
-                    $state->execute(array(
-                        ':content' => $_POST['content'],
-                        ':image' => $id . $_FILES['image']['name'],
-                        ':topic' => $_SESSION["topic_id"],
-                        'by' => $_SESSION['id']
-                    ));
-                } else { //no existe usuario logueado
-                    $state->execute(array(
-                        ':content' => $_POST['content'],
-                        ':image' => $id . $_FILES['image']['name'],
-                        ':topic' => $_SESSION["topic_id"],
-                        'by' => 6
-                    ));
-                }
-            ?>
-                <!--Mensaje flotante para correcto-->
-                <script type="text/javascript">
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Comentario Creado!',
-                        footer: '<a href="">Recargar.</a>',
-                        showConfirmButton: false,
-                        timer: 5500
-                    })
-                </script>
-                <?php
-                /*else if no existe imagen en el comentario*/
-            } else if ($check == false) {
-                /*if no existe texto ni imagen*/
-                if (empty($_POST['content'])) {
-                ?>
-                    <!--Mensaje flotante para error campo texto vacio-->
-                    <script type="text/javascript">
-                        Swal.fire({
-                            icon: 'error',
-                            title: '¡No hay texto!',
-                            text: 'Tu comentario debe contener texto, opcionalmente puedes añadir una imagen.',
-                            footer: '<a href="">Recargar.</a>',
-                            showConfirmButton: true,
-                            timer: 5500
-                        })
-                    </script>
-                <?php
-                    /*else existe al menos texto en el comentario*/
-                } else {
-                    /*Consulta para insertar el texto a la bd*/
-                    $state = $this->connect()->prepare('INSERT INTO replies (reply_content, reply_topic, reply_by) VALUES (:content, :topic, :by)');/*preparamos las variables para pasar los archivos a la BD*/
-                    /*Ejecutamos state para ingresar mediante POST los datos*/
-                    if (isset($_SESSION['acceso'])) { //user logueado
-                        $state->execute(array(
-                            ':content' => $_POST['content'],
-                            ':topic' => $_SESSION["topic_id"],
-                            'by' => $_SESSION['id']
-                        ));
-                    } else {
-                        $state->execute(array( //user anonimo
-                            ':content' => $_POST['content'],
-                            ':topic' => $_SESSION["topic_id"],
-                            'by' => 6
-                        ));
-                    }
-                ?>
-                    <!--Mensaje flotante para correcto-->
-                    <script type="text/javascript">
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Comentario Creado!',
-                            footer: '<a href="">Recargar.</a>',
-                            showConfirmButton: false,
-                            timer: 5500
-                        })
-                    </script>
-        <?php
-                }
-            }
-        } ?>
-
-        <form class="mt-2 p-1" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Escribe un comentario..." name="content">
-                <small class="form-text text-muted m-2">Recuerda ser respetuoso.</small>
-                <div class="btn-group m-2 p-2">
-                    <label class="btn btn-file  form-control border-secondary">
-                        <i class="mr-1 fas fa-camera"></i>
-                        <input type="file" hidden name="image">
-                    </label>
-                    <input type="submit" value="Comentar" class="btn btn-reg form-control" style="color:white">
-                </div>
-            </div>
-        </form>
-
-    <?php
-    } //fin create_reply
 
     /*Funcion 9 ver comentarios*/
     public function view_coments()
@@ -714,13 +430,14 @@ class Topics extends DB
 
         $replies = $replie->fetchAll();
 
-    ?>
+        ?>
         <!--Comienza HTML-->
         <?php foreach ($replies as $reply) : ?>
             <div class="card">
                 <div class="col-lg-12 my-5">
                     <!--id del creador del comentario-->
-                    Publicado por<a class="text-primary"> <?php echo $reply['user_name'] ?></a>
+                    Publicado por
+                    <t class="text-primary"> <?php echo $reply['user_name'] ?></t>
                     <!--fecha del comentario-->
                     el
                     <?php echo $reply['reply_date'] ?>
@@ -797,8 +514,8 @@ class Topics extends DB
     <?php endforeach; ?>
 
 <?php } else { ?>
-    <div  class="container text-center p-5">
-        <img  src="<?php echo SERVERURL ?>resources/img/icons/search_not_found.png">
+    <div class="container text-center p-5">
+        <img src="<?php echo SERVERURL ?>resources/img/icons/search_not_found.png">
         <h1 class="mt-5">¡Sin resultados!</h1>
         <h3>Tu búsqueda no arrojo resultados, prueba con otras palabras.</h3>
         <!--<div>Iconos diseñados por <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es</a></div>-->

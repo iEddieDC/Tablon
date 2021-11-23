@@ -1,7 +1,9 @@
 <?php
 include_once '../config/consulta.php';
+include_once '../config/Uploads.php';
 
 $article = new Topics();
+$create_com = new Creates();
 session_start();
 error_reporting(0);
 ?>
@@ -36,12 +38,12 @@ error_reporting(0);
     <div class="border rounded alfrente mb-2 mt-3">
         <?php $article->extraer_uno(); ?>
     </div>
-    <div class="alfrente border rounded p-4 mb-2">
+    <div class="alfrente border rounded p-4 mb-2 " id="comentarios" >
         <?php 
         /*llamamos a la función para ver comentarios*/
         $article->view_coments(); 
         /*llamamos a la función para crear comentarios*/
-        $article->create_reply();
+        $create_com->create_reply();
         ?>
     </div>
 </body>

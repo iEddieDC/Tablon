@@ -1,8 +1,8 @@
 <?php
 /*Conexión a la BD mediante PDO//require once para que muera la conexión con este doc-*/
-require_once '../config/consulta.php';
+require_once '../config/uploads.php';
 
-$create_cat = new Topics();
+$create_cat = new Creates();
 
 session_start();
 error_reporting(0);

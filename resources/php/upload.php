@@ -1,7 +1,7 @@
 <?php
-include_once '../config/consulta.php';
+include_once '../config/uploads.php';
 
-$create_topic = new Topics();
+$create_topic = new Creates();
 
 session_start();
 error_reporting(0);
