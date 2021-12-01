@@ -115,7 +115,21 @@ class Topics extends DB
         </nav>
         <?php
     }
+    public function titulo_topic(){
+        $id = isset($_GET['q']) ? $_GET['q'] : false; //busca la cadena q para id y si no existe lo hace boolean false
 
+        /*preparamos la consulta a la bd*/
+        $state =  $this->connect()->prepare("SELECT topic_title FROM topics WHERE topic_id = :id");
+        $state->execute(array(
+            ':id' => $id
+        ));
+        unset($_SESSION["topic_id"]);
+
+        $_SESSION["topic_id"] = $id; //Variable globar para obtener el ID del topic actual
+
+        $article = $state->fetch(); //devuelve la siguiente fila del conjunto de resultados (1 arreglo)
+        echo $article[0];
+    }
     /* Función 2 -Para extraer uno y hacer un topic en base al ID de los topics-*/
     public function extraer_uno()
     {
@@ -147,8 +161,9 @@ class Topics extends DB
             include 'error.php';
         } else {
 
-            $url= $_SERVER["REQUEST_URI"];//obtenemos la URL actual
+            $url = $_SERVER["REQUEST_URI"]; //obtenemos la URL actual
         ?>
+        
             <!--Comienza HTML-->
             <div class="container">
                 <div class="row mb-5">
@@ -362,9 +377,9 @@ class Topics extends DB
 
             <!--foreach inicio -->
             <?php foreach ($result as $topic) : ?>
-                <div class="container border-top rounded mb-3 shadow">
-                    <div class="card mt-3">
-                        <div class="col-lg-12 my-5">
+                <div class="container border-top mt-3 p-3 mb-3 rounded ">
+                    <div class="card shadow">
+                        <div class="col-lg-12 mt-3">
                             <!-- construye un enlace con el id que se encuentre en la base de datos -->
                             <a href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>">
                                 <!-- construye un enlace con la imagen que se encuentre en la base de datos -->
@@ -389,12 +404,18 @@ class Topics extends DB
                             <div class="card-text">
                                 <p><?php echo $topic['topic_subject'] ?></p>
                             </div>
+
                         </div>
+                        <div class="buttons ml-3 mb-4 mt-1">
+                            <button class="btn btn-light fas fa-star fa btn-like" data-toggle="tooltip" data-placement="bottom" title="Ovacionar" id="like"></button>
+                            <a class="btn btn-light  fas fa-comment-alt fa btn-comment" data-toggle="tooltip" data-placement="bottom" title="Comentarios" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"></a>
+                            <a class="btn btn-light  fas fa-share fa btn-comment" data-toggle="tooltip" data-placement="bottom" title="Compartir en FB"  href="https://www.facebook.com/sharer/sharer.php?u=<?php echo SERVERURL?>topic/<?php echo $topic['topic_id'] ?>"></a>
+                            
+                        </div>
+
+
                     </div>
-                    <div class="buttons">
-                        <button class="btn btn-light m-2 p-2 fas fa-star fa-2x btn-like" data-toggle="tooltip" data-placement="bottom" title="Ovacionar" id="like"></button>
-                        <a class="btn btn-light m-2 p-2 fas fa-comment-alt fa-2x btn-comment" data-toggle="tooltip" data-placement="bottom" title="Comentarios" href="<?php echo SERVERURL ?>topic/<?php echo $topic['topic_id'] ?>"></a>
-                    </div>
+
                 </div>
             <?php endforeach ?>
 

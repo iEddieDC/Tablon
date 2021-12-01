@@ -28,7 +28,7 @@ error_reporting(0);
     <script src="https://kit.fontawesome.com/1accfe0cc0.js" crossorigin="anonymous"></script>
     <!--alertas-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <title>Hilo</title>
+    <title><?php echo $article->titulo_topic(); ?></title>
     <header class="mb-1">
         <?php include "header.php" ?>
     </header>
