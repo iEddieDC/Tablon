@@ -67,8 +67,7 @@ session_start();
                     
                     <input type="submit" value="Iniciar Sesión" button type="button" class="btn btn-reg  btn-lg btn-block">
                 </form>
-                <?php include '../../glogin.php'; ?>
-                <a href="glogout.php">cerrar sesion</a>
+                
             </div>
         </div>
     </main>

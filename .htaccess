@@ -47,6 +47,9 @@ RewriteRule ^search resources/php/search_page.php
 #Regla 
 RewriteRule ^preguntas resources/php/preguntas-frecuentes.php
 
+#Regla 
+RewriteRule ^user_page resources/php/user_page.php
+
 
 
 

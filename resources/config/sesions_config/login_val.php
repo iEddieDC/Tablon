@@ -26,7 +26,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         switch ($rol) {
             case 0: //Usuario normal
                 echo "user";
-                header("location: index.php");
+                header("location: user_page");
                 break;
             case 2: // Usuario Administrador
                 echo "Admin";

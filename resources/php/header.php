@@ -104,8 +104,13 @@
                             <a class=" btn btn-danger  login m-2" id="nologin" href="<?php echo SERVERURL ?>admin_config">
                                 Pestaña de administrador
                             </a>
-                    <?php }
-                    } ?>
+                    <?php } else if ($_SESSION['rol'] == 0){ ?>
+                            <a class=" btn btn-danger  login m-2" id="nologin" href="<?php echo SERVERURL ?>user_page">
+                                Pestaña de usuario
+                            </a>
+                        <?php }
+                    }
+                 ?>
                     <?php if (isset($_SESSION['user'])) { ?>
                         <a class=" btn btn-outline-secondary m-2 login " id="nologin" href="<?php echo SERVERURL ?>logout">
                             Cerrar sesión

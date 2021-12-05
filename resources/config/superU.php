@@ -8,7 +8,6 @@ class Admin_pow extends DB
 {
 
     /*función 1 para extraer todos los hilos en forma de lista*/
-    /*función 1 para extraer todos los hilos en forma de lista*/
     public function ver_hilos()
     {
         $consulta = $this->connect()->prepare('SELECT topic_id, topic_title, topic_date, topic_by, user_name FROM topics, users WHERE topic_by = user_id order by topic_date desc');
