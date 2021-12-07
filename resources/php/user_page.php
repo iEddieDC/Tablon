@@ -1,7 +1,7 @@
 <?php
 require_once '../config/user_config.php'; //llamamos al doc de consultas
 
-$query = new user_pow; //creamos un objeto para las consultas
+$query = new user_pow; //creamos un objeto para llamar a las funciones
 
 session_start(); //Buscamos la sesión 
 error_reporting(0);
@@ -41,12 +41,15 @@ if ($_SESSION['rol'] != 0) {
 
     <body class="container alfondo">
         <main class=" alfrente p-3 shadow rounded border">
+            <div class="container border p-4 mt-2 ">
+                <?php $query->mis_datos(); ?>
+            </div>
             <h4 class="font-weight-bold m-5 text-center">Mis publicaciones</h4>
             <div class="container border p-4 mt-2 ">
                 <p class="text-justify mb-4">En este apartado usted puede visualizar y gestionar todas las publicaciones que ha realizado.</p>
                 <?php $query->mis_hilos(); ?>
             </div>
-            
+
         </main>
     </body>
     <footer class="mt-3">
